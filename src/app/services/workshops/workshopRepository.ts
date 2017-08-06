@@ -90,7 +90,7 @@ export class WorkshopRepository {
     }
 
     getWorkshopDetails(workshopId: string) {
-        return this.http.get("http://localhost:4200/assets/ws-details.json")
+        return this.http.get("/assets/ws-details.json")
                     .toPromise()
                     .then(res => <IWorkshopDetails> res.json().data)
                     .then(data => { return data; });
