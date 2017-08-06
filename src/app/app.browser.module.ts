@@ -9,9 +9,19 @@
 import { NgModule } from '@angular/core';
 import { UniversalModule } from 'angular2-universal';
 import { FormsModule } from '@angular/forms';
-import { AppComponent } from './index';
-// import { RouterModule } from '@angular/router';
-// import { appRoutes } from './app/app.routing';
+
+import { RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+import { routes } from './app.routes';
+import { HomeComponent } from './home/home.component';
+
+import { NavComponent } from './navbar/navbar.component';
+import { WorkshopsListComponent } from './workshops-list/workshops-list.component';
+import { WorkshopFilterComponent } from './workshop-filter/workshop-filter.component';
+import { WorkshopsComponent } from './workshops/workshops.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
+import { WorkshopRepository } from './services/workshops/workshopRepository';
 
 /**
  * Top-level NgModule "container"
@@ -20,19 +30,29 @@ import { AppComponent } from './index';
   /** Root App Component */
   bootstrap: [ AppComponent ],
   /** Our Components */
-  declarations: [ AppComponent ],
+  declarations: [
+	AppComponent,
+    HomeComponent,
+    NavComponent,
+    WorkshopFilterComponent,
+    WorkshopsListComponent,
+    WorkshopsComponent,
+    ContactUsComponent,
+    WorkshopDetailsComponent 
+	],
   imports: [
     /**
      * NOTE: Needs to be your first import (!)
      * BrowserModule, HttpModule, and JsonpModule are included
      */
     UniversalModule,
-    FormsModule
+    FormsModule,
     /**
      * using routes
      */
-    // RouterModule.forRoot(appRoutes)
-  ]
+    RouterModule.forRoot(routes)
+  ],
+  providers: [WorkshopRepository]
 })
 export class AppModule {
 
