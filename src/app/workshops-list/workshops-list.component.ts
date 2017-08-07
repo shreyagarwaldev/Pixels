@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WorkshopRepository, IWorkshop } from '../services/workshops/workshopRepository'
+import { WorkshopRepository, IWorkshopOverview } from '../services/workshops/workshopRepository'
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class WorkshopsListComponent {
 
 @Input() path: string;
-    workshops: IWorkshop[];
+    workshops: IWorkshopOverview[];
 
     constructor(private workshopRepository: WorkshopRepository, private router: Router) {
         this.workshops = [];
@@ -23,9 +23,9 @@ export class WorkshopsListComponent {
 
     getWorkshopsData() {
         this.workshopRepository.getWorkshops(this.path)
-            .then(data => {
-                this.workshops = data;
-            })
+            .subscribe(
+			w => this.workshops = w
+			);
     }
 
     loadWorkshopDetails(workshopId: string, workshopName: string) {

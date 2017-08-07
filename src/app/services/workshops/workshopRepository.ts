@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
+import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/empty';
 
 export interface IPhotographer {
     id?: string;
@@ -35,15 +39,21 @@ export interface IPrice {
     costCurrency: string; 
 }
 
-export interface IWorkshop {
-    workshopId: string;
-    name: string
-    location: ILocation;
-    category: ICategory;
-    dates: IDateRange;
-    price: IPrice
-    description: string;
-    image: string;
+export interface IWorkshopOverview {
+	workshopId:string,
+    workshopType:string,
+	numberOfWorkshops:number,
+	startDateFirst:Date,
+	endDateFirst:Date,
+	minCost:number,
+	maxCost:number,
+	costCurrency:string,
+	name:string,
+	description:string,
+	imageLink:string,
+	locationId:number,
+	primaryPhotographerUserId:number,
+	secondaryPhotographerUserId:number
 }
 
 export interface IWorkshopDetails {
@@ -80,9 +90,11 @@ export class WorkshopRepository {
 
     getWorkshops(path: string) {
         return this.http.get(path)
-                    .toPromise()
-                    .then(res => <IWorkshop[]> res.json().data)
-                    .then(data => { return data; });
+                    .map((response: Response) => {
+            return <IWorkshopOverview[]>response.json();
+        }).catch(function(e){
+			return Observable.empty<Response>();
+		});
     }
 
     getPhotographers() {

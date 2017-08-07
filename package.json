@@ -7,11 +7,12 @@
     "start": "node dist/server/server.bundle.js"
   },
   "engines":{
-  "node":"6.9.2",
-  "npm":"3.10.9"
+  "node":"6.11.1",
+  "npm":"3.10.10"
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "4.1.2",
     "@angular/common": "2.2.3",
     "@angular/compiler": "2.2.3",
     "@angular/core": "2.2.3",
@@ -25,12 +26,18 @@
     "angular2-universal": "2.1.0-rc.1",
     "angular2-universal-polyfills": "2.1.0-rc.1",
     "angular2-express-engine": "2.1.0-rc.1",
+    "bootstrap": "3.3.7",
+    "bootstrap-multiselect": "^0.9.13-1",
     "compression": "1.6.2",
+	"foundation-sites": "^6.3.1",
+    "css": "2.2.1",
+    "css-loader": "0.28.1",
     "express": "^4.14.0",
     "core-js": "^2.4.1",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
-    "zone.js": "^0.6.23"
+    "zone.js": "^0.6.23",
+    "jquery-ui-dist": "^1.12.1"
   },
   "devDependencies": {
     "@angular/compiler-cli": "2.2.3",
