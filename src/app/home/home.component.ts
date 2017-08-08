@@ -1,3 +1,5 @@
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2Module } from 'angulartics2';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

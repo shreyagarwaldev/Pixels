@@ -23,6 +23,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
 import { WorkshopRepository } from './services/workshops/workshopRepository';
 
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 /**
  * Top-level NgModule "container"
  */
@@ -50,7 +51,9 @@ import { WorkshopRepository } from './services/workshops/workshopRepository';
     /**
      * using routes
      */
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+	Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+	Angulartics2Module.forChild()
   ],
   providers: [WorkshopRepository]
 })
