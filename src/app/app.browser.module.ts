@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { HomeComponent } from './home/home.component';
+import { MyDatePickerModule } from '../../node_modules/mydatepicker/src/my-date-picker/my-date-picker.module';
 
 import { NavComponent } from './navbar/navbar.component';
 import { WorkshopsListComponent } from './workshops-list/workshops-list.component';
@@ -22,6 +23,8 @@ import { WorkshopsComponent } from './workshops/workshops.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
 import { WorkshopRepository } from './services/workshops/workshopRepository';
+import { DropdownComponent } from './dropdown-menu/dropdown-menu.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 
 /**
  * Top-level NgModule "container"
@@ -33,7 +36,9 @@ import { WorkshopRepository } from './services/workshops/workshopRepository';
   declarations: [
 	AppComponent,
     HomeComponent,
-    NavComponent,
+    NavComponent, 
+    DropdownComponent,
+    DatePickerComponent,
     WorkshopFilterComponent,
     WorkshopsListComponent,
     WorkshopsComponent,
@@ -47,6 +52,7 @@ import { WorkshopRepository } from './services/workshops/workshopRepository';
      */
     UniversalModule,
     FormsModule,
+    MyDatePickerModule,
     /**
      * using routes
      */
