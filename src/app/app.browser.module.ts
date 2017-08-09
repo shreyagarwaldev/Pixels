@@ -22,6 +22,7 @@ import { WorkshopsComponent } from './workshops/workshops.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
 import { WorkshopRepository } from './services/workshops/workshopRepository';
+import { PageRedirectComponent } from './page-redirect/page-redirect.component';
 
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 /**
@@ -39,7 +40,8 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
     WorkshopsListComponent,
     WorkshopsComponent,
     ContactUsComponent,
-    WorkshopDetailsComponent 
+    WorkshopDetailsComponent,
+	PageRedirectComponent
 	],
   imports: [
     /**
