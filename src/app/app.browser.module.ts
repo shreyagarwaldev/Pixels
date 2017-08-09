@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { HomeComponent } from './home/home.component';
+import { MyDatePickerModule } from '../../node_modules/mydatepicker/src/my-date-picker/my-date-picker.module';
 
 import { NavComponent } from './navbar/navbar.component';
 import { WorkshopsListComponent } from './workshops-list/workshops-list.component';
@@ -23,6 +24,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
 import { WorkshopRepository } from './services/workshops/workshopRepository';
 import { PageRedirectComponent } from './page-redirect/page-redirect.component';
+import { DropdownComponent } from './dropdown-menu/dropdown-menu.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 /**
@@ -35,7 +38,9 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
   declarations: [
 	AppComponent,
     HomeComponent,
-    NavComponent,
+    NavComponent, 
+    DropdownComponent,
+    DatePickerComponent,
     WorkshopFilterComponent,
     WorkshopsListComponent,
     WorkshopsComponent,
@@ -50,6 +55,7 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
      */
     UniversalModule,
     FormsModule,
+    MyDatePickerModule,
     /**
      * using routes
      */
