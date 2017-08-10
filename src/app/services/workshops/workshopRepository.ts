@@ -6,17 +6,6 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/empty';
 
-export interface IPhotographer {
-    id?: string;
-    firstName: string;
-    lastName: string;
-    profilePhoto?: string;
-    websiteLink?: string;
-    followers?: string;
-    location?: ILocation;
-    moreInformation?: string;
-}
-
 export interface ILocation {
     locationId?: string;
     city: string;
@@ -24,19 +13,9 @@ export interface ILocation {
     country?: string;
 }
 
-export interface ICategory {
-    categoryId: string;
-    name: string;
-}
-
 export interface IDateRange {
     startDate: Date;
     endDate: Date;
-}
-
-export interface IPrice {
-    cost: number;
-    costCurrency: string; 
 }
 
 export interface IWorkshopOverview {
@@ -56,19 +35,30 @@ export interface IWorkshopOverview {
 	secondaryPhotographerUserId:number
 }
 
-export interface IWorkshopDetails {
-    workshopId: string;
-    name: string
-    photographers: IPhotographer[];
-    location: ILocation;
-    category: ICategory;
-    dates: IDateRange;
-    price: IPrice
-    description: IDescription;
-    workshopLink: string;
-    similarWorkshops?: string;
-    headerImage: string;
-    gallery: string[];
+export interface IPhotographer {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    profilePhoto?: string;
+    websiteLink?: string;
+    followers?: string;
+    location?: ILocation;
+    moreInformation?: string;
+}
+
+export interface IWorkshopInstance {
+    workshopId: number;
+	workshopInstanceId: number;
+    name: string;
+    locationId: number;
+    workshopType: string;
+    startDate: Date;
+	endDate: Date;
+    description: string;
+    link: string;
+	imageLink:string;
+	cost:number;
+	costCurrency:string;
 }
 
 export interface IDescription {
@@ -97,6 +87,34 @@ export class WorkshopRepository {
 		});
     }
 
+    getWorkshopInstances(path: string) {
+        return this.http.get(path)
+                    .map((response: Response) => {
+            return <IWorkshopInstance[]>response.json();
+        }).catch(function(e){
+			return Observable.empty<Response>();
+		});
+    }
+
+	
+	getLocations() {
+        return this.http.get("http://localhost:50168/api/Pixelated/Locations")
+                    .map((response: Response) => {
+            return <ILocation[]>response.json();
+        }).catch(function(e){
+			return Observable.empty<Response>();
+		});
+    }
+	
+	getWorkshopTypes() {
+        return this.http.get("http://localhost:50168/api/Pixelated/WorkshopTypes")
+                    .map((response: Response) => {
+            return <string[]>response.json();
+        }).catch(function(e){
+			return Observable.empty<Response>();
+		});
+    }
+
     getPhotographers() {
 
     }
@@ -104,7 +122,7 @@ export class WorkshopRepository {
     getWorkshopDetails(workshopId: string) {
         return this.http.get("/assets/ws-details.json")
                     .toPromise()
-                    .then(res => <IWorkshopDetails> res.json().data)
+                    .then(res => <IWorkshopInstance> res.json().data)
                     .then(data => { return data; });
     }
 }

@@ -4,7 +4,7 @@
 </button>
     <div class="dropdown-list" (click)="overlay()" [class.hide-dropdown]="isCollapsed">
         <div class="data-list" *ngFor="let data of dataModel;">
-            <input type="checkbox" name="{{optionName}}" value="{{data.value}}">
+            <input type="checkbox" name="{{optionName}}" value="{{data.value}}" (click)="updateList()">
             <span>{{data.label}}</span>
         </div>
     </div>

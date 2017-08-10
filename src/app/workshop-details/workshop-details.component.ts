@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { WorkshopRepository, IWorkshopDetails } from '../services/workshops/workshopRepository'
+import { WorkshopRepository, IWorkshopInstance } from '../services/workshops/workshopRepository'
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

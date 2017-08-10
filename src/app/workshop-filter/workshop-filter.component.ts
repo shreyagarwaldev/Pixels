@@ -1,4 +1,6 @@
-import { Component, Renderer } from '@angular/core';
+import { Component, Renderer, Output, EventEmitter } from '@angular/core';
+import { WorkshopRepository, ILocation } from '../services/workshops/workshopRepository'
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'workshop-filter',
@@ -12,6 +14,16 @@ export class WorkshopFilterComponent {
   public minPrice: number = 0;
   public maxPrice: number = 80;
   private updatedPrice: number[];
+  
+  @Output() fromDateChanged = new EventEmitter();
+  @Output() toDateChanged = new EventEmitter();
+  @Output() locationFilterChanged = new EventEmitter();
+  @Output() categoryFilterChanged = new EventEmitter();
+  @Output() minPriceFilterChanged = new EventEmitter();
+  @Output() maxPriceFilterChanged = new EventEmitter();
+  
+  private workshopTypes:any[];
+  private angulartics2: Angulartics2;
 
   public locations: Array<string>;
   public photographers: any[];
@@ -35,10 +47,11 @@ export class WorkshopFilterComponent {
   public fromDate: Date;
   public toDate: Date;
 
-  constructor() {
+  constructor(private workshopRepository: WorkshopRepository, private a: Angulartics2) {
     this.cities = [];
     this.photographers = [];
     this.categories = [];
+	this.angulartics2 = a;
 
     this.getLocationList();
     this.getPhotographerList();
@@ -59,14 +72,37 @@ export class WorkshopFilterComponent {
 
   getFromDate(value: Date) {
     this.fromDate = value;
+	this.angulartics2.eventTrack.next({ action: 'FromDateFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+	
+    this.fromDateChanged.emit(this.fromDate);
   }
 
   getToDate(value: Date) {
     this.toDate = value;
+	this.angulartics2.eventTrack.next({ action: 'ToDateFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+	
+	this.toDateChanged.emit(this.toDate);
   }
 
   getPrice(values: number[]) {
     this.updatedPrice = values;
+  }
+  
+  updateMinPrice(value:number)
+  {
+	  this.minPrice = value;
+	  this.angulartics2.eventTrack.next({ action: 'MinPriceFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+	
+	  this.minPriceFilterChanged.emit(this.minPrice);
+  }
+  
+  
+  updateMaxPrice(value:number)
+  {
+	  this.maxPrice = value;
+	  this.angulartics2.eventTrack.next({ action: 'MaxPriceFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+	
+	  this.maxPriceFilterChanged.emit(this.maxPrice);
   }
 
   getSelectedFilters(inputName: string): string[] {
@@ -78,6 +114,42 @@ export class WorkshopFilterComponent {
     }
 
     return selected;
+  }
+  
+  updateLocationList(value: any)
+  {
+	  this.angulartics2.eventTrack.next({ action: 'LocationFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+	
+	  let locations = this.getSelectedFilters('location');
+	  let locationIdList = "";
+	  let first = true;
+	  for(let location of locations)
+	  {
+		  if(first == false)
+			  locationIdList = locationIdList + ",";
+		  first=false;
+		  locationIdList = locationIdList+location;
+	  }
+	  
+	  this.locationFilterChanged.emit(locationIdList);
+  }
+  
+  updateCategoryList(value: any)
+  {
+	  this.angulartics2.eventTrack.next({ action: 'CategoryFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+	
+	  let categories = this.getSelectedFilters('categories');
+	  let workshopTypesList = "";
+	  let first = true;
+	  for(let category of categories)
+	  {
+		  if(first == false)
+			  workshopTypesList = workshopTypesList + ",";
+		  first=false;
+		  workshopTypesList = workshopTypesList+category;
+	  }
+	  
+	  this.categoryFilterChanged.emit(workshopTypesList);
   }
 
   getResult() {
@@ -94,25 +166,29 @@ export class WorkshopFilterComponent {
   }
 
   private getLocationList() {
-    this.cities.push({ label: 'New York', value: 'New York' });
-    this.cities.push({ label: 'Rome', value: 'Rome' });
-    this.cities.push({ label: 'London', value: 'London' });
-    this.cities.push({ label: 'Istanbul', value: 'Istanbul' });
-    this.cities.push({ label: 'Paris', value: 'Paris' });
+	  this.workshopRepository.getLocations()
+            .subscribe(
+			loc => {
+				for(let l of loc)
+				{
+					this.cities.push({ label: l.city, value: l.locationId });
+				}
+			}
+			);
   }
 
   private getPhotographerList() {
-    this.photographers.push({ label: 'abc', value: 'abc' });
-    this.photographers.push({ label: 'xyz', value: 'xyz' });
-    this.photographers.push({ label: 'gdhd', value: 'gdhd' });
-    this.photographers.push({ label: 'alsd', value: 'alsd' });
-    this.photographers.push({ label: 'qte', value: 'qte' });
   }
 
   private getCategoryList() {
-    this.categories.push({ label: 'travel', value: 'travel' });
-    this.categories.push({ label: 'fashion', value: 'fashion' });
-    this.categories.push({ label: 'cook', value: 'cook' });
-    this.categories.push({ label: 'nature', value: 'nature' });
+	  this.workshopRepository.getWorkshopTypes()
+            .subscribe(
+			types => {
+				for(let wType of types)
+				{
+					this.categories.push({ label: wType, value: wType });
+				}
+			}
+			);
   }
 }

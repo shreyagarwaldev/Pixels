@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, Renderer, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'dropdown',
@@ -11,6 +11,8 @@ export class DropdownComponent {
   @Input() dataModel: any[];
   @Input() buttonLabel: string;
   @Input() optionName: string;
+  
+  @Output() selectionChanged = new EventEmitter();
 
   isCollapsed: boolean;
   private selfClick: boolean;
@@ -42,5 +44,10 @@ export class DropdownComponent {
 
   overlay() {
     this.panelOverlay = true;
+  }
+  
+  updateList()
+  {
+	  this.selectionChanged.emit("changed");
   }
 }

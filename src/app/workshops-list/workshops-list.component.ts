@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WorkshopRepository, IWorkshopOverview } from '../services/workshops/workshopRepository'
+import { WorkshopRepository, IWorkshopInstance } from '../services/workshops/workshopRepository'
 import { Router } from '@angular/router';
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
     selector: 'workshops-list',
@@ -10,19 +11,20 @@ import { Router } from '@angular/router';
 
 export class WorkshopsListComponent {
 
-@Input() path: string;
-    workshops: IWorkshopOverview[];
-
-    constructor(private workshopRepository: WorkshopRepository, private router: Router) {
+    workshops: IWorkshopInstance[];
+	private angulartics2: any;
+    constructor(angulartics2: Angulartics2, private workshopRepository: WorkshopRepository, private router: Router) {
+		this.angulartics2 = angulartics2;
         this.workshops = [];
     }
-
+	
     ngOnInit() {
-        this.getWorkshopsData();
     }
 
-    getWorkshopsData() {
-        this.workshopRepository.getWorkshops(this.path)
+    getWorkshopsData(path:any) {
+		this.angulartics2.eventTrack.next({ action: 'GetWorkshopsEvent', properties: { category: 'WorkshopsListComponent' }});
+	
+        this.workshopRepository.getWorkshopInstances(path)
             .subscribe(
 			w => this.workshops = w
 			);
