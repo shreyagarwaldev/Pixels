@@ -25,7 +25,7 @@ export class WorkshopsComponent {
 	
 	updateUrl()
 	{
-		this.query = "http://localhost:50168/api/Pixelated/Workshops?startDateFilter="+this.startDate+"&endDateFilter="+this.endDate+"&FReturnCompact=false&pageNumber=1&numberOfResults=12";
+		this.query = "http://pixelatedplanetservice.azurewebsites.net/api/Pixelated/Workshops?startDateFilter="+this.startDate+"&endDateFilter="+this.endDate+"&FReturnCompact=false&pageNumber=1&numberOfResults=12";
 		if(this.locationIdList != null && this.locationIdList != "")
 		{
 			this.query = this.query + "&locationIdFilter=" + this.locationIdList;
