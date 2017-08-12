@@ -98,7 +98,7 @@ export class WorkshopRepository {
 
 	
 	getLocations() {
-        return this.http.get("http://pixelatedplanetservice.azurewebsites.net/api/Pixelated/Locations")
+        return this.http.get("https://pixelatedplanetservice.azurewebsites.net/api/Pixelated/Locations")
                     .map((response: Response) => {
             return <ILocation[]>response.json();
         }).catch(function(e){
@@ -107,7 +107,7 @@ export class WorkshopRepository {
     }
 	
 	getWorkshopTypes() {
-        return this.http.get("http://pixelatedplanetservice.azurewebsites.net/api/Pixelated/WorkshopTypes")
+        return this.http.get("https://pixelatedplanetservice.azurewebsites.net/api/Pixelated/WorkshopTypes")
                     .map((response: Response) => {
             return <string[]>response.json();
         }).catch(function(e){
