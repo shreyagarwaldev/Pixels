@@ -1,10 +1,10 @@
 <div class="ws-container">
-<navi-bar></navi-bar>
-<div class="filters">
+<navi-bar (filtersDropdownToggle)="toggleFilterDropdown($event)"></navi-bar>
+<div class="filters" [ngClass]="{'hideFilter': hideFilter}" id="filters">
     <workshop-filter></workshop-filter>
 </div>
 
 <div class="list">
-    <workshops-list path="http://localhost:50168/api/Pixelated/Workshops?startDateFilter=2017/01/01&endDateFilter=2017/12/31&FReturnCompact=true"></workshops-list>
+    <workshops-list path="http://localhost:4200/assets/main-ws.json"></workshops-list>
 </div>
 </div>

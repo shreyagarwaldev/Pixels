@@ -20,12 +20,15 @@
       "mobile": false,
       "universal": true,
       "styles": [
-        "styles.css",
+        "styles.scss",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/jquery-ui/themes/base/all.css",
         "../node_modules/jquery-ui/themes/base/datepicker.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

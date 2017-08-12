@@ -1,0 +1,62 @@
+.top-bar-title {
+    font-family: 'Coiny', cursive;
+    font-size: 22px;
+    color: #ffffff;
+}
+
+.nav-menu a {
+    color: #ffffff;
+}
+
+.filter-header {
+    display: none;
+}
+
+nav {
+    position: fixed;
+    margin: 0;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    height: 6rem;
+    background-color: #15424E;
+    border: none;
+    img {
+        width: 3rem;
+        height: 3rem;
+        margin-top: 1.2rem;
+        margin-left: 1.5rem;
+        float: left;
+    }
+    .navbar-nav a {
+        background-color: transparent;
+        color: white;
+    }
+    ul {
+        margin-top: .4rem;
+    }
+}
+
+@media (max-width: 780px) {
+    nav {
+        height: 5rem;
+    }
+    .filter-header {
+        display: inline-block;
+        color: white;
+        margin-top: 1.5rem;
+        padding-left: 1rem;
+    }
+    .navbar-collapse {
+        background-color: #15424E;
+        text-align: center;
+    }
+    .navbar-toggle {
+        padding-bottom: 0;
+        color: white;
+    }
+    .hideNavbar {
+        display: none;
+    }
+}

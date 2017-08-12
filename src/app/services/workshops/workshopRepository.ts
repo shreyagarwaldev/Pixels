@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map'
@@ -36,24 +36,31 @@ export interface IDateRange {
 
 export interface IPrice {
     cost: number;
-    costCurrency: string; 
+    costCurrency: string;
 }
 
-export interface IWorkshopOverview {
-	workshopId:string,
-    workshopType:string,
-	numberOfWorkshops:number,
-	startDateFirst:Date,
-	endDateFirst:Date,
-	minCost:number,
-	maxCost:number,
-	costCurrency:string,
-	name:string,
-	description:string,
-	imageLink:string,
-	locationId:number,
-	primaryPhotographerUserId:number,
-	secondaryPhotographerUserId:number
+export interface IWorkshopList {
+    workshopId: string,
+    workshopType: string,
+    minCost: number,
+    maxCost: number,
+    costCurrency: string,
+    name: string,
+    description: string,
+    imageLink: string,
+    locationId: number,
+    primaryPhotographerUserId: number,
+    secondaryPhotographerUserId: number;
+}
+
+export interface IWorkshopListDto extends IWorkshopList {
+    startDateFirst: Date,
+    endDateFirst: Date,
+}
+
+export interface IWorkshopOverview extends IWorkshopList {
+    startDateFirst: string,
+    endDateFirst: string,
 }
 
 export interface IWorkshopDetails {
@@ -86,15 +93,18 @@ export interface Iitinerary {
 @Injectable()
 export class WorkshopRepository {
 
-    constructor(private http: Http) {}
+    constructor(private http: Http) { }
 
     getWorkshops(path: string) {
         return this.http.get(path)
-                    .map((response: Response) => {
-            return <IWorkshopOverview[]>response.json();
-        }).catch(function(e){
-			return Observable.empty<Response>();
-		});
+            .map((response: Response) => {
+                if (response.status !== 200) {
+                    return Observable.empty<Response>();
+                }
+                return <IWorkshopListDto[]>response.json();
+            }).catch(function (e) {
+                return Observable.empty<Response>();
+            });
     }
 
     getPhotographers() {
@@ -103,8 +113,8 @@ export class WorkshopRepository {
 
     getWorkshopDetails(workshopId: string) {
         return this.http.get("/assets/ws-details.json")
-                    .toPromise()
-                    .then(res => <IWorkshopDetails> res.json().data)
-                    .then(data => { return data; });
+            .toPromise()
+            .then(res => <IWorkshopDetails>res.json().data)
+            .then(data => { return data; });
     }
 }
