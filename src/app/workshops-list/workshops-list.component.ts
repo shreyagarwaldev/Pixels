@@ -13,7 +13,6 @@ export class WorkshopsListComponent {
     @Input() path: string;
     workshopDto: IWorkshopListDto[];
     workshops: IWorkshopOverview[];
-    // private locationList: { [locationId: string]: ILocation; } = {};
     private locationList = new Map<number, ILocation>();
     private locations: ILocation[];
 

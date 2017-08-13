@@ -1,5 +1,5 @@
 <div class="main-page-container">
-    <navi-bar show-filters="false"></navi-bar>
+    <navi-bar [showFilters]="false"></navi-bar>
     <div class="header">
         <header class="masthead">
             <div class="header-content">
@@ -17,7 +17,7 @@
         <h1 class="ws-heading">
             Workshops
         </h1>
-        <!--<workshops-list path="http://localhost:4200/assets/workshops.json"></workshops-list>-->
+        <workshops-list path="http://localhost:4200/assets/workshops.json"></workshops-list>
         <div class="view-all-container">
             <a href="/workshops" class="view-all"><span>View all</span>  <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
         </div>
