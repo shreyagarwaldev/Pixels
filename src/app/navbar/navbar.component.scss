@@ -52,6 +52,9 @@ nav {
 @media (max-width: 955px) {
     nav {
         height: 5rem;
+        ul {
+            width: 100%;
+        }
     }
     .navbar-toggle {
         display: block;
@@ -69,17 +72,30 @@ nav {
     .navbar-collapse {
         background-color: #15424E;
         text-align: center;
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        width: 100%;
+        position: absolute;
+        top: 5rem;
     }
     .hideNavbar {
         display: none;
     }
-        .navbar-header {
+    .navbar-header {
         float: none;
         width: 100%;
+    }
+    .navbar-nav>li {
+        float: none!important;
     }
 }
 
 @media (min-width: 955px) and (max-width: 1140px) {
+    nav {
+        ul {
+            width: 100%;
+        }
+    }
     .hideNavbar {
         display: none;
     }
@@ -88,10 +104,9 @@ nav {
         text-align: center;
         border-top: 1px solid transparent;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        background-color: #15424E;
         width: 100%;
         position: absolute;
-        top: 6rem;
+        top: 5rem;
     }
     .navbar-header {
         float: none;
@@ -112,7 +127,7 @@ nav {
         margin-top: 7.5px;
     }
     .navbar-nav>li {
-        float: none;
+        float: none!important;
     }
     .navbar-nav>li>a {
         padding-top: 10px;

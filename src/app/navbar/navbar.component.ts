@@ -17,7 +17,6 @@ export class NavComponent {
     }
     toggleFilter() {
         this.hideFilter = !this.hideFilter;
-        // this.showFilters = !this.showFilters;
         if (!this.hideNavbar) {
             this.hideNavbar = true;
         }
