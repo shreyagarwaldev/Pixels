@@ -20,7 +20,7 @@
     }
     .from-date,
     .to-date {
-        width: 15rem;
+        width: 13.5rem;
         text-align: center;
         margin-right: 1rem;
         margin-top: 1.4rem;
@@ -38,7 +38,7 @@
     }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 955px) {
     .from-date,
     .to-date {
         position: relative;

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
     selector: 'navi-bar',
@@ -9,6 +9,7 @@ export class NavComponent {
     private hideFilter: boolean;
     private hideNavbar: boolean;
     @Output() filtersDropdownToggle = new EventEmitter();
+    @Input() showFilters: boolean;
 
     constructor() {
         this.hideFilter = true;

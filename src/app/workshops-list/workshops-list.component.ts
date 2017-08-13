@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WorkshopRepository, IWorkshopOverview, IWorkshopListDto } from '../services/workshops/workshopRepository'
+import { WorkshopRepository, IWorkshopOverview, IWorkshopListDto, ILocation } from '../services/workshops/workshopRepository'
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,9 +13,13 @@ export class WorkshopsListComponent {
     @Input() path: string;
     workshopDto: IWorkshopListDto[];
     workshops: IWorkshopOverview[];
+    // private locationList: { [locationId: string]: ILocation; } = {};
+    private locationList = new Map<number, ILocation>();
+    private locations: ILocation[];
 
     constructor(private workshopRepository: WorkshopRepository, private router: Router) {
         this.workshops = [];
+        this.getLocationList();
     }
 
     ngOnInit() {
@@ -29,12 +33,26 @@ export class WorkshopsListComponent {
             "Aug", "Sep", "Oct",
             "Nov", "Dec"
         ];
-
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
+        var dateVal = new Date(date);
+        var day = dateVal.getDate();
+        var monthIndex = dateVal.getMonth();
+        var year = dateVal.getFullYear();
 
         return `${monthNames[monthIndex]} ${day} ${year}`;
+    }
+
+    getLocationList() {
+        this.workshopRepository.getLocationList()
+            .subscribe(
+            location => {
+                this.locations = location;
+                if (this.locations && this.locations.length > 0) {
+                    this.locations.forEach(loc => {
+                        this.locationList.set(loc.locationId, loc);
+                    })
+                }
+            });
+
     }
 
     getWorkshopsData() {
@@ -42,23 +60,16 @@ export class WorkshopsListComponent {
         this.workshopRepository.getWorkshops(this.path)
             .subscribe(
             w => {
-                this.workshops = w;
-                // if (this.workshopDto && this.workshopDto.length > 0) {
-                //     this.workshopDto.forEach(ws => {
-                //         workshop = ws;
-                //         workshop.startDateFirst = this.formatDate(ws.startDateFirst);
-                //         workshop.endDateFirst = this.formatDate(ws.endDateFirst);
-                //         // workshop.costCurrency = ws.costCurrency;
-                //         // workshop.locationId = ws.locationId;
-                //         // workshop.maxCost = ws.maxCost;
-                //         // workshop.minCost = ws.minCost;
-                //         // workshop.name = ws.name;
-                //         // workshop.workshopId = ws.workshopId;
-                //         // workshop.endDateFirst = this.formatDate(ws.endDateFirst);
-                //         // workshop.startDateFirst = this.formatDate(ws.startDateFirst);
-                //         this.workshops.push(workshop);
-                //     });
-                
+                this.workshopDto = w;
+                if (this.workshopDto && this.workshopDto.length > 0) {
+                    this.workshopDto.forEach(ws => {
+                        workshop = ws;
+                        workshop.startDateFirst = this.formatDate(ws.startDateFirst);
+                        workshop.endDateFirst = this.formatDate(ws.endDateFirst);
+                        workshop.location = this.locationList.get(ws.locationId);
+                        this.workshops.push(workshop);
+                    });
+                }
             });
     }
 

@@ -18,7 +18,7 @@ export interface IPhotographer {
 }
 
 export interface ILocation {
-    locationId?: string;
+    locationId?: number;
     city: string;
     state?: string;
     country?: string;
@@ -61,6 +61,7 @@ export interface IWorkshopListDto extends IWorkshopList {
 export interface IWorkshopOverview extends IWorkshopList {
     startDateFirst: string,
     endDateFirst: string,
+    location: ILocation;
 }
 
 export interface IWorkshopDetails {
@@ -93,7 +94,8 @@ export interface Iitinerary {
 @Injectable()
 export class WorkshopRepository {
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     getWorkshops(path: string) {
         return this.http.get(path)
@@ -116,5 +118,17 @@ export class WorkshopRepository {
             .toPromise()
             .then(res => <IWorkshopDetails>res.json().data)
             .then(data => { return data; });
+    }
+
+    getLocationList() {
+        return this.http.get("/assets/location.json")
+            .map((response: Response) => {
+                if (response.status !== 200) {
+                    return Observable.empty<Response>();
+                }
+                return <ILocation[]>response.json();
+            }).catch(function (e) {
+                return Observable.empty<Response>();
+            });
     }
 }

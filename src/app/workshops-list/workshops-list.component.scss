@@ -40,10 +40,11 @@ h1.name {
 
 hr {
     width: 10rem;
-    margin-bottom: 1rem;
     text-align: center;
     border-color: #15424E;
     opacity: 0.3;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
 }
 
 .date {
@@ -58,13 +59,19 @@ hr {
     opacity: 0.6;
 }
 
-@media (max-width: 780px) {
+.truncate {
+    width: 28rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 955px) {
     .entity .image {
         height: 20rem;
         margin-bottom: 1rem;
     }
-    hr {
-        margin-top: 1rem;
-        margin-bottom: .5rem;
+    h1.name {
+        font-size: 1.8rem;
     }
 }

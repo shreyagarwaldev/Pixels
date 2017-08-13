@@ -3,13 +3,11 @@
     <img class="image" src="/assets/img/icon.png" alt="workshop image">
   </a>
   <div class="navbar-header">
-    <!--<button type="button" class="filter-header" (click)="toggleFilter()" data-target="#filters" data-toggle="collapse">-->
-    <button type="button" class="filter-header" (click)="toggleFilter()">
-          <div>Filters <i class="fa fa-bars" aria-hidden="true"></i></div>
+    <button *ngIf="showFilters" type="button" class="filter-header btn" (click)="toggleFilter()">
+          <div>Filters <i class="fa fa-filter" aria-hidden="true"></i></div>
     </button>
-    <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar5" (click)="toggleNavbar()">-->
     <button type="button" class="navbar-toggle" (click)="toggleNavbar()">
-      <div>Navigation <i class="fa fa-bars" aria-hidden="true"></i></div>
+      <div><i class="fa fa-bars" aria-hidden="true"></i></div>
     </button>
 
   </div>
