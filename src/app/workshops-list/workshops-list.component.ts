@@ -3,6 +3,8 @@ import { WorkshopRepository, IWorkshopInstance } from '../services/workshops/wor
 import { Router } from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
 
+import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository';
+
 @Component({
     selector: 'workshops-list',
     templateUrl: './workshops-list.component.html',
@@ -12,10 +14,12 @@ import { Angulartics2 } from 'angulartics2';
 export class WorkshopsListComponent {
 
     workshops: IWorkshopInstance[];
+    globalConstants: GlobalConstantsRepository;
 	private angulartics2: any;
-    constructor(angulartics2: Angulartics2, private workshopRepository: WorkshopRepository, private router: Router) {
+    constructor(angulartics2: Angulartics2, private workshopRepository: WorkshopRepository, private router: Router, private globalConstantsRepository:GlobalConstantsRepository) {
 		this.angulartics2 = angulartics2;
         this.workshops = [];
+        this.globalConstants = globalConstantsRepository;
     }
 	
     ngOnInit() {

@@ -2,7 +2,7 @@
     <div>
         <article class="entity" *ngFor="let data of workshops;">
             <div class="inner" (click)="loadWorkshopDetails(data.workshopId, data.name)">
-                <img class="image" [src]="data.imageLink" alt="workshop image" />
+                <img class="image" [src]="globalConstants.resolveImageUrl(data.imageLink)" alt="workshop image" />
                 <h1 class="name">
                     {{ data.name }}
                 </h1>

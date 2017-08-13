@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/empty';
 
+import { GlobalConstantsRepository } from '../shared/globalConstantsRepository'
+
 export interface ILocation {
     locationId?: string;
     city: string;
@@ -76,7 +78,11 @@ export interface Iitinerary {
 @Injectable()
 export class WorkshopRepository {
 
-    constructor(private http: Http) {}
+    private globalConstants;
+
+    constructor(private http: Http, private globalConstantsRepository : GlobalConstantsRepository) {
+        this.globalConstants = globalConstantsRepository;
+    }
 
     getWorkshops(path: string) {
         return this.http.get(path)
@@ -98,7 +104,7 @@ export class WorkshopRepository {
 
 	
 	getLocations() {
-        return this.http.get("https://pixelatedplanetservice.azurewebsites.net/api/Pixelated/Locations")
+        return this.http.get(this.globalConstants.getLocationsUrl())
                     .map((response: Response) => {
             return <ILocation[]>response.json();
         }).catch(function(e){
@@ -107,7 +113,7 @@ export class WorkshopRepository {
     }
 	
 	getWorkshopTypes() {
-        return this.http.get("https://pixelatedplanetservice.azurewebsites.net/api/Pixelated/WorkshopTypes")
+        return this.http.get(this.globalConstants.getWorkshopTypesUrl())
                     .map((response: Response) => {
             return <string[]>response.json();
         }).catch(function(e){

@@ -2,6 +2,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Angulartics2Module } from 'angulartics2';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WorkshopsListComponent } from '../workshops-list/workshops-list.component'
+import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
 
 @Component({
   selector: 'app-home',
@@ -11,15 +12,18 @@ import { WorkshopsListComponent } from '../workshops-list/workshops-list.compone
 export class HomeComponent implements OnInit {
 
 @ViewChild(WorkshopsListComponent) workshopsListChildComp:WorkshopsListComponent;
-	
-  constructor() {
+
+  private globalConstants : GlobalConstantsRepository;
+
+  constructor(private globalConstantsRepository:GlobalConstantsRepository) {
+    this.globalConstants = globalConstantsRepository;
   }
 
   ngOnInit() {
 		var today = new Date();
 		let startDate = today.getFullYear().toString() + "/" + (today.getMonth()+1).toString() + "/" + today.getDate().toString();
 		let endDate = (today.getFullYear()+10).toString() + "/" + (today.getMonth()+1).toString() + "/" + today.getDate().toString();
-		let query = "https://pixelatedplanetservice.azurewebsites.net/api/Pixelated/Workshops?startDateFilter="+startDate+"&endDateFilter="+endDate+"&FReturnCompact=false&pageNumber=1&numberOfResults=4";
+		let query = this.globalConstants.getPixelatedPlanetAPIUrl() + "/Workshops?startDateFilter="+startDate+"&endDateFilter="+endDate+"&FReturnCompact=false&pageNumber=1&numberOfResults=4";
 		this.workshopsListChildComp.getWorkshopsData(query);
   }
 

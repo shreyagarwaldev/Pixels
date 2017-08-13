@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { WorkshopsListComponent } from '../workshops-list/workshops-list.component'
+import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
 
 @Component({
     templateUrl: './workshops.component.html',
@@ -14,7 +15,14 @@ export class WorkshopsComponent {
 	private minPrice:number;
 	private maxPrice:number;
 	
+	private globalConstants:GlobalConstantsRepository;
+	
 	@ViewChild(WorkshopsListComponent) workshopsListChildComp:WorkshopsListComponent;
+
+	constructor(private globalConstantsRepository:GlobalConstantsRepository)
+	{
+		this.globalConstants = globalConstantsRepository;
+	}
 	
 	ngOnInit() {
 		var today = new Date();
@@ -25,7 +33,7 @@ export class WorkshopsComponent {
 	
 	updateUrl()
 	{
-		this.query = "https://pixelatedplanetservice.azurewebsites.net/api/Pixelated/Workshops?startDateFilter="+this.startDate+"&endDateFilter="+this.endDate+"&FReturnCompact=false&pageNumber=1&numberOfResults=12";
+		this.query = this.globalConstants.getPixelatedPlanetAPIUrl() + "/Workshops?startDateFilter="+this.startDate+"&endDateFilter="+this.endDate+"&FReturnCompact=false&pageNumber=1&numberOfResults=12";
 		if(this.locationIdList != null && this.locationIdList != "")
 		{
 			this.query = this.query + "&locationIdFilter=" + this.locationIdList;
