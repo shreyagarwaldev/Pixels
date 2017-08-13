@@ -10,12 +10,12 @@ export class PageRedirectComponent {
 
     private sub: any;
 	private angulartics2: any;
-constructor(
+    constructor(
 		angulartics2: Angulartics2,
         private route: ActivatedRoute) {
 			this.angulartics2 = angulartics2;
     }
-ngOnInit() {
+    ngOnInit() {
         let url: string;
 		this.sub = this.route.params.subscribe(params => {
        url = params['externalUrl'];

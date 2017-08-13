@@ -47,7 +47,7 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     WorkshopsComponent,
     ContactUsComponent,
     WorkshopDetailsComponent,
-	PageRedirectComponent
+	  PageRedirectComponent
 	],
   imports: [
     /**
@@ -61,8 +61,8 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
      * using routes
      */
     RouterModule.forRoot(routes),
-	Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-	Angulartics2Module.forChild()
+	  Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+	  Angulartics2Module.forChild()
   ],
   providers: [WorkshopRepository, GlobalConstantsRepository]
 })
