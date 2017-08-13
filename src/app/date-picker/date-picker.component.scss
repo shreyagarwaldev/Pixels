@@ -1,0 +1,51 @@
+.date-picker-container {
+    display: flex;
+    input {
+        height: 3rem;
+        width: 8rem;
+        border: 0;
+        text-align: center;
+        background-color: transparent;
+        color: white;
+        margin-top: .2rem;
+        &::placeholder {
+            color: white;
+        }
+    }
+    label {
+        font-weight: 600;
+        padding-top: .4rem;
+        font-size: 1.5rem;
+        color: gray;
+    }
+    .from-date,
+    .to-date {
+        width: 13.5rem;
+        text-align: center;
+        margin-right: 1rem;
+        margin-top: 1.4rem;
+        height: 3.4rem;
+        border: .2px solid #426771;
+        margin-left: 1rem;
+        input {
+            width: 10rem;
+            border: 0;
+            height: 3.4rem;
+            text-align: center;
+            background-color: transparent;
+            color: white;
+        }
+    }
+}
+
+@media (max-width: 955px) {
+    .from-date,
+    .to-date {
+        position: relative;
+        display: inline-block;
+    }
+    .date-picker-container {
+        margin-top: 1.4rem;
+        display: inline-block;
+    }
+}

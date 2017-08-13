@@ -1,9 +1,9 @@
-import { Component, Renderer } from '@angular/core';
+import { Component, Renderer, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'workshop-filter',
   templateUrl: './workshop-filter.component.html',
-  styleUrls: ['./workshop-filter.component.css']
+  styleUrls: ['./workshop-filter.component.scss']
 })
 
 export class WorkshopFilterComponent {
@@ -24,6 +24,8 @@ export class WorkshopFilterComponent {
   public categoryDropdownLabel: string;
   public fromDateLabel: string;
   public toDateLabel: string;
+
+  @Output() filtersChanged = new EventEmitter();
 
   private checkboxElements: NodeListOf<Element>;
 

@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ElementRef, Renderer } from '@angular/core';
 @Component({
   selector: 'dropdown',
   templateUrl: './dropdown-menu.component.html',
-  styleUrls: ['./dropdown-menu.component.css']
+  styleUrls: ['./dropdown-menu.component.scss']
 })
 
 /* tslint:disable */

@@ -1,0 +1,92 @@
+.contact-us {
+    text-align: left;
+    margin-top: 10rem;
+    text-align: center;
+    input {
+        height: 5rem;
+        padding: 1rem;
+        font-size: 1.8rem;
+        &:required {
+            /*border: 1px solid red;*/
+            outline: none;
+        }
+    }
+    h1 {
+        font-size: 4.5rem;
+    }
+    .message {
+        height: 20rem;
+        vertical-align: top;
+    }
+    .message,
+    .subject {
+        width: 64rem;
+    }
+}
+
+.static-info {
+    font-size: 2.3rem;
+    width: 100%;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.form-wrapper {
+    text-align: center;
+    display: inline-block;
+}
+
+.form-group {
+    width: 60rem;
+    margin: 2rem;
+    text-align: left;
+    .alert {
+        position: absolute;
+        width: inherit;
+        padding: 0;
+    }
+}
+
+.name-group,
+.mail-number-group {
+    display: flex;
+}
+
+.message-box,
+.subject-box {
+    .alert {
+        width: 60rem;
+    }
+}
+
+
+/*#message, #subject {
+    width: 64rem;
+}*/
+
+#message {
+    height: 20rem;
+    font-size: 1.8rem;
+}
+
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 5px solid #42A948;
+    /* green */
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442;
+    /* red */
+}
+
+.submit-btn {
+    width: 25rem;
+    margin-top: 2rem;
+    height: 4rem;
+    &:disabled {
+        background-color: #eee;
+        color: #aaa;
+        cursor: auto;
+    }
+}

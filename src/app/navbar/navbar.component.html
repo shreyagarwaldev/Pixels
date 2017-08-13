@@ -3,14 +3,16 @@
     <img class="image" src="/assets/img/icon.png" alt="workshop image">
   </a>
   <div class="navbar-header">
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar5">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+    <button *ngIf="showFilters" type="button" class="filter-header btn" (click)="toggleFilter()">
+          <div>Filters <i class="fa fa-filter" aria-hidden="true"></i></div>
+    </button>
+    <button type="button" class="navbar-toggle" (click)="toggleNavbar()">
+      <div><i class="fa fa-bars" aria-hidden="true"></i></div>
+    </button>
+
   </div>
-  <div id="navbar5" class="navbar-collapse collapse">
+
+  <div class="navbar-collapse" [ngClass]="{'hideNavbar': hideNavbar}">
     <ul class="nav navbar-nav navbar-right">
       <li class="active"><a href="/workshops">Workshops</a></li>
       <li><a href="#">About</a></li>
