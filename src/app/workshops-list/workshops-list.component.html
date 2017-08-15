@@ -2,24 +2,21 @@
     <div>
         <article class="entity" *ngFor="let data of workshops;">
             <div class="inner" (click)="loadWorkshopDetails(data.workshopId, data.name)">
-                <img class="image" [src]="globalConstants.resolveImageUrl(data.imageLink)" alt="workshop image" />
-                <h1 class="name">
+                <img class="image" [src]="this.workshopRepository.globalConstants.resolveImageUrl(data.imageLink)" alt="workshop image" />
+                <h1 class="name truncate" title="{{ data.name }}">
                     {{ data.name }}
                 </h1>
                 <hr>
                 <div class="location">
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    <!-- <span>  {{data.location.city}},</span> -->
-                    <!-- <span> {{data.location.state}},</span> -->
-                    <!-- <span> {{data.location.country}} </span> -->
+                    <span>{{this.formatLocation(data.locationId)}}</span> 
                 </div>
-                <div>{{data.workshopType}}</div>
                 <div class="date">
-                    <span> {{ data.startDateFirst }} </span>
+                    <span>{{this.formatDate(data.startDate)}}</span>
                     <span>-</span>
-                    <span> {{ data.endDateFirst }} </span>
+                    <span> {{this.formatDate(data.endDate)}} </span>
                 </div>
-                <div class="price">{{data.minCost}}</div>
+                <div class="price">{{data.costCurrency}} {{data.cost}}</div>
             </div>
         </article>
     </div>

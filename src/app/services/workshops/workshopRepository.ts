@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map'
@@ -9,7 +9,7 @@ import 'rxjs/add/observable/empty';
 import { GlobalConstantsRepository } from '../shared/globalConstantsRepository'
 
 export interface ILocation {
-    locationId?: string;
+    locationId?: number;
     city: string;
     state?: string;
     country?: string;
@@ -78,51 +78,85 @@ export interface Iitinerary {
 @Injectable()
 export class WorkshopRepository {
 
-    private globalConstants;
+    public globalConstants;
 
     constructor(private http: Http, private globalConstantsRepository : GlobalConstantsRepository) {
         this.globalConstants = globalConstantsRepository;
     }
 
-    getWorkshops(path: string) {
+    getWorkshops(path: string) : Promise<IWorkshopOverview[]> {
         return this.http.get(path)
-                    .map((response: Response) => {
-            return <IWorkshopOverview[]>response.json();
-        }).catch(function(e){
-			return Observable.empty<Response>();
-		});
+                        .toPromise()
+                        .then(response => {
+                            return response.json() as IWorkshopOverview[];
+                        });
     }
 
-    getWorkshopInstances(path: string) {
+    getWorkshopInstances(path: string) : Promise<IWorkshopInstance[]> {
         return this.http.get(path)
-                    .map((response: Response) => {
-            return <IWorkshopInstance[]>response.json();
-        }).catch(function(e){
-			return Observable.empty<Response>();
-		});
+                        .toPromise()
+                        .then(response => {
+                            return response.json() as IWorkshopInstance[];
+                        });
     }
 
-	
-	getLocations() {
+    private getLocationsInternal() : Promise<ILocation[]> {
         return this.http.get(this.globalConstants.getLocationsUrl())
-                    .map((response: Response) => {
-            return <ILocation[]>response.json();
-        }).catch(function(e){
-			return Observable.empty<Response>();
-		});
+                        .toPromise()
+                        .then(response => {
+                            return response.json() as ILocation[];
+                        });
+    }
+
+    getLocations() : Promise<ILocation[]> {
+        let loc = this.globalConstants.getLocations();
+        if(typeof loc == "undefined") {
+            loc = this.getLocationsInternal();
+            loc.then(locations =>
+            this.globalConstants.setLocations(locations)
+            );
+        }
+
+        return loc;
     }
 	
-	getWorkshopTypes() {
+    private getWorkshopTypesInternal() : Promise<string[]> {
         return this.http.get(this.globalConstants.getWorkshopTypesUrl())
-                    .map((response: Response) => {
-            return <string[]>response.json();
-        }).catch(function(e){
-			return Observable.empty<Response>();
-		});
+                        .toPromise()
+                        .then(response => {
+                            return response.json() as string[];
+                        });
     }
 
-    getPhotographers() {
+    getWorkshopTypes() : Promise<ILocation[]> {
+        let wTypes = this.globalConstants.getWorkshopTypes();
+        if(typeof wTypes == "undefined") {
+            wTypes = this.getWorkshopTypesInternal();
+            wTypes.then(workshopTypes =>
+            this.globalConstants.setWorkshopTypes(workshopTypes)
+            );
+        }
 
+        return wTypes;
+    }
+    
+	
+    private getPhotographersInternal() : Promise<IPhotographer[]> {
+        return this.http.get(this.globalConstants.getPhotographersUrl())
+                        .toPromise()
+                        .then(response => {
+                            return response.json() as IPhotographer[];
+                        });
+    }
+
+    getPhotographers() : Promise<IPhotographer[]> {
+        let p = this.globalConstants.getPhotographers();
+        // if(typeof p == "undefined") {
+        //     p = this.getPhotographersInternal();
+        //     this.globalConstants.setPhotographers(p);
+        // }
+
+        return p;
     }
 
     getWorkshopDetails(workshopId: string) {

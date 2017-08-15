@@ -4,7 +4,7 @@ import { GlobalConstantsRepository } from '../services/shared/globalConstantsRep
 
 @Component({
     templateUrl: './workshops.component.html',
-    styleUrls: ['./workshops.component.css']    
+    styleUrls: ['./workshops.component.scss']
 })
 export class WorkshopsComponent {
 	private query: string;
@@ -14,6 +14,8 @@ export class WorkshopsComponent {
 	private categoryList:string;
 	private minPrice:number;
 	private maxPrice:number;
+
+    private hideFilter: boolean;	
 	
 	private globalConstants:GlobalConstantsRepository;
 	
@@ -22,6 +24,11 @@ export class WorkshopsComponent {
 	constructor(private globalConstantsRepository:GlobalConstantsRepository)
 	{
 		this.globalConstants = globalConstantsRepository;
+		this.hideFilter = true;
+    }
+
+    toggleFilterDropdown(event: any) {
+        this.hideFilter = event;
 	}
 	
 	ngOnInit() {

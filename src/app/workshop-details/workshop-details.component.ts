@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
     templateUrl: './workshop-details.component.html',
-    styleUrls: ['./workshop-details.component.css']
+    styleUrls: ['./workshop-details.component.scss']
 })
 
 export class WorkshopDetailsComponent {

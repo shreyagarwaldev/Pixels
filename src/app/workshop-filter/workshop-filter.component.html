@@ -1,20 +1,14 @@
 <div class="filters-container">
-    <div class="location-filter">
+    <div class="dropdown-filter">
         <dropdown (selectionChanged)="updateLocationList($event)" [dataModel]="cities" [buttonLabel]="cityDropdownLabel" [optionName]="'location'"></dropdown>
-    </div>
-
-    <div class="category-filter">
         <dropdown (selectionChanged)="updateCategoryList($event)" [dataModel]="categories" [buttonLabel]="categoryDropdownLabel" [optionName]="'categories'"></dropdown>
     </div>
 
-    <div class="min-price">
-        <input #minPriceInput type="number" (blur)="updateMinPrice(minPriceInput.value)" (oninput)="updateMinPrice(minPriceInput.value)" (onchange)="updateMinPrice(minPriceInput.value)" (change)="updateMinPrice(minPriceInput.value)" min="0" step="100" placeholder="Min. price"/>
+    <div class="price-filter">
+        <input #minPriceInput type="number" min="0" step="100" placeholder="Min. price" (blur)="updateMinPrice(minPriceInput.value)" (oninput)="updateMinPrice(minPriceInput.value)" (onchange)="updateMinPrice(minPriceInput.value)" (change)="updateMinPrice(minPriceInput.value)"/>
+        <input #maxPriceInput type="number" min="0" step="100" placeholder="Max. price" (blur)="updateMaxPrice(maxPriceInput.value)" (oninput)="updateMaxPrice(maxPriceInput.value)" (onchange)="updateMaxPrice(maxPriceInput.value)" (change)="updateMaxPrice(maxPriceInput.value)"/>
     </div>
 
-    <div class="max-price">
-        <input #maxPriceInput type="number" (blur)="updateMaxPrice(maxPriceInput.value)" (oninput)="updateMaxPrice(maxPriceInput.value)" (onchange)="updateMaxPrice(maxPriceInput.value)" (change)="updateMaxPrice(maxPriceInput.value)" min="0" step="100" placeholder="Max. price"/>
-    </div>
-	
      <div class="date-picker">
          <date-picker (selectedFromChanged)="getFromDate($event)" (selectedToChanged)="getToDate($event)"></date-picker> 
     </div> 

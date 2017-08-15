@@ -1,5 +1,6 @@
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Component } from '@angular/core';
+import { GlobalConstantsRepository } from './services/shared/globalConstantsRepository'
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-	constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
+  private globalConstants:GlobalConstantsRepository;
+	constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, private globalConstantsRepository: GlobalConstantsRepository) {
+    this.globalConstants = globalConstantsRepository;
+  }
  }
