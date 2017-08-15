@@ -19,7 +19,7 @@
 
 .photographer-name h1 {
     font-size: 2.5rem;
-    color: #FC834E;
+    color: #73656A;
 }
 
 .photographer-information h4 {
@@ -27,7 +27,7 @@
 }
 
 .detail-location {
-    color: #15424E;
+    color: #73656A;
     opacity: 0.8;
     margin-bottom: .5rem;
 }
@@ -52,10 +52,10 @@ div.tab {
         transition: 0.3s;
         border-bottom: 3px solid transparent;
         font-size: 2rem;
-        color: #426771;
+        color: #73656A;
         &.active {
             /*background-color: #ccc;*/
-            border-bottom: 3px solid #FC834E;
+            border-bottom: 3px solid #73656A;
         }
     }
 }
@@ -85,7 +85,7 @@ div.tab {
 
 .day-wrapper .location,
 .photographer-information h4 {
-    color: #FC834E;
+    color: #73656A
 }
 
 #Description p {
@@ -104,7 +104,7 @@ div.tab {
 
 .wsd-name {
     font-size: 3.5rem;
-    color: #FC834E;
+    color: #73656A;
     text-align: center;
     margin-top: 3rem;
     font-weight: 500;
@@ -114,16 +114,16 @@ div.tab {
     margin-top: 3rem;
     text-align: center;
     a {
-        color: #15424E;
+        color: #73656A;
     }
     div {
         display: inline;
         margin: 2rem;
         font-size: 2rem;
         font-weight: 300;
-        color: #15424E;
+        color: #73656A;
         i {
-            color: #FC834E;
+            color: #73656A;
         }
     }
 }
