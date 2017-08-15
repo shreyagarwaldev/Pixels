@@ -82,6 +82,9 @@ export class WorkshopRepository {
 
     constructor(private http: Http, private globalConstantsRepository : GlobalConstantsRepository) {
         this.globalConstants = globalConstantsRepository;
+        this.getLocations();
+        this.getPhotographers();
+        this.getWorkshopTypes();
     }
 
     getWorkshops(path: string) : Promise<IWorkshopOverview[]> {
