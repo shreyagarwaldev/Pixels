@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class WorkshopDetailsComponent {
-    workshopDetails: any;
+    workshopDetails: IWorkshopDetails;
     tabs: any;
     private sub: any;
 

@@ -23,9 +23,12 @@ import { WorkshopsComponent } from './workshops/workshops.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
 import { WorkshopRepository } from './services/workshops/workshopRepository';
+import { GlobalConstantsRepository } from './services/shared/globalConstantsRepository';
+import { PageRedirectComponent } from './page-redirect/page-redirect.component';
 import { DropdownComponent } from './dropdown-menu/dropdown-menu.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 /**
  * Top-level NgModule "container"
  */
@@ -43,7 +46,8 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     WorkshopsListComponent,
     WorkshopsComponent,
     ContactUsComponent,
-    WorkshopDetailsComponent 
+    WorkshopDetailsComponent,
+    PageRedirectComponent
 	],
   imports: [
     /**
@@ -56,9 +60,11 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     /**
      * using routes
      */
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    Angulartics2Module.forChild()
   ],
-  providers: [WorkshopRepository]
+  providers: [WorkshopRepository, GlobalConstantsRepository]
 })
 export class AppModule {
 

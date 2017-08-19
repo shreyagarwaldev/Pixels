@@ -1,13 +1,12 @@
 <div class="filters-container">
     <div class="dropdown-filter">
-        <dropdown [dataModel]="cities" [buttonLabel]="cityDropdownLabel" [optionName]="'location'"></dropdown>
-        <dropdown [dataModel]="categories" [buttonLabel]="categoryDropdownLabel" [optionName]="'categories'"></dropdown>
+        <dropdown (selectionChanged)="updateLocationList($event)" [dataModel]="cities" [buttonLabel]="cityDropdownLabel" [optionName]="'location'"></dropdown>
+        <dropdown (selectionChanged)="updateCategoryList($event)" [dataModel]="categories" [buttonLabel]="categoryDropdownLabel" [optionName]="'categories'"></dropdown>
     </div>
 
-
     <div class="price-filter">
-        <input type="number" min="0" step="100" placeholder="Min. price"/>
-        <input type="number" min="0" step="100" placeholder="Max. price"/>
+        <input #minPriceInput type="number" min="0" step="100" placeholder="Min. price" (blur)="updateMinPrice(minPriceInput.value)" (oninput)="updateMinPrice(minPriceInput.value)" (onchange)="updateMinPrice(minPriceInput.value)" (change)="updateMinPrice(minPriceInput.value)"/>
+        <input #maxPriceInput type="number" min="0" step="100" placeholder="Max. price" (blur)="updateMaxPrice(maxPriceInput.value)" (oninput)="updateMaxPrice(maxPriceInput.value)" (onchange)="updateMaxPrice(maxPriceInput.value)" (change)="updateMaxPrice(maxPriceInput.value)"/>
     </div>
 
      <div class="date-picker">

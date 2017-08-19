@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WorkshopRepository, IWorkshopOverview, IWorkshopListDto, ILocation } from '../services/workshops/workshopRepository'
+import { WorkshopRepository, IWorkshopOverview } from '../services/workshops/workshopRepository'
 import { Router } from '@angular/router';
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
     selector: 'workshops-list',
@@ -10,19 +11,14 @@ import { Router } from '@angular/router';
 
 export class WorkshopsListComponent {
 
-    @Input() path: string;
-    workshopDto: IWorkshopListDto[];
     workshops: IWorkshopOverview[];
-    private locationList = new Map<number, ILocation>();
-    private locations: ILocation[];
-
-    constructor(private workshopRepository: WorkshopRepository, private router: Router) {
+	private angulartics2: any;
+    constructor(angulartics2: Angulartics2, private workshopRepository: WorkshopRepository, private router: Router) {
+		this.angulartics2 = angulartics2;
         this.workshops = [];
-        this.getLocationList();
     }
-
+	
     ngOnInit() {
-        this.getWorkshopsData();
     }
 
     formatDate(date) {
@@ -40,36 +36,29 @@ export class WorkshopsListComponent {
         return `${monthNames[monthIndex]} ${day} ${year}`;
     }
 
-    getLocationList() {
-        this.workshopRepository.getLocationList()
-            .subscribe(
-            location => {
-                this.locations = location;
-                if (this.locations && this.locations.length > 0) {
-                    this.locations.forEach(loc => {
-                        this.locationList.set(loc.locationId, loc);
-                    })
-                }
-            });
+    formatLocation(locationId){
+        let locationObject = this.workshopRepository.globalConstants.getLocationByLocationId(locationId);
+        if(locationObject){
+            let location:string = "";
+            if(locationObject.line1 != "Multiple" && locationObject.line1 != "N/A")
+                location += locationObject.line1 + ", ";
+            if(locationObject.line2 != "Multiple" && locationObject.line2 != "N/A")
+                location += locationObject.line2 + ", ";
+            location += locationObject.line3;
 
+            return location;
+        }
+        else{
+            return "TBD";
+        }
     }
-
-    getWorkshopsData() {
-        let workshop: any;
-        this.workshopRepository.getWorkshops(this.path)
-            .subscribe(
-            w => {
-                this.workshopDto = w;
-                if (this.workshopDto && this.workshopDto.length > 0) {
-                    this.workshopDto.forEach(ws => {
-                        workshop = ws;
-                        workshop.startDateFirst = this.formatDate(ws.startDateFirst);
-                        workshop.endDateFirst = this.formatDate(ws.endDateFirst);
-                        workshop.location = this.locationList.get(ws.locationId);
-                        this.workshops.push(workshop);
-                    });
-                }
-            });
+    
+    getWorkshopsData(path:any) {
+		this.angulartics2.eventTrack.next({ action: 'GetWorkshopsEvent', properties: { category: 'WorkshopsListComponent' }});
+	
+        this.workshopRepository.getWorkshopOverview(path).then(
+            w => this.workshops = w
+        )
     }
 
     loadWorkshopDetails(workshopId: string, workshopName: string) {

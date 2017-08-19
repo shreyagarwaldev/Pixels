@@ -1,10 +1,10 @@
 <navi-bar></navi-bar>
 
 <div class="header-img">
-    <img class="detail-img" [src]="workshopDetails?.headerImage" alt="workshop image" />
+    <img class="detail-img" [src]="this.workshopRepository.globalConstants.resolveImageUrl(workshopDetails.imageLink)" alt="workshop image" />
 </div>
 
-<div class="wsd-name">{{workshopDetails?.name}}</div>
+<div class="wsd-name">{{workshopDetails.name}}</div>
 <div class="details-container">
     <div class="detail-tabs">
         <div class="tab">
@@ -16,12 +16,12 @@
 
         <div id="Description" class="tabcontent">
             <h3>Description</h3>
-            <p>{{workshopDetails?.details?.introduction}}</p>
+            <p>{{workshopDetails.description}}</p>
         </div>
 
         <div id="Itinerary" class="tabcontent">
             <h3>Itinerary</h3>
-            <div class="day-wrapper" *ngFor="let data of workshopDetails?.details?.itinerary;">
+            <div class="day-wrapper" *ngFor="let data of workshopDetails.itinerary;">
                 <h5>
                     <span>Day {{data.day}} - </span>
                     <span class="location">{{data.location}}</span>
@@ -31,30 +31,30 @@
         </div>
 
         <div id="Gallery" class="tabcontent">
-            <img class="image" *ngFor="let image of workshopDetails?.gallery;" [src]="image" alt="workshop image" />
+            <!-- <img class="image" *ngFor="let image of workshopDetails[0].gallery;" [src]="image" alt="workshop image" /> -->
         </div>
 
         <div id="Photographer" class="tabcontent">
             <h3>Photographers</h3>
-            <div class="photographer-information" *ngFor="let photographer of workshopDetails?.photographers;">
+            <div class="photographer-information" *ngFor="let photographer of workshopDetails.photographers;">
                 <div class="profile-photo">
-                    <img class="profile-img" [src]="photographer.profilePhoto" alt="workshop image" />
+                    <img class="profile-img" [src]="photographer.profilePhotoLink" alt="workshop image" />
                 </div>
                 <h4>
-                    <span>{{photographer?.firstName}}</span>
-                    <span>{{photographer?.lastName}}</span>
+                    <span>{{photographer.firstName}}</span>
+                    <span>{{photographer.lastName}}</span>
                 </h4>
                 <div class="detail-location">
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    <span>{{photographer?.location?.city}},</span>
-                    <span> {{photographer?.location?.state}},</span>
-                    <span> {{photographer?.location?.country}}</span>
+                    <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(photographer.locationId)?.line1}},</span>
+                    <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(photographer.locationId)?.line2}},</span>
+                    <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(photographer.locationId)?.line3}}</span>
                 </div>
                 <div class="website-link">
                     <a href="{{photographer?.websiteLink}}" target="_blank"><i class="fa fa-external-link"></i> Website
                 </a>
                 </div>
-                <p>{{photographer?.moreInformation}}</p>
+                <p>{{photographer.moreInformation}}</p>
             </div>
         </div>
     </div>
@@ -62,33 +62,27 @@
     <div class="highlights">
         <div class="wsd-link">
             <h4 class="highlight-headings">Workshop Link</h4>
-            <a href="{{workshopDetails?.workshopLink}}" target="_blank"><i class="fa fa-link"></i> Workshop link
+            <a href="{{workshopDetails.link}}" target="_blank"><i class="fa fa-link"></i> Workshop link
         </a>
         </div>
         <div class="wsd-location">
             <h4 class="highlight-headings">Location</h4>
             <i class="fa fa-map-marker"></i>
-            <span>{{workshopDetails?.location?.city}},</span>
-            <span> {{workshopDetails?.location?.state}},</span>
-            <span> {{workshopDetails?.location?.country}}</span>
+            <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(workshopDetails.locationId)?.line1}},</span>
+            <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(workshopDetails.locationId)?.line2}},</span>
+            <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(workshopDetails.locationId)?.line3}}</span>
         </div>
         <div class="wsd-price">
             <h4 class="highlight-headings">Price Range</h4>
-            <i class="fa fa-usd"></i> {{workshopDetails?.price}} - {{workshopDetails?.price}}
+            <i class="fa fa-usd"></i> {{workshopDetails.minCost}} - {{workshopDetails.maxCost}}
         </div>
         <div class="wsd-dates">
             <h4 class="highlight-headings">Dates</h4>
-            <div>
-                <i class="fa fa-calendar"></i>
-                <span>{{workshopDetails?.dates?.startDate}} - {{workshopDetails?.dates?.endDate}}</span>
-            </div>
-            <div>
-                <i class="fa fa-calendar"></i>
-                <span>{{workshopDetails?.dates?.startDate}} - {{workshopDetails?.dates?.endDate}}</span>
-            </div>
-            <div>
-                <i class="fa fa-calendar"></i>
-                <span>{{workshopDetails?.dates?.startDate}} - {{workshopDetails?.dates?.endDate}}</span>
+            <div class="dates-information" *ngFor="let detail of workshopDetails.multiWorkshopDetails;">
+                <div>
+                    <i class="fa fa-calendar"></i>
+                    <span>{{detail.startDate}} - {{detail.endDate}}</span>
+                </div>
             </div>
         </div>
     </div>

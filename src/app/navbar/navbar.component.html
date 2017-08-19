@@ -1,5 +1,5 @@
 <nav class="nav-container">
-  <a href="">
+  <a href=""  angulartics2On="click" angularticsEvent="GoToHomePageEvent" angularticsCategory="NavBarInteraction">
     <img class="image" src="/assets/img/icon.png" alt="workshop image">
   </a>
   <div class="navbar-header">
@@ -14,9 +14,9 @@
 
   <div class="navbar-collapse" [ngClass]="{'hideNavbar': hideNavbar}">
     <ul class="nav navbar-nav navbar-right">
-      <li class="active"><a href="/workshops">Workshops</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="/contact">Contact</a></li>
+      <li class="active" angulartics2On="click" angularticsEvent="GoToWorkshopsPageEvent" angularticsCategory="NavBarInteraction"><a href="/workshops">Workshops</a></li>
+      <li><a href="#" angulartics2On="click" angularticsEvent="GoToAboutPageEvent" angularticsCategory="NavBarInteraction">About</a></li>
+      <li><a href="/contact" angulartics2On="click" angularticsEvent="GoToContactPageEvent" angularticsCategory="NavBarInteraction">Contact</a></li>
     </ul>
   </div>
 </nav>
