@@ -12,11 +12,12 @@
                     <span>{{this.formatLocation(data.locationId)}}</span> 
                 </div>
                 <div class="date">
-                    <span>{{this.formatDate(data.startDate)}}</span>
-                    <span>-</span>
-                    <span> {{this.formatDate(data.endDate)}} </span>
+                    <span>{{this.formatDate(data.startDateFirst)}}</span>
+                    <span *ngIf="data.startDateFirst != data.endDateFirst">-</span>
+                    <span *ngIf="data.startDateFirst != data.endDateFirst"> {{this.formatDate(data.endDateFirst)}} </span>
                 </div>
-                <div class="price">{{data.costCurrency}} {{data.cost}}</div>
+                <div class="price" *ngIf="data.minCost == data.maxCost">{{data.costCurrency}} {{data.minCost}}</div>
+                <div class="price" *ngIf="data.minCost < data.maxCost">{{data.costCurrency}} {{data.minCost}}-{{data.maxCost}}</div>
             </div>
         </article>
     </div>

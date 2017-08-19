@@ -66,11 +66,11 @@ export class WorkshopFilterComponent {
         for (var i = 0; i < locations.length; i++) {
           var x = <ILocation>locations[i];
           let labelLoc:string = "";
-          if(x.city != "Multiple" && x.city != "N/A")
-            labelLoc+=x.city + ", ";
-          if(x.state != "Multiple" && x.state != "N/A")
-            labelLoc+=x.state + ", ";
-          labelLoc+=x.country;
+          if(x.line1 != "Multiple" && x.line1 != "N/A")
+            labelLoc+=x.line1 + ", ";
+          if(x.line2 != "Multiple" && x.line2 != "N/A")
+            labelLoc+=x.line2 + ", ";
+          labelLoc+=x.line3;
           this.cities.push({label:labelLoc, value:x.locationId});
         }
       }

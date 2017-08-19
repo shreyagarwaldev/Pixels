@@ -9,67 +9,60 @@ import 'rxjs/add/observable/empty';
 import { GlobalConstantsRepository } from '../shared/globalConstantsRepository'
 
 export interface ILocation {
-    locationId?: number;
-    city: string;
-    state?: string;
-    country?: string;
-}
-
-export interface IDateRange {
-    startDate: Date;
-    endDate: Date;
+    locationId: number;
+    line1: string;
+    line2: string;
+    line3: string;
 }
 
 export interface IWorkshopOverview {
-	workshopId:string,
+	workshopId:number,
     workshopType:string,
 	numberOfWorkshops:number,
-	startDateFirst:Date,
-	endDateFirst:Date,
-	minCost:number,
-	maxCost:number,
-	costCurrency:string,
+	startDateFirst?:Date,
+	endDateFirst?:Date,
+	minCost?:number,
+	maxCost?:number,
+	costCurrency?:string,
 	name:string,
-	description:string,
 	imageLink:string,
 	locationId:number,
-	primaryPhotographerUserId:number,
-	secondaryPhotographerUserId:number
 }
 
 export interface IPhotographer {
-    id?: string;
+    id: string;
     firstName: string;
     lastName: string;
-    profilePhoto?: string;
-    websiteLink?: string;
-    followers?: string;
-    location?: ILocation;
-    moreInformation?: string;
+    profilePhotoLink: string;
+    websiteLink: string;
+    locationId?: number;
+    moreInfo: string;
 }
 
-export interface IWorkshopInstance {
+export interface IMultiWorkshopDetails {
+    startDate: Date;
+    endDate: Date;
+    cost?: number;
+    link: string;
+}
+
+export interface IWorkshopDetails {
     workshopId: number;
-	workshopInstanceId: number;
     name: string;
+    description:string;
+    itinerary:IItinerary[];
+    addtionalInformation: string;
+	imageLink:string;
+    link?: string;
     locationId: number;
     workshopType: string;
-    startDate: Date;
-	endDate: Date;
-    description: string;
-    link: string;
-	imageLink:string;
-	cost:number;
+    multiWorkshopDetails: IMultiWorkshopDetails[];
+	minCost:number;
+	maxCost:number;
 	costCurrency:string;
 }
 
-export interface IDescription {
-    introduction: string;
-    itinerary: Iitinerary[];
-    addtionalInformation: string;
-}
-
-export interface Iitinerary {
+export interface IItinerary {
     day: number;
     location: string;
     content: string;
@@ -83,23 +76,14 @@ export class WorkshopRepository {
     constructor(private http: Http, private globalConstantsRepository : GlobalConstantsRepository) {
         this.globalConstants = globalConstantsRepository;
         this.getLocations();
-        this.getPhotographers();
         this.getWorkshopTypes();
     }
 
-    getWorkshops(path: string) : Promise<IWorkshopOverview[]> {
+    getWorkshopOverview(path: string) : Promise<IWorkshopOverview[]> {
         return this.http.get(path)
                         .toPromise()
                         .then(response => {
                             return response.json() as IWorkshopOverview[];
-                        });
-    }
-
-    getWorkshopInstances(path: string) : Promise<IWorkshopInstance[]> {
-        return this.http.get(path)
-                        .toPromise()
-                        .then(response => {
-                            return response.json() as IWorkshopInstance[];
                         });
     }
 
@@ -142,30 +126,13 @@ export class WorkshopRepository {
 
         return wTypes;
     }
-    
-	
-    private getPhotographersInternal() : Promise<IPhotographer[]> {
-        return this.http.get(this.globalConstants.getPhotographersUrl())
-                        .toPromise()
-                        .then(response => {
-                            return response.json() as IPhotographer[];
-                        });
-    }
 
-    getPhotographers() : Promise<IPhotographer[]> {
-        let p = this.globalConstants.getPhotographers();
-        // if(typeof p == "undefined") {
-        //     p = this.getPhotographersInternal();
-        //     this.globalConstants.setPhotographers(p);
-        // }
-
-        return p;
-    }
-
-    getWorkshopDetails(workshopId: string) {
-        return this.http.get("/assets/ws-details.json")
+    getWorkshopDetails(workshopId: string) : Promise<IWorkshopDetails> {
+        let url = this.globalConstants.getPixelatedPlanetAPIUrl() + "/WorkshopDetails?workshopId="+workshopId;
+        return this.http.get(url)
                     .toPromise()
-                    .then(res => <IWorkshopInstance> res.json().data)
-                    .then(data => { return data; });
+                    .then(response => {
+                        return <IWorkshopDetails> response.json();
+                    });
     }
 }

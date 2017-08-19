@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { WorkshopRepository, IWorkshopInstance } from '../services/workshops/workshopRepository'
+import { WorkshopRepository, IWorkshopDetails } from '../services/workshops/workshopRepository'
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class WorkshopDetailsComponent {
-    workshopDetails: any;
+    workshopDetails: IWorkshopDetails;
     tabs: any;
     private sub: any;
 

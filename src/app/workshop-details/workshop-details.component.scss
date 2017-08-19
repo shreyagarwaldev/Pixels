@@ -43,6 +43,7 @@
 div.tab {
     overflow: hidden;
     margin-top: 5rem;
+    width: 100%; // padding-left: 15%;
     button {
         background-color: inherit;
         border: none;
@@ -64,23 +65,26 @@ div.tab {
 /* Style the tab content */
 
 .tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
+    display: none; // padding: 6px 12px;
+    // border: 1px solid #ccc;
     border-top: none;
     text-align: left;
     padding-left: 7rem;
     height: 40rem;
     overflow: scroll;
+    width: 100%;
+    background-color: rgba(239, 230, 233, 0.57);
 }
 
 .detail-tabs {
     text-align: center;
+    width: 70%;
+    float:left;
 }
 
 .day-wrapper,
 .photographer-information {
-    padding: 2rem 2rem 0.5rem 2rem;
+    padding-top: 2rem;
 }
 
 .day-wrapper .location,
@@ -88,8 +92,14 @@ div.tab {
     color: #73656A
 }
 
-#Description p {
-    padding: 2rem 4rem 0.5rem 2rem;
+#Description {
+    p {
+        padding-top: 2rem;
+        margin-right: .4rem;
+    }
+    h3 {
+        margin-top: 5%;
+    }
 }
 
 #Gallery img {
@@ -110,20 +120,25 @@ div.tab {
     font-weight: 500;
 }
 
-.highlights{
-    margin-top: 3rem;
-    text-align: center;
+.highlights {
+    margin-top: 3rem; // text-align: center;
+    display: inline-block;
+    margin-top: 10rem;
+    padding-left: 5rem;
+    width:30%;
     a {
         color: #73656A;
+        // margin-left: 2rem;
     }
     div {
-        display: inline;
-        margin: 2rem;
+        // display: inline;
+        // margin: 2rem ;
         font-size: 2rem;
         font-weight: 300;
         color: #73656A;
         i {
             color: #73656A;
+            padding-left: 1rem;
         }
     }
 }

@@ -40,11 +40,6 @@ export class GlobalConstantsRepository
         return this.workshopTypesUrl;
     }
 
-    public getPhotographersUrl()
-    {
-        return this.photographersUrl;
-    }
-
     public resolveImageUrl(path:string)
     {
         return this.cdnBaseUrl + path;
@@ -58,11 +53,6 @@ export class GlobalConstantsRepository
     public getWorkshopTypes()
     {
         return this.workshopTypes;
-    }
-
-    public getPhotographers()
-    {
-        return this.photographers;
     }
 
     public setLocations(locations:ILocation[])
@@ -89,10 +79,5 @@ export class GlobalConstantsRepository
     public setWorkshopTypes(workshopTypes:string[])
     {
         this.workshopTypes = workshopTypes;
-    }
-
-    public setPhotographers(photographers:IPhotographer[])
-    {
-        this.photographers = photographers;
     }
 }
