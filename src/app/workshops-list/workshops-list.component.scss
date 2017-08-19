@@ -3,14 +3,14 @@
 }
 
 .entity {
-    width: 28rem;
+    width: 30rem;
     display: inline-block;
     margin: 2rem;
     box-shadow: 0rem 0rem 0.2rem 0rem #888888;
     img {
         vertical-align: middle;
-        width: 28rem;
-        height: 30rem;
+        width: 30rem;
+        height: 20rem;
         margin-bottom: 2rem;
         object-fit: cover;
         filter: sepia(20%);
@@ -68,8 +68,9 @@ hr {
 
 @media (max-width: 955px) {
     .entity .image {
-        height: 20rem;
+        height: 15rem;
         margin-bottom: 1rem;
+        width: 22.5rem;
     }
     h1.name {
         font-size: 1.8rem;
