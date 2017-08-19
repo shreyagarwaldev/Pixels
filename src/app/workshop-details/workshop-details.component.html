@@ -78,17 +78,11 @@
         </div>
         <div class="wsd-dates">
             <h4 class="highlight-headings">Dates</h4>
-            <div>
-                <i class="fa fa-calendar"></i>
-                <span>{{workshopDetails?.dates?.startDate}} - {{workshopDetails?.dates?.endDate}}</span>
-            </div>
-            <div>
-                <i class="fa fa-calendar"></i>
-                <span>{{workshopDetails?.dates?.startDate}} - {{workshopDetails?.dates?.endDate}}</span>
-            </div>
-            <div>
-                <i class="fa fa-calendar"></i>
-                <span>{{workshopDetails?.dates?.startDate}} - {{workshopDetails?.dates?.endDate}}</span>
+            <div class="dates-information" *ngFor="let detail of workshopDetails.multiWorkshopDetails;">
+                <div>
+                    <i class="fa fa-calendar"></i>
+                    <span>{{detail.startDate}} - {{detail.endDate}}</span>
+                </div>
             </div>
         </div>
     </div>

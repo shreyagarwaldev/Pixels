@@ -47,7 +47,7 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
     WorkshopsComponent,
     ContactUsComponent,
     WorkshopDetailsComponent,
-	  PageRedirectComponent
+    PageRedirectComponent
 	],
   imports: [
     /**
@@ -61,8 +61,8 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
      * using routes
      */
     RouterModule.forRoot(routes),
-	  Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-	  Angulartics2Module.forChild()
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    Angulartics2Module.forChild()
   ],
   providers: [WorkshopRepository, GlobalConstantsRepository]
 })

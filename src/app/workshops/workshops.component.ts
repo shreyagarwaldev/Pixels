@@ -33,32 +33,32 @@ export class WorkshopsComponent {
 	
 	ngOnInit() {
 		var today = new Date();
-		this.startDate = today.getFullYear().toString() + "/" + (today.getMonth()+1).toString() + "/" + today.getDate().toString();
-		this.endDate = (today.getFullYear()+10).toString() + "/" + (today.getMonth()+1).toString() + "/" + today.getDate().toString();
+		this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+		this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
 		this.updateUrl();
 		}
 	
 	updateUrl()
 	{
-		this.query = this.globalConstants.getPixelatedPlanetAPIUrl() + "/Workshops?startDateFilter="+this.startDate+"&endDateFilter="+this.endDate+"&FReturnCompact=false&pageNumber=1&numberOfResults=12";
+		this.query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${this.startDate}&endDateFilter=${this.endDate}&pageNumber=1&numberOfResults=12`;
 		if(this.locationIdList != null && this.locationIdList != "")
 		{
-			this.query = this.query + "&locationIdFilter=" + this.locationIdList;
+			this.query = `${this.query}&locationIdFilter=${this.locationIdList}`;
 		}
 		
 		if(this.categoryList != null && this.categoryList != "")
 		{
-			this.query = this.query + "&workshopType=" + this.categoryList;
+			this.query = `${this.query}&workshopType=${this.categoryList}`;
 		}
 		
 		if(this.minPrice > 0)
 		{
-			this.query = this.query + "&minPrice=" + this.minPrice.toString();
+			this.query = `${this.query}&minPrice=${this.minPrice.toString()}`;
 		}
 		
 		if(this.maxPrice > 0)
 		{
-			this.query = this.query + "&maxPrice=" + this.maxPrice.toString();
+			this.query = `${this.query}&maxPrice=${this.maxPrice.toString()}`;
 		}
 		
 		this.workshopsListChildComp.getWorkshopsData(this.query);
@@ -67,11 +67,11 @@ export class WorkshopsComponent {
 
     setFromDate(fromDate: any)
 	{
-        this.startDate = fromDate.year+"/"+fromDate.month+"/"+fromDate.day;
+        this.startDate = `${fromDate.year}/${fromDate.month}/${fromDate.day}`;
 		if(this.startDate == "0/0/0")
 		{
 			var today = new Date();
-			this.startDate = today.getFullYear().toString() + "/" + (today.getMonth()+1).toString() + "/" + today.getDate().toString();
+			this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
 		}
 		
 		this.updateUrl();
@@ -80,11 +80,11 @@ export class WorkshopsComponent {
 	
 	setToDate(toDate: any)
 	{
-        this.endDate = toDate.year+"/"+toDate.month+"/"+toDate.day;
+        this.endDate = `${toDate.year}/${toDate.month}/${toDate.day}`;
 		if(this.endDate == "0/0/0")
 		{
 			var today = new Date();
-			this.endDate = (today.getFullYear()+10).toString() + "/" + (today.getMonth()+1).toString() + "/" + today.getDate().toString();
+			this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
 		}
 
 		this.updateUrl();

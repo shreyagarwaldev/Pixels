@@ -128,7 +128,7 @@ export class WorkshopRepository {
     }
 
     getWorkshopDetails(workshopId: string) : Promise<IWorkshopDetails> {
-        let url = this.globalConstants.getPixelatedPlanetAPIUrl() + "/WorkshopDetails?workshopId="+workshopId;
+        let url = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/WorkshopDetails?workshopId=${workshopId}`;
         return this.http.get(url)
                     .toPromise()
                     .then(response => {

@@ -62,7 +62,7 @@ export class WorkshopFilterComponent {
   {
     this.cities = [];
     this.workshopRepository.getLocations().then(locations => { 
-      if(typeof locations != "undefined" && locations != null) {
+      if(locations) {
         for (var i = 0; i < locations.length; i++) {
           var x = <ILocation>locations[i];
           let labelLoc:string = "";
@@ -81,7 +81,7 @@ export class WorkshopFilterComponent {
   {
     this.categories = [];
     this.workshopRepository.getWorkshopTypes().then(wTypes => { 
-      if(typeof wTypes != "undefined" && wTypes != null) {
+      if(wTypes) {
         for (var i = 0; i < wTypes.length; i++) {
           this.categories.push({label:wTypes[i], value:wTypes[i]});
         }
@@ -92,28 +92,26 @@ export class WorkshopFilterComponent {
   getFromDate(value: Date) {
     this.fromDate = value;
 	this.angulartics2.eventTrack.next({ action: 'FromDateFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-	
     this.fromDateChanged.emit(this.fromDate);
   }
 
   getToDate(value: Date) {
     this.toDate = value;
 	this.angulartics2.eventTrack.next({ action: 'ToDateFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-	
 	this.toDateChanged.emit(this.toDate);
   }
   
   updateMinPrice(value:number)
   {
-	  this.angulartics2.eventTrack.next({ action: 'MinPriceFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-	  this.minPriceFilterChanged.emit(value);
+    this.angulartics2.eventTrack.next({ action: 'MinPriceFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+    this.minPriceFilterChanged.emit(value);
   }
   
   
   updateMaxPrice(value:number)
   {
-	  this.angulartics2.eventTrack.next({ action: 'MaxPriceFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-	  this.maxPriceFilterChanged.emit(value);
+    this.angulartics2.eventTrack.next({ action: 'MaxPriceFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+    this.maxPriceFilterChanged.emit(value);
   }
 
   getSelectedFilters(inputName: string): string[] {
@@ -129,37 +127,37 @@ export class WorkshopFilterComponent {
   
   updateLocationList(value: any)
   {
-	  this.angulartics2.eventTrack.next({ action: 'LocationFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+    this.angulartics2.eventTrack.next({ action: 'LocationFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
 	
-	  let locations = this.getSelectedFilters('location');
-	  let locationIdList = "";
-	  let first = true;
-	  for(let location of locations)
-	  {
-		  if(first == false)
-			  locationIdList = locationIdList + ",";
-		  first=false;
-		  locationIdList = locationIdList+location;
-	  }
+    let locations = this.getSelectedFilters('location');
+    let locationIdList = "";
+    let first = true;
+    for(let location of locations)
+    {
+        if(!first)
+            locationIdList = locationIdList + ",";
+        first=false;
+        locationIdList = locationIdList+location;
+    }
 	  
-	  this.locationFilterChanged.emit(locationIdList);
+    this.locationFilterChanged.emit(locationIdList);
   }
   
   updateCategoryList(value: any)
   {
-	  this.angulartics2.eventTrack.next({ action: 'CategoryFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-	
-	  let categories = this.getSelectedFilters('categories');
-	  let workshopTypesList = "";
-	  let first = true;
-	  for(let category of categories)
-	  {
-		  if(first == false)
-			  workshopTypesList = workshopTypesList + ",";
-		  first=false;
-		  workshopTypesList = workshopTypesList+category;
-	  }
+    this.angulartics2.eventTrack.next({ action: 'CategoryFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
+
+    let categories = this.getSelectedFilters('categories');
+    let workshopTypesList = "";
+    let first = true;
+    for(let category of categories)
+    {
+        if(!first)
+            workshopTypesList = workshopTypesList + ",";
+        first=false;
+        workshopTypesList = workshopTypesList+category;
+    }
 	  
-	  this.categoryFilterChanged.emit(workshopTypesList);
+    this.categoryFilterChanged.emit(workshopTypesList);
   }
 }

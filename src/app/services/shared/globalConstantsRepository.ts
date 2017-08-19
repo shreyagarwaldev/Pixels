@@ -17,12 +17,11 @@ export class GlobalConstantsRepository
 
     constructor()
     {
-        this.cdnBaseUrl = "https://pixelatedplanetcdn.azureedge.net";
-        this.serviceBaseUrl = "https://pixelatedplanetservice.azurewebsites.net";
-        this.pixelatedPlanetAPIUrl = this.serviceBaseUrl + "/api/Pixelated";
-        this.locationsUrl = this.pixelatedPlanetAPIUrl + "/Locations";
-        this.workshopTypesUrl = this.pixelatedPlanetAPIUrl + "/WorkshopTypes";
-        this.photographersUrl = this.pixelatedPlanetAPIUrl + "/Photographers";
+        this.cdnBaseUrl = `https://pixelatedplanetcdn.azureedge.net`;
+        this.serviceBaseUrl = `https://pixelatedplanetservice.azurewebsites.net`;
+        this.pixelatedPlanetAPIUrl = `${this.serviceBaseUrl}/api/Pixelated`;
+        this.locationsUrl = `${this.pixelatedPlanetAPIUrl}/Locations`;
+        this.workshopTypesUrl = `${this.pixelatedPlanetAPIUrl}/WorkshopTypes`;
     }
 
     public getPixelatedPlanetAPIUrl()

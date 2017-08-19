@@ -21,9 +21,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 		var today = new Date();
-		let startDate = today.getFullYear().toString() + "/" + (today.getMonth()+1).toString() + "/" + today.getDate().toString();
-		let endDate = (today.getFullYear()+10).toString() + "/" + (today.getMonth()+1).toString() + "/" + today.getDate().toString();
-		let query = this.globalConstants.getPixelatedPlanetAPIUrl() + "/Workshops?startDateFilter="+startDate+"&endDateFilter="+endDate+"&FReturnCompact=true&pageNumber=1&numberOfResults=4";
+		let startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+		let endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+		let query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${startDate}&endDateFilter=${endDate}&pageNumber=1&numberOfResults=4`;
 		this.workshopsListChildComp.getWorkshopsData(query);
   }
 

@@ -29,7 +29,8 @@ export class DropdownComponent {
     this.renderer.listenGlobal('document', 'click', (event: any) => {
       if (!that.isCollapsed && !that.selfClick && !this.panelOverlay) {
         that.isCollapsed = true;
-      }
+    	this.selectionChanged.emit("changed");
+    }
       that.selfClick = false;
       this.panelOverlay = false;
     });
@@ -44,10 +45,5 @@ export class DropdownComponent {
 
   overlay() {
     this.panelOverlay = true;
-  }
-  
-  updateList()
-  {
-	  this.selectionChanged.emit("changed");
   }
 }
