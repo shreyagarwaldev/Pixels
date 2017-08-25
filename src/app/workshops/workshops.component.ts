@@ -40,7 +40,7 @@ export class WorkshopsComponent {
 	
 	updateUrl()
 	{
-		this.query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${this.startDate}&endDateFilter=${this.endDate}&pageNumber=1&numberOfResults=12`;
+		this.query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${this.startDate}&endDateFilter=${this.endDate}&numberOfResults=12`;
 		if(this.locationIdList != null && this.locationIdList != "")
 		{
 			this.query = `${this.query}&locationIdFilter=${this.locationIdList}`;
@@ -61,8 +61,9 @@ export class WorkshopsComponent {
 			this.query = `${this.query}&maxPrice=${this.maxPrice.toString()}`;
 		}
 		
-		this.workshopsListChildComp.getWorkshopsData(this.query);
-		console.log(this.query);
+		if(this.query) {
+			this.workshopsListChildComp.getWorkshopsData(this.query,1);
+		}
 	}
 
     setFromDate(fromDate: any)
