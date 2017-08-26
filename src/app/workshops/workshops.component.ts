@@ -62,7 +62,7 @@ export class WorkshopsComponent {
 		}
 		
 		if(this.query) {
-			this.workshopsListChildComp.getWorkshopsData(this.query,1);
+			this.workshopsListChildComp.getWorkshopsData(this.query, 8, 1);
 		}
 	}
 

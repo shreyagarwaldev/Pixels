@@ -65,11 +65,11 @@ export class WorkshopsListComponent {
         }
     }
 
-    getWorkshopsData(path: string, page: number) {
+    getWorkshopsData(path: string, itemsPerPage:number , page: number) {
         this.angulartics2.eventTrack.next({ action: 'GetWorkshopsEvent', properties: { category: 'WorkshopsListComponent' } });
         this.loading = true;
         this.queryPath = path;
-        this.asyncData = this.workshopRepository.getWorkshopOverview(path, page)
+        this.asyncData = this.workshopRepository.getWorkshopOverview(path, itemsPerPage, page)
             .do(res => {
                 this.total = res.total;
                 this.page = page;
