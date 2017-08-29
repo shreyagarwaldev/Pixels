@@ -14,8 +14,9 @@ export class WorkshopsComponent {
 	private categoryList:string;
 	private minPrice:number;
 	private maxPrice:number;
+    private hideFilter: boolean;
 
-    private hideFilter: boolean;	
+	private readonly workshopsPerPage: number = 8;	
 	
 	private globalConstants:GlobalConstantsRepository;
 	
@@ -40,7 +41,7 @@ export class WorkshopsComponent {
 	
 	updateUrl()
 	{
-		this.query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${this.startDate}&endDateFilter=${this.endDate}&pageNumber=1&numberOfResults=12`;
+		this.query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${this.startDate}&endDateFilter=${this.endDate}`;
 		if(this.locationIdList != null && this.locationIdList != "")
 		{
 			this.query = `${this.query}&locationIdFilter=${this.locationIdList}`;
@@ -61,8 +62,9 @@ export class WorkshopsComponent {
 			this.query = `${this.query}&maxPrice=${this.maxPrice.toString()}`;
 		}
 		
-		this.workshopsListChildComp.getWorkshopsData(this.query);
-		console.log(this.query);
+		if(this.query) {
+			this.workshopsListChildComp.getWorkshopsData(this.query, 1, this.workshopsPerPage);
+		}
 	}
 
     setFromDate(fromDate: any)

@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
 		var today = new Date();
 		let startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
 		let endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-		let query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${startDate}&endDateFilter=${endDate}&pageNumber=1&numberOfResults=4`;
-		this.workshopsListChildComp.getWorkshopsData(query);
+		let query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${startDate}&endDateFilter=${endDate}`;
+		this.workshopsListChildComp.getWorkshopsData(query, 1, 4);
   }
 
 }

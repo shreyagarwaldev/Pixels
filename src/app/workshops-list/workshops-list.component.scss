@@ -2,6 +2,23 @@
     text-align: center;
 }
 
+ .ws-pages /deep/ {
+     ul.ng2-pagination {
+         a {
+            text-decoration: none;
+            cursor: pointer;
+            color: #73656A;
+            &:hover {
+                border-radius: 20%;
+            }
+        }
+        li.current {
+            background: #73656A;
+            border-radius: 20%;
+        }
+    }
+}
+
 .entity {
     width: 30rem;
     display: inline-block;
@@ -27,6 +44,8 @@ h1.name {
     margin-top: 0;
     font-size: 2rem;
     color: #26181D;
+    font-family: 'HurmeGeometricSans3-Regular', Helvetica, Arial, sans-serif;
+    margin-left: 1rem;
 }
 
 .price {

@@ -28,6 +28,7 @@ import { PageRedirectComponent } from './page-redirect/page-redirect.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { DropdownComponent } from './dropdown-menu/dropdown-menu.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import {Ng2PaginationModule} from 'ng2-pagination';
 
 /**
  * Top-level NgModule "container"
@@ -62,7 +63,8 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
      */
     RouterModule.forRoot(routes),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    Angulartics2Module.forChild()
+    Angulartics2Module.forChild(),
+    Ng2PaginationModule
   ],
   providers: [WorkshopRepository, GlobalConstantsRepository]
 })

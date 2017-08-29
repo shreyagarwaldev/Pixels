@@ -29,6 +29,7 @@ import { DropdownComponent } from './dropdown-menu/dropdown-menu.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import {Ng2PaginationModule} from 'ng2-pagination';
 /**
  * Top-level NgModule "container"
  */
@@ -60,6 +61,7 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
     /**
      * using routes
      */
+    Ng2PaginationModule,
     RouterModule.forRoot(routes),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     Angulartics2Module.forChild()

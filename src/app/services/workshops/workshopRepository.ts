@@ -16,17 +16,22 @@ export interface ILocation {
 }
 
 export interface IWorkshopOverview {
-	workshopId:number,
-    workshopType:string,
-	numberOfWorkshops:number,
-	startDateFirst?:Date,
-	endDateFirst?:Date,
-	minCost?:number,
-	maxCost?:number,
-	costCurrency?:string,
-	name:string,
-	imageLink:string,
-	locationId:number,
+    workshopId: number,
+    workshopType: string,
+    numberOfWorkshops: number,
+    startDateFirst?: Date,
+    endDateFirst?: Date,
+    minCost?: number,
+    maxCost?: number,
+    costCurrency?: string,
+    name: string,
+    imageLink: string,
+    locationId: number,
+}
+
+export interface IWorkshopDto {
+    workshops: IWorkshopOverview[],
+    total: number
 }
 
 export interface IPhotographer {
@@ -49,17 +54,17 @@ export interface IMultiWorkshopDetails {
 export interface IWorkshopDetails {
     workshopId: number;
     name: string;
-    description:string;
-    itinerary:IItinerary[];
+    description: string;
+    itinerary: IItinerary[];
     addtionalInformation: string;
-	imageLink:string;
+    imageLink: string;
     link?: string;
     locationId: number;
     workshopType: string;
     multiWorkshopDetails: IMultiWorkshopDetails[];
-	minCost:number;
-	maxCost:number;
-	costCurrency:string;
+    minCost: number;
+    maxCost: number;
+    costCurrency: string;
 }
 
 export interface IItinerary {
@@ -73,66 +78,64 @@ export class WorkshopRepository {
 
     public globalConstants;
 
-    constructor(private http: Http, private globalConstantsRepository : GlobalConstantsRepository) {
+    constructor(private http: Http, private globalConstantsRepository: GlobalConstantsRepository) {
         this.globalConstants = globalConstantsRepository;
         this.getLocations();
         this.getWorkshopTypes();
     }
 
-    getWorkshopOverview(path: string) : Promise<IWorkshopOverview[]> {
-        return this.http.get(path)
-                        .toPromise()
-                        .then(response => {
-                            return response.json() as IWorkshopOverview[];
-                        });
+    getWorkshopOverview(path: string, page: number, itemsPerPage: number): Observable<IWorkshopDto> {
+        let query = `${path}&pageNumber=${page}&numberOfResults=${itemsPerPage}`;
+        return this.http.get(query)
+            .map(response => response.json());
     }
 
-    private getLocationsInternal() : Promise<ILocation[]> {
+    private getLocationsInternal(): Promise<ILocation[]> {
         return this.http.get(this.globalConstants.getLocationsUrl())
-                        .toPromise()
-                        .then(response => {
-                            return response.json() as ILocation[];
-                        });
+            .toPromise()
+            .then(response => {
+                return response.json() as ILocation[];
+            });
     }
 
-    getLocations() : Promise<ILocation[]> {
+    getLocations(): Promise<ILocation[]> {
         let loc = this.globalConstants.getLocations();
-        if(typeof loc == "undefined") {
+        if (typeof loc == "undefined") {
             loc = this.getLocationsInternal();
             loc.then(locations =>
-            this.globalConstants.setLocations(locations)
+                this.globalConstants.setLocations(locations)
             );
         }
 
         return loc;
     }
-	
-    private getWorkshopTypesInternal() : Promise<string[]> {
+
+    private getWorkshopTypesInternal(): Promise<string[]> {
         return this.http.get(this.globalConstants.getWorkshopTypesUrl())
-                        .toPromise()
-                        .then(response => {
-                            return response.json() as string[];
-                        });
+            .toPromise()
+            .then(response => {
+                return response.json() as string[];
+            });
     }
 
-    getWorkshopTypes() : Promise<ILocation[]> {
+    getWorkshopTypes(): Promise<ILocation[]> {
         let wTypes = this.globalConstants.getWorkshopTypes();
-        if(typeof wTypes == "undefined") {
+        if (typeof wTypes == "undefined") {
             wTypes = this.getWorkshopTypesInternal();
             wTypes.then(workshopTypes =>
-            this.globalConstants.setWorkshopTypes(workshopTypes)
+                this.globalConstants.setWorkshopTypes(workshopTypes)
             );
         }
 
         return wTypes;
     }
 
-    getWorkshopDetails(workshopId: string) : Promise<IWorkshopDetails> {
+    getWorkshopDetails(workshopId: string): Promise<IWorkshopDetails> {
         let url = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/WorkshopDetails?workshopId=${workshopId}`;
         return this.http.get(url)
-                    .toPromise()
-                    .then(response => {
-                        return <IWorkshopDetails> response.json();
-                    });
+            .toPromise()
+            .then(response => {
+                return <IWorkshopDetails>response.json();
+            });
     }
 }
