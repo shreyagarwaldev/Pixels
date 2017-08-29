@@ -21,7 +21,7 @@
             </div>
         </article>
     </div>
-    <div *ngIf="itemsPerPage > 4">
-        <pagination-controls (pageChange)="getWorkshopData(queryPath,$event)" id="server"></pagination-controls>
+    <div *ngIf="itemsPerPage > 4" class="ws-pages"> 
+        <pagination-controls (pageChange)="getWorkshopsData(queryPath,$event, itemsPerPage)" id="server"></pagination-controls>
     </div>
 </div>
