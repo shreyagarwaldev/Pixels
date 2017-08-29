@@ -53,10 +53,10 @@ export class WorkshopsListComponent {
         if (locationObject) {
             let location: string = "";
             if (locationObject.line1 != "Multiple" && locationObject.line1 != "N/A")
-                location += locationObject.line1 + ", ";
+                location += locationObject.line1;
             if (locationObject.line2 != "Multiple" && locationObject.line2 != "N/A")
-                location += locationObject.line2 + ", ";
-            location += locationObject.line3;
+                location += "," + locationObject.line2;
+            location += "," + locationObject.line3;
 
             return location;
         }
@@ -80,6 +80,7 @@ export class WorkshopsListComponent {
     }
 
     loadWorkshopDetails(workshopId: string, workshopName: string) {
+        workshopName = workshopName.replace(/ /g,"-");
         this.router.navigate(['/photography-workshop-details', workshopName, workshopId]);
     }
 }

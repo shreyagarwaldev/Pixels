@@ -65,11 +65,10 @@ div.tab {
 /* Style the tab content */
 
 .tabcontent {
-    display: none; // padding: 6px 12px;
-    // border: 1px solid #ccc;
+    display: none;
     border-top: none;
     text-align: left;
-    padding-left: 7rem;
+    padding-left: 2rem;
     height: 40rem;
     overflow: scroll;
     width: 100%;
@@ -78,8 +77,9 @@ div.tab {
 
 .detail-tabs {
     text-align: center;
-    width: 70%;
-    float:left;
+    width: 65%;
+    float: left;
+    margin-left: 4rem;
 }
 
 .day-wrapper,
@@ -125,10 +125,9 @@ div.tab {
     display: inline-block;
     margin-top: 10rem;
     padding-left: 5rem;
-    width:30%;
+    width: 30%;
     a {
-        color: #73656A;
-        // margin-left: 2rem;
+        color: #73656A; // margin-left: 2rem;
     }
     div {
         // display: inline;
