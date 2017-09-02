@@ -36,9 +36,13 @@
 
 @media (max-width: 955px) {
     .dropdown-container {
-        display: inline-block;
-        width: 30%;
-        margin-left: 1rem;
-        margin-right: 1rem;
+        display: block;
+        width: 100%;
+        button {
+            width:90%;
+            margin: auto;
+        }
+        //margin-left: 1rem;
+        //margin-right: 1rem;
     }
 }
