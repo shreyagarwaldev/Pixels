@@ -41,12 +41,13 @@
 }
 
 .get-list-btn {
+    display: none;
     width: 10rem;
     height: 3.7rem;
     border: none;
-    background-color: #73656A;;
+    background-color: #73656A;
+    ;
     color: white;
-    display: block;
     margin-top: 1.5rem;
 }
 
@@ -63,14 +64,15 @@
         display: block;
     }
     .price-filter {
-        margin-left: 0;
         input {
-            width: 30%;
-            margin-left: 1rem;
+            width: 50%;
+            display: block;
+            margin: 2rem auto;
         }
     }
     .get-list-btn {
         display: inline-block;
-        width:50%;
+        width: 50%;
+        margin-top: 2rem;
     }
 }
