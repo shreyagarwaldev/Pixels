@@ -84,8 +84,8 @@ export class WorkshopRepository {
         this.getWorkshopTypes();
     }
 
-    getWorkshopOverview(path: string, page: number = 1): Observable<IWorkshopDto> {
-        let query = `${path}&pageNumber=${page}`;
+    getWorkshopOverview(path: string, page: number, itemsPerPage: number): Observable<IWorkshopDto> {
+        let query = `${path}&pageNumber=${page}&numberOfResults=${itemsPerPage}`;
         return this.http.get(query)
             .map(response => response.json());
     }

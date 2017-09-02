@@ -45,6 +45,7 @@ export class WorkshopDetailsComponent {
         this.sub = this.route.params.subscribe(params => {
             workshopId = params['id'];
         });
+
         this.getWorkshopDetail(workshopId);
         this.initializeTabs();
     }
@@ -155,7 +156,7 @@ export class WorkshopDetailsComponent {
         this.previousActiveTab.showTab = true;
     }
 
-    openTabs(tabNumber: number) {  
+    openTabs(tabNumber: number) {
         this.previousActiveTab.showTab = false;
         this.tabs[tabNumber].showTab = true;
         this.previousActiveTab = this.tabs[tabNumber];

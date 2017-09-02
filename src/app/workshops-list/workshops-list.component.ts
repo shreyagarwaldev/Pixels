@@ -15,8 +15,8 @@ import 'rxjs/add/operator/map';
 
 export class WorkshopsListComponent {
 
-    @Input() queryPath: string;
-    @Input() itemsPerPage: number;
+    queryPath: string;
+    itemsPerPage: number;
 
     asyncData: Observable<IWorkshopOverview[]>;
     page: number = 1;
@@ -53,10 +53,10 @@ export class WorkshopsListComponent {
         if (locationObject) {
             let location: string = "";
             if (locationObject.line1 != "Multiple" && locationObject.line1 != "N/A")
-                location += locationObject.line1 + ", ";
+                location += locationObject.line1;
             if (locationObject.line2 != "Multiple" && locationObject.line2 != "N/A")
-                location += locationObject.line2 + ", ";
-            location += locationObject.line3;
+                location += "," + locationObject.line2;
+            location += "," + locationObject.line3;
 
             return location;
         }
@@ -65,11 +65,13 @@ export class WorkshopsListComponent {
         }
     }
 
-    getWorkshopsData(path: string, page: number) {
+
+    getWorkshopsData(path: string, page: number, wsPerPage: number) {
         this.angulartics2.eventTrack.next({ action: 'GetWorkshopsEvent', properties: { category: 'WorkshopsListComponent' } });
         this.loading = true;
         this.queryPath = path;
-        this.asyncData = this.workshopRepository.getWorkshopOverview(path, page)
+        this.itemsPerPage = wsPerPage;
+        this.asyncData = this.workshopRepository.getWorkshopOverview(path, page, wsPerPage)
             .do(res => {
                 this.total = res.total;
                 this.page = page;
@@ -79,6 +81,7 @@ export class WorkshopsListComponent {
     }
 
     loadWorkshopDetails(workshopId: string, workshopName: string) {
+        workshopName = workshopName.replace(/ /g,"-");
         this.router.navigate(['/photography-workshop-details', workshopName, workshopId]);
     }
 }
