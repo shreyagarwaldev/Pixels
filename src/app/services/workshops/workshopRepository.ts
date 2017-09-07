@@ -9,10 +9,8 @@ import 'rxjs/add/observable/empty';
 import { GlobalConstantsRepository } from '../shared/globalConstantsRepository'
 
 export interface ILocation {
-    locationId: number;
-    line1: string;
-    line2: string;
-    line3: string;
+    id: number;
+    name: string;
 }
 
 export interface IWorkshopOverview {

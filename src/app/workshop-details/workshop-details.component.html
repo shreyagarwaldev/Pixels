@@ -38,7 +38,7 @@
             <h3>Photographers</h3>
             <div class="photographer-information" *ngFor="let photographer of workshopDetails.photographers;">
                 <div class="profile-photo">
-                    <img class="profile-img" [src]="photographer.profilePhotoLink" alt="workshop image" />
+                    <img class="profile-img" [src]="this.workshopRepository.globalConstants.resolveImageUrl(photographer.profilePhotoLink)" alt="workshop image" />
                 </div>
                 <h4>
                     <span>{{photographer.firstName}}</span>
@@ -46,9 +46,7 @@
                 </h4>
                 <div class="detail-location">
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(photographer.locationId)?.line1}},</span>
-                    <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(photographer.locationId)?.line2}},</span>
-                    <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(photographer.locationId)?.line3}}</span>
+                    <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(photographer.locationId)?.name}}</span>
                 </div>
                 <div class="website-link">
                     <a href="{{photographer?.websiteLink}}" target="_blank"><i class="fa fa-external-link"></i> Website
@@ -68,9 +66,7 @@
         <div class="wsd-location">
             <h4 class="highlight-headings">Location</h4>
             <i class="fa fa-map-marker"></i>
-            <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(workshopDetails.locationId)?.line1}},</span>
-            <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(workshopDetails.locationId)?.line2}},</span>
-            <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(workshopDetails.locationId)?.line3}}</span>
+            <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(workshopDetails.locationId)?.name}}</span>
         </div>
         <div class="wsd-price">
             <h4 class="highlight-headings">Price Range</h4>

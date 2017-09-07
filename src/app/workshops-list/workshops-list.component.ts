@@ -51,14 +51,7 @@ export class WorkshopsListComponent {
     formatLocation(locationId) {
         let locationObject = this.workshopRepository.globalConstants.getLocationByLocationId(locationId);
         if (locationObject) {
-            let location: string = "";
-            if (locationObject.line1 != "Multiple" && locationObject.line1 != "N/A")
-                location += locationObject.line1;
-            if (locationObject.line2 != "Multiple" && locationObject.line2 != "N/A")
-                location += "," + locationObject.line2;
-            location += "," + locationObject.line3;
-
-            return location;
+            return locationObject.name;
         }
         else {
             return "TBD";

@@ -59,7 +59,7 @@ export class GlobalConstantsRepository
         this.locationMap = new Map();
         for (var i = 0; i < locations.length; i++) {
             var location = <ILocation>locations[i];
-            this.locationMap[location.locationId] = location;
+            this.locationMap[location.id] = location;
         }
 
         this.locations = locations;

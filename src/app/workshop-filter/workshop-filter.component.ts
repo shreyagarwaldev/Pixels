@@ -65,13 +65,7 @@ export class WorkshopFilterComponent {
       if(locations) {
         for (var i = 0; i < locations.length; i++) {
           var x = <ILocation>locations[i];
-          let labelLoc:string = "";
-          if(x.line1 != "Multiple" && x.line1 != "N/A")
-            labelLoc+=x.line1 + ", ";
-          if(x.line2 != "Multiple" && x.line2 != "N/A")
-            labelLoc+=x.line2 + ", ";
-          labelLoc+=x.line3;
-          this.cities.push({label:labelLoc, value:x.locationId});
+          this.cities.push({label:x.name, value:x.id});
         }
       }
     });
