@@ -1,6 +1,16 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { WorkshopRepository, IWorkshopDetails } from '../services/workshops/workshopRepository'
 import { ActivatedRoute } from '@angular/router';
+
+export interface IImageObject {
+    imageLink: string;
+    hideImage: boolean
+}
+
+interface ITabs {
+    label: string;
+    showTab: boolean;
+}
 
 @Component({
     templateUrl: './workshop-details.component.html',
@@ -9,14 +19,13 @@ import { ActivatedRoute } from '@angular/router';
 
 export class WorkshopDetailsComponent {
     workshopDetails: IWorkshopDetails;
-    tabs: any;
+    imagesLink: IImageObject[];
+    hideModal: boolean;
+    private slideIndex: number;
     private sub: any;
+    private tabs: ITabs[];
 
-    private previousActiveTab: {
-        content: HTMLElement,
-        link: HTMLElement
-    };
-
+    private previousActiveTab: ITabs;
     private tabcontent: HTMLCollectionOf<HTMLElement>;
     private tabLinks: HTMLCollectionOf<HTMLElement>;
 
@@ -25,24 +34,24 @@ export class WorkshopDetailsComponent {
         private elementRef: ElementRef,
         private route: ActivatedRoute) {
         this.workshopDetails = <any>{};
+        this.hideModal = true;
+        this.slideIndex = 1;
     }
 
     ngOnInit() {
+        this.hideModal = true;
+        this.getImgData();
         let workshopId: string;
-            this.sub = this.route.params.subscribe(params => {
-       workshopId = params['id']; // (+) converts string 'id' to a number
-
-       // In a real app: dispatch action to load the details here.
-    });
+        this.sub = this.route.params.subscribe(params => {
+            workshopId = params['id'];
+        });
         this.getWorkshopDetail(workshopId);
-        this.tabLinks = <HTMLCollectionOf<HTMLElement>>this.elementRef.nativeElement.querySelectorAll(".tablinks");
-        this.tabcontent = <HTMLCollectionOf<HTMLElement>>this.elementRef.nativeElement.querySelectorAll(".tabcontent");
         this.initializeTabs();
     }
 
-      ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
 
     getWorkshopDetail(workshopId: string) {
         this.workshopRepository.getWorkshopDetails(workshopId)
@@ -51,37 +60,104 @@ export class WorkshopDetailsComponent {
             });
     }
 
-    initializeTabs() {
-        var i;
-        
-        for (i = 0; i < this.tabcontent.length; i++) {
-            this.tabcontent[i].style.display = "none";
-        }
-        for (i = 0; i < this.tabLinks.length; i++) {
-            this.tabLinks[i].classList.remove("active");
-        }
-        this.previousActiveTab = {
-            content: this.tabcontent[0],
-            link: this.tabLinks[0]
-        }
-        this.openTabs(null, 0);
+    closeModal() {
+        this.hideModal = true;
     }
 
-    openTabs(evt: any, tabName: number) {
-        if (evt !== null && this.previousActiveTab.content === this.tabcontent[tabName]) {
-            return;
-        }
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        this.tabcontent[tabName].style.display = "block";
-        this.tabLinks[tabName].classList.add("active");
-        if (evt !== null) {
-            this.previousActiveTab.content.style.display = "none";
-            this.previousActiveTab.link.classList.remove("active");
-        }
+    openModal(index: number) {
+        this.hideModal = false;
+        this.currentSlide(index);
+    }
 
-        this.previousActiveTab = {
-            content: this.tabcontent[tabName],
-            link: this.tabLinks[tabName]
+    plusSlides(n) {
+        this.showSlides(this.slideIndex += n);
+    }
+
+    currentSlide(n) {
+        this.showSlides(this.slideIndex = n);
+    }
+
+    showSlides(n) {
+        const totalImages = this.imagesLink.length;
+        if (n > totalImages) { this.slideIndex = 1 }
+        if (n < 1) { this.slideIndex = totalImages - 1 }
+        for (let i = 0; i < totalImages; i++) {
+            this.imagesLink[i].hideImage = true;
         }
+        this.imagesLink[this.slideIndex - 1].hideImage = false;
+    }
+
+
+    getImgData() {
+        this.imagesLink = [{
+            imageLink: "assets/img/workshops/RickHulbert/hdr.jpg",
+            hideImage: true
+        },
+        {
+            imageLink: "assets/img/workshops/TimVollmer/peru.jpg",
+            hideImage: true
+        },
+        {
+            imageLink: "assets/img/workshops/RickHulbert/urban.jpg",
+            hideImage: true
+        },
+        {
+            imageLink: "assets/img/workshops/CraigMc/tetons.jpg",
+            hideImage: true
+        },
+        {
+            imageLink: "assets/img/workshops/KathleenReeder/OOA.jpg",
+            hideImage: true
+        },
+        {
+            imageLink: "assets/img/workshops/RickHulbert/chicago.jpg",
+            hideImage: true
+        }]
+    }
+
+    formatDate(date) {
+        var monthNames = [
+            "Jan", "Feb", "Mar",
+            "Apr", "May", "Jun", "Jul",
+            "Aug", "Sep", "Oct",
+            "Nov", "Dec"
+        ];
+        var dateVal = new Date(date);
+        var day = dateVal.getDate();
+        var monthIndex = dateVal.getMonth();
+        var year = dateVal.getFullYear();
+
+        return `${monthNames[monthIndex]} ${day} ${year}`;
+    }
+
+
+    initializeTabs() {
+        this.tabs = [
+            {
+                label: "Description",
+                showTab: false
+            },
+            {
+                label: "Itinerary",
+                showTab: false
+            },
+            {
+                label: "Gallery",
+                showTab: false
+            },
+            {
+                label: "Photographers",
+                showTab: false
+            }
+        ]
+
+        this.previousActiveTab = this.tabs[0];
+        this.previousActiveTab.showTab = true;
+    }
+
+    openTabs(tabNumber: number) {  
+        this.previousActiveTab.showTab = false;
+        this.tabs[tabNumber].showTab = true;
+        this.previousActiveTab = this.tabs[tabNumber];
     }
 }
