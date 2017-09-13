@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
 import { WorkshopRepository } from '../services/workshops/workshopRepository'
 
 @Component({
@@ -13,6 +13,8 @@ export class AutocompleteComponent {
     public filteredList = [];
     public elementRef;
  
+    @Output() selectionChanged = new EventEmitter();
+    
     constructor(myElement: ElementRef, workshopRepo: WorkshopRepository) {
         this.elementRef = myElement;
         let locations = workshopRepo.getLocations().then(loc =>
@@ -35,6 +37,7 @@ export class AutocompleteComponent {
      
     select(item){
         this.query = item;
+        this.selectionChanged.emit(item);
         this.filteredList = [];
     }
 

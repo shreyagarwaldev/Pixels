@@ -14,6 +14,7 @@ export class GlobalConstantsRepository
     private workshopTypes:string[];
     private photographers:IPhotographer[];
     private locationMap:any;
+    private locationMapName:any;
 
     constructor()
     {
@@ -57,9 +58,11 @@ export class GlobalConstantsRepository
     public setLocations(locations:ILocation[])
     {
         this.locationMap = new Map();
+        this.locationMapName = new Map();
         for (var i = 0; i < locations.length; i++) {
             var location = <ILocation>locations[i];
             this.locationMap[location.id] = location;
+            this.locationMapName[location.name] = location;
         }
 
         this.locations = locations;
@@ -72,6 +75,16 @@ export class GlobalConstantsRepository
         }
         else{
             return this.locationMap[value];
+        }
+    }
+
+    public getLocationByLocationName(value:any) : ILocation
+    {
+        if(typeof this.locationMap == "undefined" || this.locationMap == null){
+            return null;
+        }
+        else{
+            return this.locationMapName[value];
         }
     }
 

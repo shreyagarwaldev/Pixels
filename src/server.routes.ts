@@ -10,5 +10,5 @@
  * ];
  **/
 export const routes: string[] = [
-'home', 'workshops','photography-workshop-details/:title/:id','contact','page-redirect/:externalUrl'
+'home', 'workshops','about', '404', '**','photography-workshop-details/:title/:id','contact','page-redirect/:externalUrl'
 ];

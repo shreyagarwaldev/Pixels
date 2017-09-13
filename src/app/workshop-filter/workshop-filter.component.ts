@@ -119,22 +119,10 @@ export class WorkshopFilterComponent {
     return selected;
   }
   
-  updateLocationList(value: any)
+  updateLocation(value: any)
   {
     this.angulartics2.eventTrack.next({ action: 'LocationFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-	
-    let locations = this.getSelectedFilters('location');
-    let locationIdList = "";
-    let first = true;
-    for(let location of locations)
-    {
-        if(!first)
-            locationIdList = locationIdList + ",";
-        first=false;
-        locationIdList = locationIdList+location;
-    }
-	  
-    this.locationFilterChanged.emit(locationIdList);
+	this.locationFilterChanged.emit(this.workshopRepository.globalConstants.getLocationByLocationName(value).id);
   }
   
   updateCategoryList(value: any)

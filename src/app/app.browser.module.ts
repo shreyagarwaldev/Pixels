@@ -28,6 +28,8 @@ import { PageRedirectComponent } from './page-redirect/page-redirect.component';
 import { DropdownComponent } from './dropdown-menu/dropdown-menu.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component'
+import { AboutComponent } from './about/about.component'
+import { ErrorComponent } from './error/error.component'
 
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import {Ng2PaginationModule} from 'ng2-pagination';
@@ -50,7 +52,9 @@ import {Ng2PaginationModule} from 'ng2-pagination';
     ContactUsComponent,
     WorkshopDetailsComponent,
     PageRedirectComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    AboutComponent,
+    ErrorComponent
 	],
   imports: [
     /**

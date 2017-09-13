@@ -61,7 +61,7 @@ export class WorkshopsComponent {
 		{
 			this.query = `${this.query}&maxPrice=${this.maxPrice.toString()}`;
 		}
-		
+        
 		if(this.query) {
 			this.workshopsListChildComp.getWorkshopsData(this.query, 1, this.workshopsPerPage);
 		}

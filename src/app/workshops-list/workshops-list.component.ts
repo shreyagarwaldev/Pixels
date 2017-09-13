@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { WorkshopRepository, IWorkshopOverview } from '../services/workshops/workshopRepository'
 import { Router } from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
@@ -10,7 +10,6 @@ import 'rxjs/add/operator/map';
     selector: 'workshops-list',
     templateUrl: './workshops-list.component.html',
     styleUrls: ['./workshops-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class WorkshopsListComponent {
@@ -24,10 +23,12 @@ export class WorkshopsListComponent {
     loading: boolean;
     workshops: IWorkshopOverview[];
     private angulartics2: any;
+    private cdRef:any;
 
-    constructor(angulartics2: Angulartics2, private workshopRepository: WorkshopRepository, private router: Router) {
+    constructor(angulartics2: Angulartics2, private workshopRepository: WorkshopRepository, private router: Router, cdRef: ChangeDetectorRef) {
         this.angulartics2 = angulartics2;
         this.workshops = [];
+        this.cdRef = cdRef;
     }
 
     ngOnInit() {
@@ -70,6 +71,8 @@ export class WorkshopsListComponent {
                 this.loading = false;
             })
             .map(res => res.workshops);
+
+            this.cdRef.detectChanges();
     }
 
     loadWorkshopDetails(workshopId: string, workshopName: string) {
