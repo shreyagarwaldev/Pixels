@@ -13,8 +13,8 @@ export class GlobalConstantsRepository
     private locations:ILocation[];
     private workshopTypes:string[];
     private photographers:IPhotographer[];
-    private locationMap:any;
-    private locationMapName:any;
+    private locationMap: {[key: number]: ILocation} = {};
+    private locationMapName:{[key: string]: ILocation} = {};
 
     constructor()
     {
@@ -57,8 +57,6 @@ export class GlobalConstantsRepository
 
     public setLocations(locations:ILocation[])
     {
-        this.locationMap = new Map();
-        this.locationMapName = new Map();
         for (var i = 0; i < locations.length; i++) {
             var location = <ILocation>locations[i];
             this.locationMap[location.id] = location;
@@ -68,9 +66,9 @@ export class GlobalConstantsRepository
         this.locations = locations;
     }
 
-    public getLocationByLocationId(value:any) : ILocation
+    public getLocationByLocationId(value:number) : ILocation
     {
-        if(typeof this.locationMap == "undefined" || this.locationMap == null){
+        if(!this.locationMap){
             return null;
         }
         else{
@@ -78,9 +76,9 @@ export class GlobalConstantsRepository
         }
     }
 
-    public getLocationByLocationName(value:any) : ILocation
+    public getLocationByLocationName(value:string) : ILocation
     {
-        if(typeof this.locationMap == "undefined" || this.locationMap == null){
+        if(!this.locationMapName) {
             return null;
         }
         else{

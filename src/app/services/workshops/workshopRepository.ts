@@ -96,7 +96,7 @@ export class WorkshopRepository {
             });
     }
 
-    getLocations(): Promise<ILocation[]> {
+    getLocations(): ILocation[] {
         let loc = this.globalConstants.getLocations();
         if (typeof loc == "undefined") {
             loc = this.getLocationsInternal();
@@ -116,7 +116,7 @@ export class WorkshopRepository {
             });
     }
 
-    getWorkshopTypes(): Promise<ILocation[]> {
+    getWorkshopTypes(): ILocation[] {
         let wTypes = this.globalConstants.getWorkshopTypes();
         if (typeof wTypes == "undefined") {
             wTypes = this.getWorkshopTypesInternal();

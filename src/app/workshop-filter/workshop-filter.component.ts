@@ -1,4 +1,4 @@
-import { Component, Renderer, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Renderer, Output, EventEmitter } from '@angular/core';
 import { WorkshopRepository, ILocation, IPhotographer } from '../services/workshops/workshopRepository'
 import { Angulartics2 } from 'angulartics2';
 import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
@@ -42,45 +42,36 @@ export class WorkshopFilterComponent {
 
   private globalConstants:GlobalConstantsRepository;
 
+  private workshopRepo : WorkshopRepository;
+
   constructor(private workshopRepository: WorkshopRepository, private a: Angulartics2, private globalConstantsRepository:GlobalConstantsRepository) {
     this.angulartics2 = a;
     this.globalConstants = globalConstantsRepository;
-
-    this.updateLocations();
-    this.updateCategories();
 
     this.cityDropdownLabel = "Location";
     this.photographerDropdownLabel = "Photographer";
     this.categoryDropdownLabel = "Category";
     this.fromDateLabel = "From";
     this.toDateLabel = "To";
+    this.workshopRepo = workshopRepository;
 
     this.minFromDate = new Date();
   }
 
-  updateLocations()
+  ngOnInit()
   {
-    this.cities = [];
-    this.workshopRepository.getLocations().then(locations => { 
-      if(locations) {
-        for (var i = 0; i < locations.length; i++) {
-          var x = <ILocation>locations[i];
-          this.cities.push({label:x.name, value:x.id});
-        }
-      }
-    });
+      this.updateCategories();
   }
 
   updateCategories()
   {
     this.categories = [];
-    this.workshopRepository.getWorkshopTypes().then(wTypes => { 
-      if(wTypes) {
-        for (var i = 0; i < wTypes.length; i++) {
-          this.categories.push({label:wTypes[i], value:wTypes[i]});
-        }
-      }
-    });
+    let wTypes = this.workshopRepo.getWorkshopTypes();
+    if(wTypes) {
+    for (var i = 0; i < wTypes.length; i++) {
+        this.categories.push({label:wTypes[i], value:wTypes[i]});
+    }
+    }
   }
 
   getFromDate(value: Date) {
@@ -122,7 +113,15 @@ export class WorkshopFilterComponent {
   updateLocation(value: any)
   {
     this.angulartics2.eventTrack.next({ action: 'LocationFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-	this.locationFilterChanged.emit(this.workshopRepository.globalConstants.getLocationByLocationName(value).id);
+    let loc = this.workshopRepository.globalConstants.getLocationByLocationName(value);
+    if(!loc)
+    {
+        this.locationFilterChanged.emit(null);
+    }
+    else
+    {
+        this.locationFilterChanged.emit(loc.id);
+    }
   }
   
   updateCategoryList(value: any)

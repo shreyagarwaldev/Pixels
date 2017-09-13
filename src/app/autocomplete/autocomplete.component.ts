@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ElementRef, EventEmitter, Output } from '@angular/core';
 import { WorkshopRepository } from '../services/workshops/workshopRepository'
 
 @Component({
@@ -12,17 +12,21 @@ export class AutocompleteComponent {
     public countries = [];
     public filteredList = [];
     public elementRef;
+    private workshopRepository : WorkshopRepository;
  
     @Output() selectionChanged = new EventEmitter();
     
     constructor(myElement: ElementRef, workshopRepo: WorkshopRepository) {
         this.elementRef = myElement;
-        let locations = workshopRepo.getLocations().then(loc =>
-            {
-                for (var i = 0; i < loc.length; i++) {
-                    this.countries.push(loc[i].name);
-                }
-            });
+        this.workshopRepository = workshopRepo;
+    }
+
+    ngOnInit()
+    {
+        let loc = this.workshopRepository.getLocations();
+        for (var i = 0; i < loc.length; i++) {
+            this.countries.push(loc[i].name);
+        }
     }
 
     filter() {
@@ -37,7 +41,6 @@ export class AutocompleteComponent {
      
     select(item){
         this.query = item;
-        this.selectionChanged.emit(item);
         this.filteredList = [];
     }
 
@@ -52,6 +55,7 @@ export class AutocompleteComponent {
         } while (clickedComponent);
          if(!inside){
              this.filteredList = [];
+             this.selectionChanged.emit(this.query);
          }
      }
 }

@@ -69,19 +69,24 @@ export class WorkshopsComponent {
 
     setFromDate(fromDate: any)
 	{
+        let previousStartDate = this.startDate;
         this.startDate = `${fromDate.year}/${fromDate.month}/${fromDate.day}`;
 		if(this.startDate == "0/0/0")
 		{
 			var today = new Date();
 			this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
 		}
-		
-		this.updateUrl();
-		console.log(this.startDate);
+        
+        if(previousStartDate !== this.startDate)
+        {
+		    this.updateUrl();
+            console.log(this.startDate);
+        }
     }
 	
 	setToDate(toDate: any)
 	{
+        let previousEndDate = this.endDate;
         this.endDate = `${toDate.year}/${toDate.month}/${toDate.day}`;
 		if(this.endDate == "0/0/0")
 		{
@@ -89,35 +94,50 @@ export class WorkshopsComponent {
 			this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
 		}
 
-		this.updateUrl();
-		console.log(this.endDate);
+        if(previousEndDate != this.endDate)
+        {
+		    this.updateUrl();
+            console.log(this.endDate);
+        }
     }
 	
 	setLocationIdList(locationIdList: any)
 	{
-		this.locationIdList = locationIdList;
-		this.updateUrl();
-		console.log(this.locationIdList);
+        if(locationIdList != this.locationIdList)
+        {
+		    this.locationIdList = locationIdList;
+		    this.updateUrl();
+            console.log(this.locationIdList);
+        }
 	}
 	
 	setCategoryList(categoryList: any)
 	{
-		this.categoryList = categoryList;
-		this.updateUrl();
-		console.log(categoryList);
+        if(categoryList != this.categoryList)
+        {
+		    this.categoryList = categoryList;
+		    this.updateUrl();
+            console.log(categoryList);
+        }
 	}
 	
 	setMinPrice(minPrice: number)
 	{
-		this.minPrice = minPrice;
-		this.updateUrl();
-		console.log(minPrice);
+        if(this.minPrice != minPrice)
+        {
+		    this.minPrice = minPrice;
+		    this.updateUrl();
+            console.log(minPrice);
+        }
 	}
 	
 	setMaxPrice(maxPrice: number)
 	{
-		this.maxPrice = maxPrice;
-		this.updateUrl();
-		console.log(maxPrice);
+        if(this.maxPrice != maxPrice)
+        {
+		    this.maxPrice = maxPrice;
+		    this.updateUrl();
+            console.log(maxPrice);
+        }
 	}
 }
