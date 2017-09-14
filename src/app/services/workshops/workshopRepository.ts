@@ -9,10 +9,8 @@ import 'rxjs/add/observable/empty';
 import { GlobalConstantsRepository } from '../shared/globalConstantsRepository'
 
 export interface ILocation {
-    locationId: number;
-    line1: string;
-    line2: string;
-    line3: string;
+    id: number;
+    name: string;
 }
 
 export interface IWorkshopOverview {
@@ -98,7 +96,7 @@ export class WorkshopRepository {
             });
     }
 
-    getLocations(): Promise<ILocation[]> {
+    getLocations(): ILocation[] {
         let loc = this.globalConstants.getLocations();
         if (typeof loc == "undefined") {
             loc = this.getLocationsInternal();
@@ -118,7 +116,7 @@ export class WorkshopRepository {
             });
     }
 
-    getWorkshopTypes(): Promise<ILocation[]> {
+    getWorkshopTypes(): ILocation[] {
         let wTypes = this.globalConstants.getWorkshopTypes();
         if (typeof wTypes == "undefined") {
             wTypes = this.getWorkshopTypesInternal();

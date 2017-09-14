@@ -1,4 +1,4 @@
-import { Component, Renderer, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Renderer, Output, EventEmitter } from '@angular/core';
 import { WorkshopRepository, ILocation, IPhotographer } from '../services/workshops/workshopRepository'
 import { Angulartics2 } from 'angulartics2';
 import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
@@ -42,51 +42,36 @@ export class WorkshopFilterComponent {
 
   private globalConstants:GlobalConstantsRepository;
 
+  private workshopRepo : WorkshopRepository;
+
   constructor(private workshopRepository: WorkshopRepository, private a: Angulartics2, private globalConstantsRepository:GlobalConstantsRepository) {
     this.angulartics2 = a;
     this.globalConstants = globalConstantsRepository;
-
-    this.updateLocations();
-    this.updateCategories();
 
     this.cityDropdownLabel = "Location";
     this.photographerDropdownLabel = "Photographer";
     this.categoryDropdownLabel = "Category";
     this.fromDateLabel = "From";
     this.toDateLabel = "To";
+    this.workshopRepo = workshopRepository;
 
     this.minFromDate = new Date();
   }
 
-  updateLocations()
+  ngOnInit()
   {
-    this.cities = [];
-    this.workshopRepository.getLocations().then(locations => { 
-      if(locations) {
-        for (var i = 0; i < locations.length; i++) {
-          var x = <ILocation>locations[i];
-          let labelLoc:string = "";
-          if(x.line1 != "Multiple" && x.line1 != "N/A")
-            labelLoc+=x.line1 + ", ";
-          if(x.line2 != "Multiple" && x.line2 != "N/A")
-            labelLoc+=x.line2 + ", ";
-          labelLoc+=x.line3;
-          this.cities.push({label:labelLoc, value:x.locationId});
-        }
-      }
-    });
+      this.updateCategories();
   }
 
   updateCategories()
   {
     this.categories = [];
-    this.workshopRepository.getWorkshopTypes().then(wTypes => { 
-      if(wTypes) {
-        for (var i = 0; i < wTypes.length; i++) {
-          this.categories.push({label:wTypes[i], value:wTypes[i]});
-        }
-      }
-    });
+    let wTypes = this.workshopRepo.getWorkshopTypes();
+    if(wTypes) {
+    for (var i = 0; i < wTypes.length; i++) {
+        this.categories.push({label:wTypes[i], value:wTypes[i]});
+    }
+    }
   }
 
   getFromDate(value: Date) {
@@ -125,22 +110,18 @@ export class WorkshopFilterComponent {
     return selected;
   }
   
-  updateLocationList(value: any)
+  updateLocation(value: any)
   {
     this.angulartics2.eventTrack.next({ action: 'LocationFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-	
-    let locations = this.getSelectedFilters('location');
-    let locationIdList = "";
-    let first = true;
-    for(let location of locations)
+    let loc = this.workshopRepository.globalConstants.getLocationByLocationName(value);
+    if(!loc)
     {
-        if(!first)
-            locationIdList = locationIdList + ",";
-        first=false;
-        locationIdList = locationIdList+location;
+        this.locationFilterChanged.emit(null);
     }
-	  
-    this.locationFilterChanged.emit(locationIdList);
+    else
+    {
+        this.locationFilterChanged.emit(loc.id);
+    }
   }
   
   updateCategoryList(value: any)

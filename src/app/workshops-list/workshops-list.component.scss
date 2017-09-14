@@ -2,9 +2,9 @@
     text-align: center;
 }
 
-.ws-pages /deep/ {
-    ul.ng2-pagination {
-        a {
+ .ws-pages /deep/ {
+     ul.ng2-pagination {
+         a {
             text-decoration: none;
             cursor: pointer;
             color: #73656A;
@@ -86,17 +86,12 @@ hr {
 }
 
 @media (max-width: 955px) {
-    .entity {
-        width: auto;
-        display: block;
-        .image {
-            height: 20rem;
-            margin-bottom: 1rem;
-            width: 100%;
-        }
+    .entity .image {
+        height: 15rem;
+        margin-bottom: 1rem;
+        width: 22.5rem;
     }
     h1.name {
         font-size: 1.8rem;
-        margin: auto;
     }
 }
