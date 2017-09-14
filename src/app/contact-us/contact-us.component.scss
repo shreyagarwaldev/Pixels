@@ -67,6 +67,32 @@
     }
 }
 
+.message-dialog {
+    height: 20%;
+    width: 30%;
+    background: #26181D;
+    position: absolute;
+    top: 45%;
+    left: 35%;
+    color: white;
+    box-shadow: 0 0 0.7px grey;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    .wrapper {
+        position: relative;
+        top: 30%;
+        .text {
+            display: block;
+            padding: 1rem;
+        }
+        .ok-btn {
+            background: #73656A;
+            color: white;
+            width: 30%;
+        }
+    }
+}
+
 #message {
     height: 20rem;
     font-size: 1.8rem;
@@ -92,5 +118,21 @@
         background-color: #eee;
         color: #aaa;
         cursor: auto;
+    }
+}
+
+@media (max-width: 955px) {
+    .form-wrapper {
+        width: 100%;
+    }
+    .form-group {
+        width: 100%;
+    }
+    .name-group,
+    .subject-box,
+    .message-box,
+    .mail-number-group {
+        width: 90%;
+        margin: 2rem;
     }
 }

@@ -4,7 +4,7 @@
     <div class="static-info">
         <div>
             <i class="fa fa-envelope" aria-hidden="true"></i>
-            <span>hello@pixelatedplanet.com</span>
+            <span>hello@thepixelatedplanet.com</span>
         </div>
         <div>
             <i class="fa fa-phone-square" aria-hidden="true"></i>
@@ -12,39 +12,45 @@
         </div>
     </div>
     <div class="form-wrapper">
-        <form (ngSubmit)="onSubmit()" name="contact-form" #contactForm="ngForm">
+        <form (ngSubmit)="onSubmit(); contactForm.reset()" name="contact-form" #contactForm="ngForm">
             <div class="name-group">
                 <div class="form-group first-name">
                     <input type="text" class="form-control" id="fname" required [(ngModel)]="fname" name="fname" #firstname="ngModel" placeholder="Full name">
-                    <div [hidden]="firstname.valid || firstname.pristine" class="alert alert-danger">
-                        Name is required
+                    <div *ngIf="!(firstname.valid || firstname.pristine)" class="alert alert-danger">
+                        Invalid name
                     </div>
                 </div>
             </div>
             <div class="mail-number-group">
                 <div class="form-group">
-                    <input type="email" class="form-control" id="email" required [(ngModel)]="emailId" name="email" #email="ngModel" placeholder="Email address">
-                    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-                        Email address is required
+                    <input type="text" class="form-control" id="email" required [(ngModel)]="emailId" name="email" #email="ngModel" placeholder="Email address">
+                    <div *ngIf="!(email.valid || email.pristine)" class="alert alert-danger">
+                        Invalid email address
                     </div>
                 </div>
             </div>
             <div class="form-group subject-box">
                 <input type="text" class="form-control" id="subject" required [(ngModel)]="subjectText" name="subject" #subject="ngModel"
                     placeholder="Subject">
-                <div [hidden]="subject.valid || subject.pristine" class="alert alert-danger">
-                    Subject is required
+                <div *ngIf="!(subject.valid || subject.pristine)" class="alert alert-danger">
+                    Invalid subject
                 </div>
             </div>
             <div class="form-group message-box">
                 <textarea class="form-control" id="message" required rows="4" cols="50" name="message" form="contact-form" [(ngModel)]="messageText"
                     #message="ngModel" placeholder="How can we help you?"></textarea>
-                <!--<input type="text" class="form-control" id="message" required [(ngModel)]="messageText" name="message" #message="ngModel">-->
-                <div [hidden]="message.valid || message.pristine" class="alert alert-danger">
-                    Message is required
+                <div *ngIf="!(message.valid || message.pristine)" class="alert alert-danger">
+                    Invalid message
                 </div>
             </div>
+            <button type="submit" class="submit-btn btn btn-success" [disabled]="!contactForm.form.valid || invalidDetails">Submit</button>
         </form>
-                    <button type="submit" class="submit-btn btn btn-success" [disabled]="!contactForm.form.valid">Submit</button>
+    </div>
+
+    <div class="message-dialog" *ngIf="submitted && showMessageBox">
+        <div class="wrapper">
+            <div class="text">{{submitMessage}}</div>
+            <button class="ok-btn btn" (click)="hideMessagebox()">ok</button>
+        </div>
     </div>
 </div>
