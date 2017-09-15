@@ -47,31 +47,30 @@ export class WorkshopFilterComponent {
   constructor(private workshopRepository: WorkshopRepository, private a: Angulartics2, private globalConstantsRepository:GlobalConstantsRepository) {
     this.angulartics2 = a;
     this.globalConstants = globalConstantsRepository;
-
+    this.workshopRepo = workshopRepository;
+    
+    this.updateCategories();
+    
     this.cityDropdownLabel = "Location";
     this.photographerDropdownLabel = "Photographer";
     this.categoryDropdownLabel = "Category";
     this.fromDateLabel = "From";
     this.toDateLabel = "To";
-    this.workshopRepo = workshopRepository;
 
     this.minFromDate = new Date();
-  }
-
-  ngOnInit()
-  {
-      this.updateCategories();
   }
 
   updateCategories()
   {
     this.categories = [];
-    let wTypes = this.workshopRepo.getWorkshopTypes();
-    if(wTypes) {
-    for (var i = 0; i < wTypes.length; i++) {
-        this.categories.push({label:wTypes[i], value:wTypes[i]});
-    }
-    }
+    this.workshopRepo.getWorkshopTypes().then(wTypes =>
+        {
+            if(wTypes) {
+                for (var i = 0; i < wTypes.length; i++) {
+                    this.categories.push({label:wTypes[i], value:wTypes[i]});
+                }
+            }
+    });
   }
 
   getFromDate(value: Date) {

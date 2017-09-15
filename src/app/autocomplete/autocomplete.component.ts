@@ -23,10 +23,11 @@ export class AutocompleteComponent {
 
     ngOnInit()
     {
-        let loc = this.workshopRepository.getLocations();
-        for (var i = 0; i < loc.length; i++) {
-            this.countries.push(loc[i].name);
-        }
+        let loc = this.workshopRepository.getLocations().then(loc => {
+            for (var i = 0; i < loc.length; i++) {
+                this.countries.push(loc[i].name);
+            }
+        });
     }
 
     filter() {

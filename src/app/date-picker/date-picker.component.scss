@@ -39,14 +39,13 @@
 }
 
 @media (max-width: 955px) {
+    .from-date,
+    .to-date {
+    position: relative;
+    display: inline-block;
+    }
     .date-picker-container {
-        margin-bottom: 2.4rem;
-        display: inline-block;
-        .from-date,
-        .to-date {
-            position: relative;
-            display: inline-block;
-            width: 70%;
-        }
+        margin-top: 1.4rem;
+        display: inline-block;    
     }
 }

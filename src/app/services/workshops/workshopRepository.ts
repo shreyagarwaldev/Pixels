@@ -96,16 +96,22 @@ export class WorkshopRepository {
             });
     }
 
-    getLocations(): ILocation[] {
-        let loc = this.globalConstants.getLocations();
-        if (typeof loc == "undefined") {
-            loc = this.getLocationsInternal();
-            loc.then(locations =>
-                this.globalConstants.setLocations(locations)
+    getLocations(): Promise<ILocation[]> {
+        let data = this.globalConstants.getLocations();
+        if(data){
+            return new Promise(function(resolve, reject) {
+                resolve(data);
+            });
+        }
+        else
+        {
+            return this.getLocationsInternal().then(locations =>
+                {
+                this.globalConstants.setLocations(locations);
+                return locations;
+                }
             );
         }
-
-        return loc;
     }
 
     private getWorkshopTypesInternal(): Promise<string[]> {
@@ -116,16 +122,23 @@ export class WorkshopRepository {
             });
     }
 
-    getWorkshopTypes(): ILocation[] {
-        let wTypes = this.globalConstants.getWorkshopTypes();
-        if (typeof wTypes == "undefined") {
-            wTypes = this.getWorkshopTypesInternal();
-            wTypes.then(workshopTypes =>
-                this.globalConstants.setWorkshopTypes(workshopTypes)
-            );
+    getWorkshopTypes(): Promise<string[]> {
+        let data = this.globalConstants.getWorkshopTypes();
+        if(data) {
+            return new Promise( function(resolve, reject) {
+                resolve(data);
+            });
         }
+        else {
+            let wTypes = this.getWorkshopTypesInternal().then(workshopTypes =>
+                {
+                this.globalConstants.setWorkshopTypes(workshopTypes);
+                return workshopTypes;
+                }
+            );
 
-        return wTypes;
+            return wTypes;
+        }
     }
 
     getWorkshopDetails(workshopId: string): Promise<IWorkshopDetails> {

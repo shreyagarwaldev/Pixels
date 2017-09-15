@@ -65,6 +65,7 @@ div.tab {
 /* Style the tab content */
 
 .tabcontent {
+    display: none;
     border-top: none;
     text-align: left;
     padding-left: 2rem;
@@ -79,10 +80,6 @@ div.tab {
     width: 65%;
     float: left;
     margin-left: 4rem;
-}
-
-.details-container {
-    padding-bottom: 5rem;
 }
 
 .day-wrapper,
@@ -105,17 +102,14 @@ div.tab {
     }
 }
 
-#Gallery {
-    text-align: center;
-    img {
-        display: inline-block;
-        vertical-align: middle;
-        width: 35rem;
-        height: 28rem;
-        margin: 2rem;
-        object-fit: cover;
-        filter: sepia(20%);
-    }
+#Gallery img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 25rem;
+    height: 28rem;
+    margin: 2rem;
+    object-fit: cover;
+    filter: sepia(20%);
 }
 
 .wsd-name {
@@ -127,11 +121,11 @@ div.tab {
 }
 
 .highlights {
-    position: absolute;
+    margin-top: 3rem; // text-align: center;
     display: inline-block;
     margin-top: 10rem;
     padding-left: 5rem;
-    width: 25%;
+    width: 30%;
     a {
         color: #73656A;
     }
@@ -141,6 +135,7 @@ div.tab {
         color: #73656A;
         i {
             color: #73656A;
+            padding-left: 1rem;
         }
     }
 }
