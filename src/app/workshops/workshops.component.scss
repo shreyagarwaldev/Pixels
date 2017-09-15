@@ -31,9 +31,9 @@
 
 @media (max-width: 955px) {
     .filters {
-        position: absolute;
-        background-color: #15424E;
-        height: auto;
+        position: fixed;
+        background-color: #26181D;
+        height: 100%;
         width: 100%;
         top:5rem;
         padding-bottom: 2rem;

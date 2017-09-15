@@ -1,0 +1,16 @@
+.footer {
+    text-align: center;
+    padding: 2% 0;
+    background-color: #26181D;
+    width: 100%;
+    margin-top: 5%;
+    span,
+    a {
+        color: white;
+        padding: 0 1%;
+    }
+    a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+}

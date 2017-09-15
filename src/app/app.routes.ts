@@ -4,9 +4,11 @@ import { HomeComponent }  from './home/home.component';
 import { AboutComponent }  from './about/about.component';
 import { ErrorComponent }  from './error/error.component';
 import { WorkshopsComponent } from './workshops/workshops.component';
-import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component'
-import { ContactUsComponent } from './contact-us/contact-us.component'
+import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PageRedirectComponent } from './page-redirect/page-redirect.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { PrivacyComponent } from './privacy-policy/privacy-policy.component'
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -16,5 +18,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactUsComponent },
   { path: 'page-redirect/:externalUrl', component: PageRedirectComponent, pathMatch: 'full' },
   { path: '404', component: ErrorComponent, pathMatch:'full'},
+  { path: 'termsandconditions', component: TermsAndConditionsComponent, pathMatch: 'full'},
+  { path: 'privacypolicy', component: PrivacyComponent, pathMatch: 'full'},
   { path: '**', redirectTo: '/404' }
 ];

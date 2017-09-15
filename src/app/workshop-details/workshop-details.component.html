@@ -45,7 +45,8 @@
             <h3>{{tabs[3].label}}</h3>
             <div class="photographer-information" *ngFor="let photographer of workshopDetails.photographers;">
                 <div class="profile-photo">
-                    <img class="profile-img" [src]="this.workshopRepository.globalConstants.resolveImageUrl(photographer.profilePhotoLink)" alt="workshop image" />
+                    <img class="profile-img" [src]="this.workshopRepository.globalConstants.resolveImageUrl(photographer.profilePhotoLink)" alt="workshop image"
+                    />
                 </div>
                 <h4>
                     <span>{{photographer.firstName}}</span>
@@ -103,4 +104,8 @@
         <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
         <a class="next" (click)="plusSlides(1)">&#10095;</a>
     </div>
+</div>
+
+<div class="footer">
+    <footer></footer>
 </div>
