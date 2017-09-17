@@ -1,5 +1,5 @@
 <div class="workshop-list">
-    <div>
+    <div *ngIf="asyncData">
         <article class="entity" *ngFor="let data of asyncData | async">
             <a [href]="createWorkshopDetailsUrl(data.workshopId, data.name)">
             <div class="inner">

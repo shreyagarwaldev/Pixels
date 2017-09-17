@@ -38,6 +38,9 @@
         object-fit: cover;
         filter: sepia(20%);
     }
+    a {
+        text-decoration: none;
+    }
 }
 
 .inner {
@@ -94,7 +97,8 @@ hr {
 @media (max-width: 955px) {
     .entity {
         width: auto;
-        display: block;
+        max-width:30rem;
+        // display: block;
         .image {
             height: 20rem;
             margin-bottom: 1rem;
