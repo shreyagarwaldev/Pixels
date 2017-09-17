@@ -75,8 +75,12 @@ export class WorkshopsListComponent {
             this.cdRef.detectChanges();
     }
 
-    loadWorkshopDetails(workshopId: string, workshopName: string) {
+    createWorkshopDetailsUrl(workshopId: string, workshopName: string) : string {
         workshopName = workshopName.replace(/ /g,"-");
-        this.router.navigate(['/photography-workshop-details', workshopName, workshopId]);
+        return `/photography-workshop-details/${workshopName}/${workshopId}`;
     }
+
+    // loadWorkshopDetails(workshopId: string, workshopName: string) {
+    //     this.router.navigate(['/photography-workshop-details', workshopName, workshopId]);
+    // }
 }

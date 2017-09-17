@@ -78,7 +78,7 @@
         </div>
         <div class="wsd-price">
             <h4 class="highlight-headings">Price Range</h4>
-            <i class="fa fa-usd"></i> {{workshopDetails.minCost}} - {{workshopDetails.maxCost}}
+            <i class="fa fa-usd"></i> <span *ngIf="workshopDetails.minCost !== workshopDetails.maxCost">{{workshopDetails.minCost}} - </span>{{workshopDetails.maxCost}}
         </div>
         <div class="wsd-dates">
             <h4 class="highlight-headings">Dates</h4>

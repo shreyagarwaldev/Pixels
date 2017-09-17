@@ -1,7 +1,8 @@
 <div class="workshop-list">
     <div>
         <article class="entity" *ngFor="let data of asyncData | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: page, totalItems: total }">
-            <div class="inner" (click)="loadWorkshopDetails(data.workshopId, data.name)">
+            <a [href]="createWorkshopDetailsUrl(data.workshopId, data.name)">
+            <div class="inner">
                 <img class="image" [src]="this.workshopRepository.globalConstants.resolveImageUrl(data.imageLink)" alt="workshop image" />
                 <h1 class="name truncate" title="{{ data.name }}">
                     {{ data.name }}
@@ -19,6 +20,7 @@
                 <div class="price" *ngIf="data.minCost == data.maxCost">{{data.costCurrency}} {{data.minCost}}</div>
                 <div class="price" *ngIf="data.minCost < data.maxCost">{{data.costCurrency}} {{data.minCost}}-{{data.maxCost}}</div>
             </div>
+            </a>
         </article>
     </div>
     <div *ngIf="itemsPerPage > 4" class="ws-pages"> 
