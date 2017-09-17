@@ -1,6 +1,6 @@
 <div class="workshop-list">
     <div>
-        <article class="entity" *ngFor="let data of asyncData | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: page, totalItems: total }">
+        <article class="entity" *ngFor="let data of asyncData | async">
             <a [href]="createWorkshopDetailsUrl(data.workshopId, data.name)">
             <div class="inner">
                 <img class="image" [src]="this.workshopRepository.globalConstants.resolveImageUrl(data.imageLink)" alt="workshop image" />
@@ -24,6 +24,10 @@
         </article>
     </div>
     <div *ngIf="itemsPerPage > 4" class="ws-pages"> 
-        <pagination-controls (pageChange)="getWorkshopsData(queryPath,$event, itemsPerPage)" id="server"></pagination-controls>
+        <ul>
+            <li *ngFor="let page of pageNumbers">
+                <a [href]="createPageLink(page)">{{page}}</a>
+            </li>
+        </ul>
     </div>
 </div>

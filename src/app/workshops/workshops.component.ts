@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { WorkshopsListComponent } from '../workshops-list/workshops-list.component'
 import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
 
@@ -15,6 +16,7 @@ export class WorkshopsComponent {
 	private minPrice:number;
 	private maxPrice:number;
     private hideFilter: boolean;
+    private pageNumber: number;
 
 	private readonly workshopsPerPage: number = 8;	
 	
@@ -22,7 +24,7 @@ export class WorkshopsComponent {
 	
 	@ViewChild(WorkshopsListComponent) workshopsListChildComp:WorkshopsListComponent;
 
-	constructor(private globalConstantsRepository:GlobalConstantsRepository)
+	constructor(private globalConstantsRepository:GlobalConstantsRepository, private route:ActivatedRoute)
 	{
 		this.globalConstants = globalConstantsRepository;
 		this.hideFilter = true;
@@ -35,7 +37,12 @@ export class WorkshopsComponent {
 	ngOnInit() {
 		var today = new Date();
 		this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-		this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+        this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+        let sub = this.route.params.subscribe(params => {
+            this.pageNumber = params['pageNumber'];
+        });
+        
+        console.log(this.pageNumber);
 		this.updateUrl();
 		}
 	
@@ -62,8 +69,8 @@ export class WorkshopsComponent {
 			this.query = `${this.query}&maxPrice=${this.maxPrice.toString()}`;
 		}
         
-		if(this.query) {
-			this.workshopsListChildComp.getWorkshopsData(this.query, 1, this.workshopsPerPage);
+		if(this.query && this.pageNumber) {
+			this.workshopsListChildComp.getWorkshopsData(this.query, this.pageNumber, this.workshopsPerPage);
 		}
 	}
 

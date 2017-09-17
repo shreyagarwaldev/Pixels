@@ -13,12 +13,13 @@ import { PrivacyComponent } from './privacy-policy/privacy-policy.component'
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'about', component: AboutComponent, pathMatch: 'full' },
-  { path: 'workshops', component: WorkshopsComponent },
+  { path: 'workshops/:pageNumber', component: WorkshopsComponent },
   { path: 'photography-workshop-details/:title/:id', component: WorkshopDetailsComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: 'page-redirect/:externalUrl', component: PageRedirectComponent, pathMatch: 'full' },
   { path: '404', component: ErrorComponent, pathMatch:'full'},
   { path: 'termsandconditions', component: TermsAndConditionsComponent, pathMatch: 'full'},
   { path: 'privacypolicy', component: PrivacyComponent, pathMatch: 'full'},
+  { path: 'workshops', redirectTo: '/workshops/1' },
   { path: '**', redirectTo: '/404' }
 ];
