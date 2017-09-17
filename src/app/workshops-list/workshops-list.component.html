@@ -1,7 +1,8 @@
 <div class="workshop-list">
-    <div>
-        <article class="entity" *ngFor="let data of asyncData | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: page, totalItems: total }">
-            <div class="inner" (click)="loadWorkshopDetails(data.workshopId, data.name)">
+    <div *ngIf="asyncData">
+        <article class="entity" *ngFor="let data of asyncData | async">
+            <a [href]="createWorkshopDetailsUrl(data.workshopId, data.name)">
+            <div class="inner">
                 <img class="image" [src]="this.workshopRepository.globalConstants.resolveImageUrl(data.imageLink)" alt="workshop image" />
                 <h1 class="name truncate" title="{{ data.name }}">
                     {{ data.name }}
