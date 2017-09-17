@@ -83,6 +83,10 @@ export class WorkshopsComponent {
             console.log(this.startDate);
         }
     }
+
+	toggleFilter() {
+		this.hideFilter = true;
+	}
 	
 	setToDate(toDate: any)
 	{

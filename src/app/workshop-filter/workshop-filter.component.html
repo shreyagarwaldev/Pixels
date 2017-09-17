@@ -1,10 +1,11 @@
 <div class="filters-container">
-    <div class="autocomplete-filter">
-            <autocomplete (selectionChanged)="updateLocation($event)"></autocomplete>
-    </div>
     <div class="dropdown-filter">
         <dropdown (selectionChanged)="updateCategoryList($event)" [dataModel]="categories" [buttonLabel]="categoryDropdownLabel"
             [optionName]="'categories'"></dropdown>
+    </div>
+
+    <div class="autocomplete-filter">
+        <autocomplete (selectionChanged)="updateLocation($event)"></autocomplete>
     </div>
 
     <div class="date-picker">
@@ -20,5 +21,5 @@
         />
     </div>
 
-    <button class="get-list-btn" (click)="getResult()"><span>Filter</span>  <i class="fa fa-filter" aria-hidden="true"></i></button>
+    <button class="get-list-btn" (click)="toggleFilter()"><span>Filter</span>  <i class="fa fa-filter" aria-hidden="true"></i></button>
 </div>

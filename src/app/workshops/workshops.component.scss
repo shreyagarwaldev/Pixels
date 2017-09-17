@@ -35,7 +35,7 @@
         background-color: #26181D;
         height: 100%;
         width: 100%;
-        top:5rem;
+        top: 5rem;
         padding-bottom: 2rem;
         left: 0;
         z-index: 99;
@@ -48,5 +48,9 @@
     }
     .hideFilter {
         display: none;
+    }
+    .footer {
+        position: relative;
+        bottom: 0;
     }
 }

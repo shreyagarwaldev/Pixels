@@ -1,12 +1,8 @@
 <div class="dropdown-container">
-    <div>
-        <input id="country" type="text" class="filter-input" [(ngModel)]=query (keyup)=filter() value="Type a location">
-    </div>
+    <input id="country" type="text" class="filter-input" [(ngModel)]=query (keyup)=filter() value="Type a location">
     <div class="suggestions" *ngIf="filteredList.length > 0">
-        <ul *ngFor="let item of filteredList" >
-            <span >
-                <a (click)="select(item)">{{item}}</a>
-            </span>
+        <ul>
+            <li *ngFor="let item of filteredList" (click)="select(item)">{{item}}</li>
         </ul>
     </div>
 </div>
