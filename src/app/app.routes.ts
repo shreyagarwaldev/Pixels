@@ -21,5 +21,6 @@ export const routes: Routes = [
   { path: 'termsandconditions', component: TermsAndConditionsComponent, pathMatch: 'full'},
   { path: 'privacypolicy', component: PrivacyComponent, pathMatch: 'full'},
   { path: 'workshops', redirectTo: '/workshops/1' },
+  { path: 'robots.txt', redirectTo: '/robots.txt'},
   { path: '**', redirectTo: '/404' }
 ];
