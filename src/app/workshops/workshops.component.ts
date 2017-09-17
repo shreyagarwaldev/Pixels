@@ -42,7 +42,6 @@ export class WorkshopsComponent {
             this.pageNumber = params['pageNumber'];
         });
         
-        console.log(this.pageNumber);
 		this.updateUrl();
 		}
 	
