@@ -23,7 +23,7 @@
             </div>
 
             <!--Itinierary tab-->
-            <div id="{{tabs[1].label}}" [hidden]="!tabs[1].showTab" class="tabcontent">
+            <!--<div id="{{tabs[1].label}}" [hidden]="!tabs[1].showTab" class="tabcontent">
                 <h3>{{tabs[1].label}}</h3>
                 <div class="day-wrapper" *ngFor="let data of workshopDetails.itinerary;">
                     <h5>
@@ -32,18 +32,18 @@
                     </h5>
                     <p [innerHTML]="data.content"></p>
                 </div>
-            </div>
+            </div>-->
 
             <!--Gallery tab-->
-            <div id="{{tabs[2].label}}" [hidden]="!tabs[2].showTab" class="tabcontent">
-                <h3>{{tabs[2].label}}</h3>
+            <div id="{{tabs[1].label}}" [hidden]="!tabs[1].showTab" class="tabcontent">
+                <h3>{{tabs[1].label}}</h3>
                 <img class="gallery-image hover-shadow cursor" *ngFor="let image of imagesLink;let i = index" [src]="image.imageLink" alt="workshop image"
                     (click)="openModal(i+1)" />
             </div>
 
             <!--Photographer tab-->
-            <div id="{{tabs[3].label}}" [hidden]="!tabs[3].showTab" class="tabcontent">
-                <h3>{{tabs[3].label}}</h3>
+            <div id="{{tabs[2].label}}" [hidden]="!tabs[2].showTab" class="tabcontent">
+                <h3>{{tabs[2].label}}</h3>
                 <div class="photographer-information" *ngFor="let photographer of workshopDetails.photographers;">
                     <div class="profile-photo">
                         <img class="profile-img" [src]="this.workshopRepository.globalConstants.resolveImageUrl(photographer.profilePhotoLink)" alt="workshop image"

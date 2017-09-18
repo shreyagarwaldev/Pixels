@@ -138,10 +138,6 @@ export class WorkshopDetailsComponent {
                 showTab: false
             },
             {
-                label: "Itinerary",
-                showTab: false
-            },
-            {
                 label: "Gallery",
                 showTab: false
             },
