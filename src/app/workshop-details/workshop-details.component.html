@@ -71,24 +71,6 @@
                 <h4 class="highlight-headings">Workshop Link</h4>
                 <a href="{{workshopDetails.link}}" target="_blank"><i class="fa fa-link"></i> Workshop link
         </a>
-<<<<<<< HEAD
-        </div>
-        <div class="wsd-location">
-            <h4 class="highlight-headings">Location</h4>
-            <i class="fa fa-map-marker"></i>
-            <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(workshopDetails.locationId)?.name}}</span>
-        </div>
-        <div class="wsd-price">
-            <h4 class="highlight-headings">Price Range</h4>
-            <i class="fa fa-usd"></i> <span *ngIf="workshopDetails.minCost !== workshopDetails.maxCost">{{workshopDetails.minCost}} - </span>{{workshopDetails.maxCost}}
-        </div>
-        <div class="wsd-dates">
-            <h4 class="highlight-headings">Dates</h4>
-            <div class="dates-information" *ngFor="let detail of workshopDetails.multiWorkshopDetails;">
-                <div>
-                    <i class="fa fa-calendar"></i>
-                    <span>{{this.formatDate(detail.startDate)}} - {{this.formatDate(detail.endDate)}}</span>
-=======
             </div>
             <div class="wsd-location">
                 <h4 class="highlight-headings">Location</h4>
@@ -106,7 +88,6 @@
                         <i class="fa fa-calendar"></i>
                         <span>{{this.formatDate(detail.startDate)}} - {{this.formatDate(detail.endDate)}}</span>
                     </div>
->>>>>>> 87bcd9b... css fixes
                 </div>
             </div>
         </div>

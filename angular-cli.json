@@ -10,8 +10,8 @@
       "assets": [
         "assets",
         "favicon.ico",
-	"robots.txt",
-	"sitemap.xml"
+        "robots.txt",
+        "sitemap.xml"
       ],
       "index": "index.html",
       "main": "client.ts",
