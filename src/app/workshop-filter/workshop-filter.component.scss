@@ -3,12 +3,14 @@
 .price-filter,
 .date-picker,
 .get-list-btn {
-    /*top:20%;*/
     left: 3rem;
     position: relative;
     color: white;
     display: flex;
-    /*margin-right: 3rem;*/
+}
+
+.autocomplete-filter {
+    display: block;
 }
 
 *:focus {
@@ -42,19 +44,19 @@
 }
 
 .get-list-btn {
+    display: none;
     width: 10rem;
     height: 3.7rem;
     border: none;
-    background-color: #73656A;;
+    background-color: #73656A;
     color: white;
-    display: block;
     margin-top: 1.5rem;
 }
 
 @media (max-width: 955px) {
     .filters-container {
         display: block;
-        text-align: center;
+        text-align: center; // height: 100%;
     }
     .dropdown-filter,
     .price-filter,
@@ -64,14 +66,20 @@
         display: block;
     }
     .price-filter {
-        margin-left: 0;
         input {
-            width: 30%;
-            margin-left: 1rem;
+            width: 50%;
+            display: block;
+            margin: 2rem auto;
         }
     }
     .get-list-btn {
         display: inline-block;
-        width:50%;
+        width: 50%;
+        margin-top: 2rem;
+    }
+    .autocomplete-filter {
+        width: 70%;
+        text-align: center;
+        margin: 1.4rem 1rem 0 1rem;
     }
 }

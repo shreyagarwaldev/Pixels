@@ -2,13 +2,16 @@
     <navi-bar [showFilters]="true" (filtersDropdownToggle)="toggleFilterDropdown($event)"></navi-bar>
     <div class="filters" [ngClass]="{'hideFilter': hideFilter}" id="filters">
         <workshop-filter (minPriceFilterChanged)="setMinPrice($event)" (maxPriceFilterChanged)="setMaxPrice($event)" (fromDateChanged)="setFromDate($event)"
-            (toDateChanged)="setToDate($event)" (locationFilterChanged)="setLocationIdList($event)" (categoryFilterChanged)="setCategoryList($event)"></workshop-filter>
+            (toDateChanged)="setToDate($event)" (locationFilterChanged)="setLocationIdList($event)" (categoryFilterChanged)="setCategoryList($event)"
+            (applyFilters)="toggleFilter($event)"></workshop-filter>
     </div>
-
-    <div class="list">
-        <workshops-list></workshops-list>
-        <div class="footer">
-            <footer></footer>
+    <div>
+        <div class="list">
+            <workshops-list></workshops-list>
+            <div class="footer">
+                <footer></footer>
+            </div>
         </div>
+
     </div>
 </div>

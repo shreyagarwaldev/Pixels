@@ -7,10 +7,8 @@
 .profile-img {
     width: 12rem;
     height: 12rem;
-    /*border-radius: 50%;*/
     object-fit: cover;
     margin-right: 2rem;
-    /*border: 3px solid #15424E;*/
 }
 
 .profile-photo {
@@ -43,7 +41,7 @@
 div.tab {
     overflow: hidden;
     margin-top: 5rem;
-    width: 100%; // padding-left: 15%;
+    width: 100%;
     button {
         background-color: inherit;
         border: none;
@@ -55,7 +53,6 @@ div.tab {
         font-size: 2rem;
         color: #73656A;
         &.active {
-            /*background-color: #ccc;*/
             border-bottom: 3px solid #73656A;
         }
     }
@@ -77,12 +74,12 @@ div.tab {
 .detail-tabs {
     text-align: center;
     width: 65%;
-    float: left;
     margin-left: 4rem;
+    left: 0;
 }
 
 .details-container {
-    padding-bottom: 5rem;
+    position: relative;
 }
 
 .day-wrapper,
@@ -132,6 +129,8 @@ div.tab {
     margin-top: 10rem;
     padding-left: 5rem;
     width: 25%;
+    top: 0;
+    right: 0;
     a {
         color: #73656A;
     }
@@ -168,6 +167,7 @@ div.tab {
 .hide-modal {
     display: none;
 }
+
 
 /* The Close Button */
 
@@ -258,10 +258,10 @@ div.tab {
 @media (max-width: 955px) {
     #Gallery {
         padding-left: 0;
-    img {
-        width: 28rem;
-        height: 20rem;
-    }
+        img {
+            width: 28rem;
+            height: 20rem;
+        }
     }
     div.tab {
         text-align: center;

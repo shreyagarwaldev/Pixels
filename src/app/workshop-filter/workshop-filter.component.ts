@@ -17,13 +17,14 @@ export class WorkshopFilterComponent {
   @Output() categoryFilterChanged = new EventEmitter();
   @Output() minPriceFilterChanged = new EventEmitter();
   @Output() maxPriceFilterChanged = new EventEmitter();
+  @Output() applyFilters = new EventEmitter();
   
   private angulartics2: Angulartics2;
 
   public cities: any[];
   public categories: any[];
   
-  /** abels for filters */
+  /** labels for filters */
   public cityDropdownLabel: string;
   public photographerDropdownLabel: string;
   public categoryDropdownLabel: string;
@@ -41,37 +42,38 @@ export class WorkshopFilterComponent {
   public toDate: Date;
 
   private globalConstants:GlobalConstantsRepository;
-
   private workshopRepo : WorkshopRepository;
+
+  public showFilter: boolean;
 
   constructor(private workshopRepository: WorkshopRepository, private a: Angulartics2, private globalConstantsRepository:GlobalConstantsRepository) {
     this.angulartics2 = a;
     this.globalConstants = globalConstantsRepository;
-
+    this.workshopRepo = workshopRepository;
+    
+    this.updateCategories();
+    
     this.cityDropdownLabel = "Location";
     this.photographerDropdownLabel = "Photographer";
     this.categoryDropdownLabel = "Category";
     this.fromDateLabel = "From";
     this.toDateLabel = "To";
-    this.workshopRepo = workshopRepository;
 
     this.minFromDate = new Date();
-  }
-
-  ngOnInit()
-  {
-      this.updateCategories();
+    this.showFilter = true;
   }
 
   updateCategories()
   {
     this.categories = [];
-    let wTypes = this.workshopRepo.getWorkshopTypes();
-    if(wTypes) {
-    for (var i = 0; i < wTypes.length; i++) {
-        this.categories.push({label:wTypes[i], value:wTypes[i]});
-    }
-    }
+    this.workshopRepo.getWorkshopTypes().then(wTypes =>
+        {
+            if(wTypes) {
+                for (var i = 0; i < wTypes.length; i++) {
+                    this.categories.push({label:wTypes[i], value:wTypes[i]});
+                }
+            }
+    });
   }
 
   getFromDate(value: Date) {
@@ -84,6 +86,10 @@ export class WorkshopFilterComponent {
     this.toDate = value;
 	this.angulartics2.eventTrack.next({ action: 'ToDateFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
 	this.toDateChanged.emit(this.toDate);
+  }
+
+  toggleFilter() {
+    this.applyFilters.emit(true);
   }
   
   updateMinPrice(value:number)
