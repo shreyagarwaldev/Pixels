@@ -3,18 +3,24 @@
 }
 
 .ws-pages /deep/ {
-    ul.ng2-pagination {
-        a {
+    margin-top:3rem;
+
+    ul li{
+        display: inline;
+        background: #dddddd;
+        border-radius: 20%;
+        margin-left: 0.25rem;
+        margin-right:0.25rem;
+        padding: 1rem 1rem 1rem 1rem;
+        
+        a{
             text-decoration: none;
-            cursor: pointer;
-            color: #73656A;
+            color: #222222;
+            width:100%;
+            height:100%;
             &:hover {
                 border-radius: 20%;
             }
-        }
-        li.current {
-            background: #73656A;
-            border-radius: 20%;
         }
     }
 }

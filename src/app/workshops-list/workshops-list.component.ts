@@ -20,6 +20,7 @@ export class WorkshopsListComponent {
     asyncData: Observable<IWorkshopOverview[]>;
     page: number = 1;
     total: number;
+    pageNumbers: number[];
     loading: boolean;
     workshops: IWorkshopOverview[];
     private angulartics2: any;
@@ -66,7 +67,7 @@ export class WorkshopsListComponent {
         this.itemsPerPage = wsPerPage;
         this.asyncData = this.workshopRepository.getWorkshopOverview(path, page, wsPerPage)
             .do(res => {
-                this.total = res.total;
+                this.pageNumbers = Array(Math.ceil(res.total/wsPerPage)).fill(0).map((x,i)=>i+1);
                 this.page = page;
                 this.loading = false;
             })
@@ -75,8 +76,12 @@ export class WorkshopsListComponent {
             this.cdRef.detectChanges();
     }
 
-    loadWorkshopDetails(workshopId: string, workshopName: string) {
+    createWorkshopDetailsUrl(workshopId: string, workshopName: string) : string {
         workshopName = workshopName.replace(/ /g,"-");
-        this.router.navigate(['/photography-workshop-details', workshopName, workshopId]);
+        return `/photography-workshop-details/${workshopName}/${workshopId}`;
+    }
+
+    createPageLink(pageNumber: number) : string {
+        return `/workshops/${pageNumber}`;
     }
 }

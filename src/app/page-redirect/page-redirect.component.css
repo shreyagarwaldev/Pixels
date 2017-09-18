@@ -6,3 +6,7 @@
 .ws-container .navbar-default .navbar-nav .active a {
     background-color: transparent;
 }
+
+.list {
+    margin-left: 10rem;
+}
