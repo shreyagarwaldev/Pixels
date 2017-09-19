@@ -14,6 +14,8 @@ import 'rxjs/add/operator/map';
 
 export class WorkshopsListComponent {
 
+    @Input() activePage: number;
+
     queryPath: string;
     itemsPerPage: number;
 
@@ -23,8 +25,9 @@ export class WorkshopsListComponent {
     pageNumbers: number[];
     loading: boolean;
     workshops: IWorkshopOverview[];
+
     private angulartics2: any;
-    private cdRef:any;
+    private cdRef: any;
 
     constructor(angulartics2: Angulartics2, private workshopRepository: WorkshopRepository, private router: Router, cdRef: ChangeDetectorRef) {
         this.angulartics2 = angulartics2;
@@ -67,21 +70,21 @@ export class WorkshopsListComponent {
         this.itemsPerPage = wsPerPage;
         this.asyncData = this.workshopRepository.getWorkshopOverview(path, page, wsPerPage)
             .do(res => {
-                this.pageNumbers = Array(Math.ceil(res.total/wsPerPage)).fill(0).map((x,i)=>i+1);
+                this.pageNumbers = Array(Math.ceil(res.total / wsPerPage)).fill(0).map((x, i) => i + 1);
                 this.page = page;
                 this.loading = false;
             })
             .map(res => res.workshops);
 
-            this.cdRef.detectChanges();
+        this.cdRef.detectChanges();
     }
 
-    createWorkshopDetailsUrl(workshopId: string, workshopName: string) : string {
-        workshopName = workshopName.replace(/ /g,"-");
+    createWorkshopDetailsUrl(workshopId: string, workshopName: string): string {
+        workshopName = workshopName.replace(/ /g, "-");
         return `/photography-workshop-details/${workshopName}/${workshopId}`;
     }
 
-    createPageLink(pageNumber: number) : string {
+    createPageLink(pageNumber: number): string {
         return `/workshops/${pageNumber}`;
     }
 }

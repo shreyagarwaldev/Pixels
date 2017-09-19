@@ -93,12 +93,21 @@ hr {
 }
 
 .page-numbers {
-    background: #73656A;
     padding: 1rem;
     margin: .2rem;
-    color: white;
+    color: #73656A;
     border-radius: 5px;
     text-decoration: none;
+}
+
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+a.active-page.page-numbers {
+    background-color: #73656A;
+    color: white;
 }
 
 @media (max-width: 955px) {
