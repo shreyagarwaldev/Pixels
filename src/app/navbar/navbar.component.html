@@ -1,6 +1,7 @@
 <nav class="nav-container">
-  <a href=""  angulartics2On="click" angularticsEvent="GoToHomePageEvent" angularticsCategory="NavBarInteraction">
+  <a href="" class="company-icon"  angulartics2On="click" angularticsEvent="GoToHomePageEvent" angularticsCategory="NavBarInteraction">
     <img class="image" src="/assets/img/icon.png" alt="workshop image">
+    <span *ngIf="showName" class="company-name">Pixelated Planet</span>
   </a>
   <div class="navbar-header">
     <button *ngIf="showFilters" type="button" class="filter-header btn" (click)="toggleFilter()">

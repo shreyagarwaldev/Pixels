@@ -22,18 +22,6 @@
                 <p [innerHTML]="workshopDetails.description"></p>
             </div>
 
-            <!--Itinierary tab-->
-            <!--<div id="{{tabs[1].label}}" [hidden]="!tabs[1].showTab" class="tabcontent">
-                <h3>{{tabs[1].label}}</h3>
-                <div class="day-wrapper" *ngFor="let data of workshopDetails.itinerary;">
-                    <h5>
-                        <span>Day {{data.day}} - </span>
-                        <span class="location">{{data.location}}</span>
-                    </h5>
-                    <p [innerHTML]="data.content"></p>
-                </div>
-            </div>-->
-
             <!--Gallery tab-->
             <div id="{{tabs[1].label}}" [hidden]="!tabs[1].showTab" class="tabcontent">
                 <h3>{{tabs[1].label}}</h3>

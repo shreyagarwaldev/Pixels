@@ -24,8 +24,12 @@
         </article>
     </div>
     <div *ngIf="itemsPerPage > 4" class="ws-pages">
-        <a class="page-numbers" *ngIf="pageNumbers" [ngClass]="{'disabled': activePage <=1 }" [href]="createPageLink(activePage-1)">Previous</a>
-        <a class="page-numbers" [ngClass]="{'active-page': activePage == page}" *ngFor="let page of pageNumbers;" onclick="return false" [href]="createPageLink(page)" (click)="loadPage(page)">{{page}}</a>
-        <a class="page-numbers" *ngIf="pageNumbers" [ngClass]="{'disabled': activePage == pageNumbers.length }"[href]="createPageLink(activePage-1+2)">Next</a>
+        <a class="page-numbers" *ngIf="pageNumbers" [ngClass]="{'disabled': activePage <=1 }" [href]="createPageLink(activePage-1)">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <i class="fa fa-chevron-left" aria-hidden="true"></i><span>Previous</span></a>
+        <a class="page-numbers" [ngClass]="{'active-page': activePage == page}" *ngFor="let page of pageNumbers;" [href]="createPageLink(page)">{{page}}</a>
+        <a class="page-numbers" *ngIf="pageNumbers" [ngClass]="{'disabled': activePage == pageNumbers.length }"[href]="createPageLink(activePage-1+2)"><span>Next</span>
+            <span class="chevron-wrapper"><i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <i class="fa fa-chevron-right" aria-hidden="true"></i></span></a>
     </div>
 </div>
