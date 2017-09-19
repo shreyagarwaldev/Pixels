@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { WorkshopRepository, IWorkshopOverview } from '../services/workshops/workshopRepository'
 import { Router } from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
@@ -15,6 +15,7 @@ import 'rxjs/add/operator/map';
 export class WorkshopsListComponent {
 
     @Input() activePage: number;
+    @Output() pageChanged = new EventEmitter();
 
     queryPath: string;
     itemsPerPage: number;
@@ -86,5 +87,10 @@ export class WorkshopsListComponent {
 
     createPageLink(pageNumber: number): string {
         return `/workshops/${pageNumber}`;
+    }
+
+    loadPage(pageNumber: number) {
+        this.activePage = pageNumber;
+        this.pageChanged.emit(this.activePage);
     }
 }

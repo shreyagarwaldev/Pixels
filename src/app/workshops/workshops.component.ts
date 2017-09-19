@@ -1,13 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WorkshopsListComponent } from '../workshops-list/workshops-list.component'
 import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
+import { Subscription } from 'rxjs/Rx'
+import {Location} from '@angular/common';
 
 @Component({
     templateUrl: './workshops.component.html',
     styleUrls: ['./workshops.component.scss']
 })
-export class WorkshopsComponent {
+export class WorkshopsComponent implements OnDestroy {
+    
+    private subscription: Subscription;
+    private subscriptionReqParams: Subscription;
 	private query: string;
 	private startDate: string;
 	private endDate: string;
@@ -24,26 +29,92 @@ export class WorkshopsComponent {
 	
 	@ViewChild(WorkshopsListComponent) workshopsListChildComp:WorkshopsListComponent;
 
-	constructor(private globalConstantsRepository:GlobalConstantsRepository, private route:ActivatedRoute)
+	constructor(private globalConstantsRepository:GlobalConstantsRepository, private route:ActivatedRoute, private location:Location)
 	{
 		this.globalConstants = globalConstantsRepository;
-		this.hideFilter = true;
+        this.hideFilter = true;
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     toggleFilterDropdown(event: any) {
         this.hideFilter = event;
-	}
-	
-	ngOnInit() {
+    }
+    
+    ngOnInit() {
+        this.subscription = this.route.queryParams.subscribe(
+            (queryParam: any) => {
+                this.endDate = queryParam['endDate'];
+                this.startDate = queryParam['startDate'];
+                this.locationIdList = queryParam['locations'];
+                this.categoryList = queryParam['categories'];
+                this.maxPrice = queryParam['maxPrice'];
+                if(this.maxPrice)
+                    {
+
+                    }
+                this.minPrice = queryParam['minPrice'];
+            }
+        );
+
+        this.subscriptionReqParams = this.route.params.subscribe(
+            (param: any) => this.pageNumber = param['pageNumber']
+        );
+
 		var today = new Date();
-		this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-        this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-        let sub = this.route.params.subscribe(params => {
-            this.pageNumber = params['pageNumber'];
-        });
-        
+        if(!this.endDate)
+        {
+            this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+        }
+
+        if(!this.startDate)
+        {
+    		this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+        }
+
+        console.log(this.endDate + this.startDate + this.pageNumber);
+
 		this.updateUrl();
-		}
+    }
+
+    selectPage(pageNumber : number) {
+        this.pageNumber = pageNumber;
+        this.updateLocation(this.pageNumber);
+        this.updateUrl();
+    }
+
+    updateLocation(page:number = null)
+    {
+        if(!page)
+        {
+            page = this.pageNumber = 1;
+        }
+
+        let url = "/workshops/"+page+"?startDate="+this.startDate+"&endDate="+this.endDate;
+        if(this.locationIdList)
+        {
+            url +="&locations="+this.locationIdList;
+        }
+            
+        if(this.categoryList)
+        {
+            url+="&categories="+this.categoryList;
+        }
+                
+        if(this.minPrice)
+        {
+            url+="&minPrice="+this.minPrice;
+        }
+                    
+        if(this.maxPrice)
+        {
+            url+="&maxPrice="+this.maxPrice;
+        }
+
+        this.location.go(url);
+    }
 	
 	updateUrl()
 	{
@@ -69,7 +140,7 @@ export class WorkshopsComponent {
 		}
         
 		if(this.query && this.pageNumber) {
-			this.workshopsListChildComp.getWorkshopsData(this.query, this.pageNumber, this.workshopsPerPage);
+            this.workshopsListChildComp.getWorkshopsData(this.query, this.pageNumber, this.workshopsPerPage);
 		}
 	}
 
@@ -106,7 +177,8 @@ export class WorkshopsComponent {
 
         if(previousEndDate != this.endDate)
         {
-		    this.updateUrl();
+            this.updateLocation();
+            this.updateUrl();
             console.log(this.endDate);
         }
     }
@@ -116,6 +188,7 @@ export class WorkshopsComponent {
         if(locationIdList != this.locationIdList)
         {
 		    this.locationIdList = locationIdList;
+            this.updateLocation();
 		    this.updateUrl();
             console.log(this.locationIdList);
         }
@@ -126,6 +199,7 @@ export class WorkshopsComponent {
         if(categoryList != this.categoryList)
         {
 		    this.categoryList = categoryList;
+            this.updateLocation();
 		    this.updateUrl();
             console.log(categoryList);
         }
@@ -136,6 +210,7 @@ export class WorkshopsComponent {
         if(this.minPrice != minPrice)
         {
 		    this.minPrice = minPrice;
+            this.updateLocation();
 		    this.updateUrl();
             console.log(minPrice);
         }
@@ -146,6 +221,7 @@ export class WorkshopsComponent {
         if(this.maxPrice != maxPrice)
         {
 		    this.maxPrice = maxPrice;
+            this.updateLocation();
 		    this.updateUrl();
             console.log(maxPrice);
         }
