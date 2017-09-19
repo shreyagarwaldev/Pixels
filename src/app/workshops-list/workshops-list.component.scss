@@ -94,10 +94,17 @@ hr {
 
 .page-numbers {
     padding: 1rem;
-    margin: .2rem;
     color: #73656A;
     border-radius: 5px;
     text-decoration: none;
+    span {
+        margin: 0 .5rem;
+    }
+    .fa {
+        font-size: 10px;
+        margin-left: -5px;
+        margin-top: -2px;
+    }
 }
 
 .disabled {

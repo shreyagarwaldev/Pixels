@@ -18,17 +18,19 @@
 }
 
 .price-filter {
-    margin-top: 1.6rem;
-    margin-left: 1rem;
+    margin-top: 1.4rem;
     input {
         outline: .2px solid #26181D;
-        width: 10rem;
+        width: 13.5rem;
         border: 0;
-        height: 3.4rem;
+        height: 3.6rem;
         text-align: center;
         background-color: white;
         color: #26181D;
         margin-right: 1rem;
+        margin-left: 1rem;
+        border-radius: 5px;
+        border: none;
         &::placeholder {
             color: #26181D;
         }
@@ -66,20 +68,22 @@
         display: block;
     }
     .price-filter {
+        margin-top: 1.4rem;
         input {
-            width: 50%;
+            width: 70%;
             display: block;
-            margin: 2rem auto;
+            margin: 1.4rem auto;
         }
     }
     .get-list-btn {
         display: inline-block;
-        width: 50%;
+        width: 70%;
         margin-top: 2rem;
     }
     .autocomplete-filter {
-        width: 70%;
+        width: 100%;
+        left: 0;
         text-align: center;
-        margin: 1.4rem 1rem 0 1rem;
+        margin: 1.5rem 0;
     }
 }
