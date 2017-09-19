@@ -10,6 +10,7 @@ export class NavComponent {
     private hideNavbar: boolean;
     @Output() filtersDropdownToggle = new EventEmitter();
     @Input() showFilters: boolean;
+    @Input() showName: boolean;
 
     constructor() {
         this.hideFilter = true;
