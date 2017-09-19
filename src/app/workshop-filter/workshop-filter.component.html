@@ -15,9 +15,11 @@
     <div class="price-filter">
         <input #minPriceInput type="number" min="0" step="100" placeholder="Min. price" (blur)="updateMinPrice(minPriceInput.value)"
             (oninput)="updateMinPrice(minPriceInput.value)" (onchange)="updateMinPrice(minPriceInput.value)" (change)="updateMinPrice(minPriceInput.value)"
+            [value]="minPrice"
         />
         <input #maxPriceInput type="number" min="0" step="100" placeholder="Max. price" (blur)="updateMaxPrice(maxPriceInput.value)"
             (oninput)="updateMaxPrice(maxPriceInput.value)" (onchange)="updateMaxPrice(maxPriceInput.value)" (change)="updateMaxPrice(maxPriceInput.value)"
+            [value]="maxPrice"
         />
     </div>
 

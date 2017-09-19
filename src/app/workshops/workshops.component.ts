@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { WorkshopsListComponent } from '../workshops-list/workshops-list.component'
+import { WorkshopFilterComponent } from '../workshop-filter/workshop-filter.component'
 import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
 import { Subscription } from 'rxjs/Rx'
 import {Location} from '@angular/common';
@@ -10,7 +11,7 @@ import {Location} from '@angular/common';
     styleUrls: ['./workshops.component.scss']
 })
 export class WorkshopsComponent implements OnDestroy {
-    
+
     private subscription: Subscription;
     private subscriptionReqParams: Subscription;
 	private query: string;
@@ -27,12 +28,21 @@ export class WorkshopsComponent implements OnDestroy {
 	
 	private globalConstants:GlobalConstantsRepository;
 	
-	@ViewChild(WorkshopsListComponent) workshopsListChildComp:WorkshopsListComponent;
+    @ViewChild(WorkshopsListComponent) workshopsListChildComp:WorkshopsListComponent;
+    @ViewChild(WorkshopFilterComponent) workshopFilterChildComp:WorkshopFilterComponent;
 
-	constructor(private globalConstantsRepository:GlobalConstantsRepository, private route:ActivatedRoute, private location:Location)
+	constructor(private globalConstantsRepository:GlobalConstantsRepository, private router:Router, private route:ActivatedRoute, private location:Location)
 	{
 		this.globalConstants = globalConstantsRepository;
         this.hideFilter = true;
+
+        router.events.subscribe(event => {
+            if(event instanceof NavigationEnd)
+            {
+                this.getQueryParams();
+                this.updateUrl();
+            }
+        });
     }
 
     ngOnDestroy() {
@@ -42,8 +52,12 @@ export class WorkshopsComponent implements OnDestroy {
     toggleFilterDropdown(event: any) {
         this.hideFilter = event;
     }
-    
-    ngOnInit() {
+
+    getQueryParams() {
+        this.subscriptionReqParams = this.route.params.subscribe(
+            (param: any) => this.pageNumber = param['pageNumber']
+        );
+
         this.subscription = this.route.queryParams.subscribe(
             (queryParam: any) => {
                 this.endDate = queryParam['endDate'];
@@ -51,28 +65,14 @@ export class WorkshopsComponent implements OnDestroy {
                 this.locationIdList = queryParam['locations'];
                 this.categoryList = queryParam['categories'];
                 this.maxPrice = queryParam['maxPrice'];
-                if(this.maxPrice)
-                    {
-
-                    }
                 this.minPrice = queryParam['minPrice'];
+                this.workshopFilterChildComp.setIncomingValues(this.startDate, this.endDate, this.locationIdList, this.categoryList, this.minPrice, this.maxPrice);
             }
         );
-
-        this.subscriptionReqParams = this.route.params.subscribe(
-            (param: any) => this.pageNumber = param['pageNumber']
-        );
-
-		var today = new Date();
-        if(!this.endDate)
-        {
-            this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-        }
-
-        if(!this.startDate)
-        {
-    		this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-        }
+    }
+    
+    ngOnInit() {
+        this.getQueryParams();
 
         console.log(this.endDate + this.startDate + this.pageNumber);
 
@@ -92,7 +92,17 @@ export class WorkshopsComponent implements OnDestroy {
             page = this.pageNumber = 1;
         }
 
-        let url = "/workshops/"+page+"?startDate="+this.startDate+"&endDate="+this.endDate;
+        let url = "/workshops/"+page+"?";
+        if(this.startDate)
+        {
+            url+="startDate="+this.startDate;
+        }
+
+        if(this.endDate)
+        {
+            url+="&endDate="+this.endDate;
+        }
+
         if(this.locationIdList)
         {
             url +="&locations="+this.locationIdList;
@@ -118,6 +128,17 @@ export class WorkshopsComponent implements OnDestroy {
 	
 	updateUrl()
 	{
+		var today = new Date();
+        if(!this.endDate)
+        {
+            this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+        }
+
+        if(!this.startDate)
+        {
+    		this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+        }
+
 		this.query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${this.startDate}&endDateFilter=${this.endDate}`;
 		if(this.locationIdList != null && this.locationIdList != "")
 		{

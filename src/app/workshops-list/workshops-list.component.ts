@@ -81,7 +81,7 @@ export class WorkshopsListComponent {
     }
 
     createWorkshopDetailsUrl(workshopId: string, workshopName: string): string {
-        workshopName = workshopName.replace(/ /g, "-");
+        workshopName = workshopName.replace(/[ &()*#]/g, "-");
         return `/photography-workshop-details/${workshopName}/${workshopId}`;
     }
 

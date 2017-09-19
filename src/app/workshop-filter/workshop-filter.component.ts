@@ -1,7 +1,8 @@
-import { Component, OnInit, Renderer, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Renderer, Output, EventEmitter, ViewChild } from '@angular/core';
 import { WorkshopRepository, ILocation, IPhotographer } from '../services/workshops/workshopRepository'
 import { Angulartics2 } from 'angulartics2';
 import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component'
 
 @Component({
   selector: 'workshop-filter',
@@ -11,6 +12,8 @@ import { GlobalConstantsRepository } from '../services/shared/globalConstantsRep
 
 export class WorkshopFilterComponent {
 
+    @ViewChild(AutocompleteComponent) autocompleteChildComp:AutocompleteComponent;
+    
   @Output() fromDateChanged = new EventEmitter();
   @Output() toDateChanged = new EventEmitter();
   @Output() locationFilterChanged = new EventEmitter();
@@ -44,6 +47,9 @@ export class WorkshopFilterComponent {
   private globalConstants:GlobalConstantsRepository;
   private workshopRepo : WorkshopRepository;
 
+  private minPrice:number;
+  private maxPrice:number;
+
   public showFilter: boolean;
 
   constructor(private workshopRepository: WorkshopRepository, private a: Angulartics2, private globalConstantsRepository:GlobalConstantsRepository) {
@@ -61,6 +67,26 @@ export class WorkshopFilterComponent {
 
     this.minFromDate = new Date();
     this.showFilter = true;
+  }
+
+  setIncomingValues(startDate:string, endDate:string, locationIdList:string, categoryList:string, minPrice:number, maxPrice:number)
+  {
+    if(maxPrice)
+    {
+        this.maxPrice = maxPrice;
+    }
+
+    if(minPrice)
+    {
+        this.minPrice = minPrice;
+    }
+    
+    if(locationIdList)
+    {
+        let loc = this.workshopRepository.globalConstants.getLocationByLocationId(+locationIdList);
+        console.log(loc);
+        // this.autocompleteChildComp.query = loc.name;
+    }
   }
 
   updateCategories()
