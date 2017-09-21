@@ -28,13 +28,11 @@ export class DatePickerComponent {
   public setToDate(miliseconds: number) {
     let date = new Date(miliseconds);
     this.selToDate = date.toISOString().slice(0,10);
-    console.log(this.selToDate);
   }
 
   public setFromDate(miliseconds: number) {
     let date = new Date(miliseconds);
     this.selFromDate = date.toISOString().slice(0,10);
-    console.log(this.selFromDate);
   }
 
   ngOnInit() {

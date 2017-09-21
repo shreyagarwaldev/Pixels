@@ -93,6 +93,17 @@ export class WorkshopsListComponent {
                 minPrice = params['minPrice'];
                 maxPrice = params['maxPrice'];
         });
+        
+        var today = new Date();
+        if(!startDate)
+            {
+        startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+            }
+
+            if(!endDate)
+                {
+        endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+                }
 
         let url = `/workshops/${page}?startDate=${startDate}&endDate=${endDate}`;
         if(minPrice)
