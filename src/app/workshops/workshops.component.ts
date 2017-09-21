@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, Event, NavigationStart, NavigationEnd } from '@angular/router';
 import { WorkshopsListComponent } from '../workshops-list/workshops-list.component'
+import { WorkshopFilterComponent } from '../workshop-filter/workshop-filter.component'
 import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
 
 @Component({
@@ -23,31 +24,84 @@ export class WorkshopsComponent {
 	private globalConstants:GlobalConstantsRepository;
 	
 	@ViewChild(WorkshopsListComponent) workshopsListChildComp:WorkshopsListComponent;
+	@ViewChild(WorkshopFilterComponent) workshopsFilterChildComp:WorkshopFilterComponent;
 
-	constructor(private globalConstantsRepository:GlobalConstantsRepository, private route:ActivatedRoute)
+	constructor(private globalConstantsRepository:GlobalConstantsRepository, private route:ActivatedRoute, private router:Router)
 	{
 		this.globalConstants = globalConstantsRepository;
-		this.hideFilter = true;
+        this.hideFilter = true;
+        
+        router.events.subscribe(event => {
+            if(event instanceof NavigationEnd)
+                {
+            this.setParameters();
+            this.updateUrl();
+                }
+        });
     }
 
     toggleFilterDropdown(event: any) {
         this.hideFilter = event;
-	}
-	
-	ngOnInit() {
-		var today = new Date();
-		this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-        this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-        let sub = this.route.params.subscribe(params => {
+    }
+    
+    setParameters() {
+        this.route.params.subscribe(params => {
             this.pageNumber = params['pageNumber'];
         });
-        
+
+        this.route.queryParams.subscribe(params => {
+            this.locationIdList = params['locations'];
+            this.categoryList = params['categories'];
+            this.minPrice = params['minPrice'];
+            this.maxPrice = params['maxPrice'];
+            this.startDate = params['startDate'];
+            this.endDate = params['endDate'];
+        });
+
+        var today = new Date();
+        if(!this.startDate)
+            {
+        this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+            }
+
+            if(!this.endDate)
+                {
+        this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+                }
+
+        this.workshopsFilterChildComp.setValuesFromParameters(this.minPrice, this.maxPrice, this.categoryList, this.locationIdList, this.startDate, this.endDate);
+    }
+	
+	ngOnInit() {
+        this.setParameters();
 		this.updateUrl();
-		}
+    }
+    
+    createUrl() : string {
+        let url = `/workshops/${this.pageNumber}?startDate=${this.startDate}&endDate=${this.endDate}`;
+        if(this.minPrice)
+            {
+                url += `&minPrice=${this.minPrice}`;
+            }
+        if(this.maxPrice)
+            {
+                url += `&maxPrice=${this.maxPrice}`;
+            }
+        if(this.locationIdList)
+            {
+                url += `&locations=${this.locationIdList}`;
+            }
+        if(this.categoryList)
+            {
+                url += `&categories=${this.categoryList}`;
+            }
+
+        return url;
+    }
 	
 	updateUrl()
 	{
-		this.query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${this.startDate}&endDateFilter=${this.endDate}`;
+        this.query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${this.startDate}&endDateFilter=${this.endDate}`;
 		if(this.locationIdList != null && this.locationIdList != "")
 		{
 			this.query = `${this.query}&locationIdFilter=${this.locationIdList}`;
@@ -85,8 +139,8 @@ export class WorkshopsComponent {
         
         if(previousStartDate !== this.startDate)
         {
-		    this.updateUrl();
-            console.log(this.startDate);
+            this.pageNumber = 1;
+		    this.router.navigateByUrl(this.createUrl());
         }
     }
 
@@ -106,8 +160,8 @@ export class WorkshopsComponent {
 
         if(previousEndDate != this.endDate)
         {
-		    this.updateUrl();
-            console.log(this.endDate);
+            this.pageNumber = 1;
+		    this.router.navigateByUrl(this.createUrl());
         }
     }
 	
@@ -116,8 +170,8 @@ export class WorkshopsComponent {
         if(locationIdList != this.locationIdList)
         {
 		    this.locationIdList = locationIdList;
-		    this.updateUrl();
-            console.log(this.locationIdList);
+            this.pageNumber = 1;
+		    this.router.navigateByUrl(this.createUrl());
         }
 	}
 	
@@ -126,8 +180,8 @@ export class WorkshopsComponent {
         if(categoryList != this.categoryList)
         {
 		    this.categoryList = categoryList;
-		    this.updateUrl();
-            console.log(categoryList);
+            this.pageNumber = 1;
+		    this.router.navigateByUrl(this.createUrl());
         }
 	}
 	
@@ -135,9 +189,9 @@ export class WorkshopsComponent {
 	{
         if(this.minPrice != minPrice)
         {
-		    this.minPrice = minPrice;
-		    this.updateUrl();
-            console.log(minPrice);
+            this.minPrice = minPrice;
+            this.pageNumber = 1;
+		    this.router.navigateByUrl(this.createUrl());
         }
 	}
 	
@@ -145,9 +199,9 @@ export class WorkshopsComponent {
 	{
         if(this.maxPrice != maxPrice)
         {
-		    this.maxPrice = maxPrice;
-		    this.updateUrl();
-            console.log(maxPrice);
+            this.maxPrice = maxPrice;
+            this.pageNumber = 1;
+		    this.router.navigateByUrl(this.createUrl());
         }
 	}
 }

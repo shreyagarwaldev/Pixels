@@ -1,7 +1,9 @@
-import { Component, OnInit, Renderer, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Renderer, Output, EventEmitter, ViewChild } from '@angular/core';
 import { WorkshopRepository, ILocation, IPhotographer } from '../services/workshops/workshopRepository'
 import { Angulartics2 } from 'angulartics2';
 import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component'
+import { DatePickerComponent } from '../date-picker/date-picker.component'
 
 @Component({
   selector: 'workshop-filter',
@@ -23,6 +25,10 @@ export class WorkshopFilterComponent {
 
   public cities: any[];
   public categories: any[];
+
+  // price values
+  private minPriceValue: number;
+  private maxPriceValue: number;
   
   /** labels for filters */
   public cityDropdownLabel: string;
@@ -46,6 +52,9 @@ export class WorkshopFilterComponent {
 
   public showFilter: boolean;
 
+  @ViewChild(AutocompleteComponent) autocompleteChildComp:AutocompleteComponent;
+  @ViewChild(DatePickerComponent) datePickerChildComp:DatePickerComponent;
+
   constructor(private workshopRepository: WorkshopRepository, private a: Angulartics2, private globalConstantsRepository:GlobalConstantsRepository) {
     this.angulartics2 = a;
     this.globalConstants = globalConstantsRepository;
@@ -63,16 +72,78 @@ export class WorkshopFilterComponent {
     this.showFilter = true;
   }
 
+  setValuesFromParameters(minPrice:number, maxPrice:number, categories:string, locations:string, startDate:string, endDate:string)
+  {
+    if(minPrice)
+    {
+        this.minPriceValue = minPrice;
+    }
+    else
+    {
+        this.minPriceValue = null;
+    }
+
+    if(maxPrice)
+    {
+        this.maxPriceValue = maxPrice;
+    }
+    else
+    {
+        this.maxPriceValue = null;
+    }
+
+    if(endDate)
+    {
+        this.datePickerChildComp.setToDate(Date.parse(endDate));
+    }
+    else
+    {
+        this.datePickerChildComp.setToDate(null);
+    }
+
+    if(startDate)
+    {
+        this.datePickerChildComp.setFromDate(Date.parse(startDate));
+    }
+    else
+    {
+        this.datePickerChildComp.setFromDate(null);
+    }
+
+    if(locations)
+    {
+        this.workshopRepository.getLocations().then(loc => {
+            let flag = true;
+            for(var i = 0; i < loc.length; i++)
+                {
+                    if(loc[i].id === +locations)
+                        {
+                            flag = false;
+                            this.autocompleteChildComp.select(loc[i].name);
+                        }
+                }
+
+                if(flag)
+                    {
+                        this.autocompleteChildComp.select("");
+                    }
+            });
+    }
+    else
+    {
+        this.autocompleteChildComp.select("");
+    }
+  }
+
   updateCategories()
   {
     this.categories = [];
-    this.workshopRepo.getWorkshopTypes().then(wTypes =>
-        {
-            if(wTypes) {
-                for (var i = 0; i < wTypes.length; i++) {
-                    this.categories.push({label:wTypes[i], value:wTypes[i]});
-                }
+    this.workshopRepo.getWorkshopTypes().then(wTypes => {
+        if(wTypes) {
+            for (var i = 0; i < wTypes.length; i++) {
+                this.categories.push({label:wTypes[i], value:wTypes[i]});
             }
+        }
     });
   }
 
@@ -119,14 +190,21 @@ export class WorkshopFilterComponent {
   updateLocation(value: any)
   {
     this.angulartics2.eventTrack.next({ action: 'LocationFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-    let loc = this.workshopRepository.globalConstants.getLocationByLocationName(value);
-    if(!loc)
+    let flag = true;
+    this.workshopRepository.getLocations().then(loc => {
+        for(var i = 0; i < loc.length; i++)
+        {
+            if(loc[i].name === value)
+            {
+                flag = false;
+                this.locationFilterChanged.emit(loc[i].id);
+            }
+        }
+    });
+
+    if(flag)
     {
         this.locationFilterChanged.emit(null);
-    }
-    else
-    {
-        this.locationFilterChanged.emit(loc.id);
     }
   }
   

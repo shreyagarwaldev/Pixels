@@ -66,26 +66,6 @@ export class GlobalConstantsRepository
         this.locations = locations;
     }
 
-    public getLocationByLocationId(value:number) : ILocation
-    {
-        if(!this.locationMap){
-            return null;
-        }
-        else{
-            return this.locationMap[value];
-        }
-    }
-
-    public getLocationByLocationName(value:string) : ILocation
-    {
-        if(!this.locationMapName) {
-            return null;
-        }
-        else{
-            return this.locationMapName[value];
-        }
-    }
-
     public setWorkshopTypes(workshopTypes:string[])
     {
         this.workshopTypes = workshopTypes;

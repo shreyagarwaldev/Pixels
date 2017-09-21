@@ -36,6 +36,7 @@ import { PrivacyComponent } from './privacy-policy/privacy-policy.component'
 
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Ng2PaginationModule } from 'ng2-pagination';
+
 /**
  * Top-level NgModule "container"
  */

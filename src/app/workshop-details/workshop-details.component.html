@@ -43,7 +43,7 @@
                     </h4>
                     <div class="detail-location">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(photographer.locationId)?.name}}</span>
+                        <span>{{photographer.locationName}}</span>
                     </div>
                     <div class="website-link">
                         <a href="{{photographer?.websiteLink}}" target="_blank"><i class="fa fa-external-link"></i> Website</a>
@@ -63,7 +63,7 @@
             <div class="wsd-location">
                 <h4 class="highlight-headings">Location</h4>
                 <i class="fa fa-map-marker"></i>
-                <span>{{this.workshopRepository.globalConstants.getLocationByLocationId(workshopDetails.locationId)?.name}}</span>
+                <span>{{workshopDetails.locationName}}</span>
             </div>
             <div class="wsd-price">
                 <h4 class="highlight-headings">Price Range</h4>

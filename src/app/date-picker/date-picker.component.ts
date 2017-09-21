@@ -13,6 +13,8 @@ export class DatePickerComponent {
   private fromDateLabel: string = "From date";
   private toDateLabel: string = "To date";
   private previousDate;
+  private selFromDate: string;
+  private selToDate: string;
 
   @Output() selectedFromChanged = new EventEmitter();
   @Output() selectedToChanged = new EventEmitter();
@@ -23,6 +25,18 @@ export class DatePickerComponent {
     this.previousDate = { year: previous.getFullYear(), month: previous.getMonth(), day: previous.getDate() };
   }
 
+  public setToDate(miliseconds: number) {
+    let date = new Date(miliseconds);
+    this.selToDate = date.toISOString().slice(0,10);
+    console.log(this.selToDate);
+  }
+
+  public setFromDate(miliseconds: number) {
+    let date = new Date(miliseconds);
+    this.selFromDate = date.toISOString().slice(0,10);
+    console.log(this.selFromDate);
+  }
+
   ngOnInit() {
     this.fromDatePickerOptions = {
       dateFormat: 'yyyy-mm-dd',
@@ -31,10 +45,17 @@ export class DatePickerComponent {
       monthSelector: true,
       disableUntil: this.previousDate
     };
+
+    this.toDatePickerOptions = {
+        dateFormat: 'yyyy-mm-dd',
+        markCurrentDay: true,
+        yearSelector: true,
+        monthSelector: true,
+        disableUntil: this.previousDate
+      };
   }
 
   onFromDateChanged(event: any) {
-    console.log(event);
     var selectedDate = event.date;
     this.toDatePickerOptions = {
       dateFormat: 'yyyy-mm-dd',
@@ -52,7 +73,6 @@ export class DatePickerComponent {
   }
 
   onToDateChanged(event: any) {
-    console.log(event);
     var selectedDate = event.date;
     this.fromDatePickerOptions = {
       disableUntil: this.previousDate,

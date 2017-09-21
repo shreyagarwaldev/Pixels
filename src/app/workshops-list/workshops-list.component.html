@@ -1,6 +1,6 @@
 <div class="workshop-list">
     <div *ngIf="asyncData">
-        <article class="entity" *ngFor="let data of asyncData | async">
+        <article class="entity" *ngFor="let data of asyncData">
             <a [href]="createWorkshopDetailsUrl(data.workshopId, data.name)">
                 <div class="inner">
                     <img class="image" [src]="this.workshopRepository.globalConstants.resolveImageUrl(data.imageLink)" alt="workshop image" />
@@ -10,7 +10,7 @@
                     <hr>
                     <div class="location">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <span>{{this.formatLocation(data.locationId)}}</span>
+                        <span>{{data.locationName}}</span>
                     </div>
                     <div class="date">
                         <span>{{this.formatDate(data.startDateFirst)}}</span>
