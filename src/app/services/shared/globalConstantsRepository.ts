@@ -45,6 +45,11 @@ export class GlobalConstantsRepository
         return this.cdnBaseUrl + path;
     }
 
+    public resolveLocalImageUrl(path:string)
+    {
+        return "/assets" + path;
+    }
+
     public getLocations()
     {
         return this.locations;

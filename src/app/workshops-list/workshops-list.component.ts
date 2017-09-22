@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { WorkshopRepository, IWorkshopOverview } from '../services/workshops/workshopRepository'
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
 import { Observable } from 'rxjs/Observable';
@@ -29,13 +30,17 @@ export class WorkshopsListComponent {
     private angulartics2: any;
     private cdRef: any;
 
-    constructor(angulartics2: Angulartics2, private workshopRepository: WorkshopRepository, private router: Router, cdRef: ChangeDetectorRef, private route:ActivatedRoute) {
+    constructor(angulartics2: Angulartics2, private workshopRepository: WorkshopRepository, private router: Router, cdRef: ChangeDetectorRef, private route:ActivatedRoute, private sanitizer: DomSanitizer) {
         this.angulartics2 = angulartics2;
         this.workshops = [];
         this.cdRef = cdRef;
     }
 
     ngOnInit() {
+    }
+
+    sanitizeUrl(url: string) : SafeUrl {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     formatDate(date) {

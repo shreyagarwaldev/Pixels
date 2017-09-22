@@ -28,6 +28,15 @@
     display: inline-block;
     margin: 2rem;
     box-shadow: 0rem 0rem 0.2rem 0rem #888888;
+    object {
+        vertical-align: middle;
+        width: 30rem;
+        height: 20rem;
+        margin-bottom: 2rem;
+        object-fit: cover;
+        filter: sepia(20%);
+    }
+
     img {
         vertical-align: middle;
         width: 30rem;
@@ -105,6 +114,11 @@ hr {
         margin-left: -5px;
         margin-top: -2px;
     }
+}
+
+.no-result-msg {
+    font-size: 3rem;
+    color: #73656A;
 }
 
 .disabled {

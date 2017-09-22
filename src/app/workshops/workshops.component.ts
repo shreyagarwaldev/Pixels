@@ -175,11 +175,11 @@ export class WorkshopsComponent {
         }
 	}
 	
-	setCategoryList(categoryList: any)
+	setCategoryList(category: string)
 	{
-        if(categoryList != this.categoryList)
+        if(category != this.categoryList)
         {
-		    this.categoryList = categoryList;
+		    this.categoryList = category;
             this.pageNumber = 1;
 		    this.router.navigateByUrl(this.createUrl());
         }

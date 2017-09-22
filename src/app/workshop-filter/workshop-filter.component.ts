@@ -208,21 +208,9 @@ export class WorkshopFilterComponent {
     }
   }
   
-  updateCategoryList(value: any)
+  updateCategoryList(value: string)
   {
     this.angulartics2.eventTrack.next({ action: 'CategoryFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-
-    let categories = this.getSelectedFilters('categories');
-    let workshopTypesList = "";
-    let first = true;
-    for(let category of categories)
-    {
-        if(!first)
-            workshopTypesList = workshopTypesList + ",";
-        first=false;
-        workshopTypesList = workshopTypesList+category;
-    }
-	  
-    this.categoryFilterChanged.emit(workshopTypesList);
+    this.categoryFilterChanged.emit(value);
   }
 }
