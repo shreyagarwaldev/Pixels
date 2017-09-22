@@ -1,7 +1,6 @@
 <div class="filters-container">
     <div class="dropdown-filter">
-        <dropdown (selectionChanged)="updateCategoryList($event)" [dataModel]="categories" [buttonLabel]="categoryDropdownLabel"
-            [optionName]="'categories'"></dropdown>
+        <dropdown (selectionChanged)="updateCategoryList($event)" [dataModel]="categories"></dropdown>
     </div>
 
     <div class="autocomplete-filter">

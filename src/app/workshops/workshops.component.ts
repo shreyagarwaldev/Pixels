@@ -121,13 +121,13 @@ export class WorkshopsComponent {
         }
 	}
 	
-	setCategoryList(categoryList: any)
+	setCategoryList(category: string)
 	{
-        if(categoryList != this.categoryList)
+        if(category != this.categoryList)
         {
-		    this.categoryList = categoryList;
+		    this.categoryList = category;
 		    this.updateUrl();
-            console.log(categoryList);
+            console.log(category);
         }
 	}
 	

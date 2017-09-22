@@ -31,9 +31,6 @@
         margin-left: 1rem;
         border-radius: 5px;
         border: none;
-        &::placeholder {
-            color: #26181D;
-        }
     }
 }
 
@@ -79,6 +76,10 @@
         display: inline-block;
         width: 70%;
         margin-top: 2rem;
+    }
+
+    .dropdown-filter {
+        padding: 1.5rem 0;
     }
     .autocomplete-filter {
         width: 100%;

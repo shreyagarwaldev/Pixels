@@ -20,7 +20,6 @@
     padding-top: 1rem;
     margin-left: .5rem;
     color: white;
-    font-weight: 300;
 }
 
 .fa-bars {
@@ -48,6 +47,7 @@ nav {
     height: 6rem;
     background-color: #26181D;
     border: none;
+    font-size: 1.2rem;
     img {
         width: 3rem;
         height: 3rem;
@@ -58,7 +58,8 @@ nav {
     }
     ul {
         margin-top: .4rem;
-        font-weight: 200;
+        font-size: 1.16rem;
+        font-family: 'Comfortaa', cursive;
     }
 }
 
