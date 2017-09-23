@@ -40,7 +40,6 @@ export class WorkshopDetailsComponent {
 
     ngOnInit() {
         this.hideModal = true;
-        this.getImgData();
         let workshopId: string;
         this.sub = this.route.params.subscribe(params => {
             workshopId = params['id'];
@@ -57,6 +56,7 @@ export class WorkshopDetailsComponent {
         this.workshopRepository.getWorkshopDetails(workshopId)
             .then(data => {
                 this.workshopDetails = data;
+                this.getImgData();
             });
     }
 
@@ -89,30 +89,14 @@ export class WorkshopDetailsComponent {
 
 
     getImgData() {
-        this.imagesLink = [{
-            imageLink: "assets/img/workshops/RickHulbert/hdr.jpg",
-            hideImage: true
-        },
+        this.imagesLink = [];
+        for( var i = 0; i < this.workshopDetails.images.length; i++ )
         {
-            imageLink: "assets/img/workshops/TimVollmer/peru.jpg",
-            hideImage: true
-        },
-        {
-            imageLink: "assets/img/workshops/RickHulbert/urban.jpg",
-            hideImage: true
-        },
-        {
-            imageLink: "assets/img/workshops/CraigMc/tetons.jpg",
-            hideImage: true
-        },
-        {
-            imageLink: "assets/img/workshops/KathleenReeder/OOA.jpg",
-            hideImage: true
-        },
-        {
-            imageLink: "assets/img/workshops/RickHulbert/chicago.jpg",
-            hideImage: true
-        }]
+            var imgObj = <IImageObject>{};
+            imgObj.imageLink = this.workshopRepository.globalConstants.resolveLocalImageUrl(this.workshopDetails.images[i]);
+            imgObj.hideImage = true;
+            this.imagesLink.push(imgObj);
+        }
     }
 
     formatDate(date) {

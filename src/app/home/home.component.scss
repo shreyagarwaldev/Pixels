@@ -24,10 +24,20 @@
 
 .view-all-container {
     text-align: center;
+    margin-top: 5rem;
 }
 
 .main-heading {
-    font-size: 7rem;
+    font-size: 8rem;
+    color: white;
+    font-family: 'Comfortaa', cursive;
+}
+
+.chevron-down {
+    text-decoration: none;
+    position: absolute;
+    bottom: 5rem;
+    font-size: 4rem;
     color: white;
 }
 
@@ -58,6 +68,7 @@ header {
     border-radius: 300px;
     width: 30rem;
     font-size: 2rem;
+    padding: 1rem;
     cursor: initial;
     font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
@@ -66,6 +77,8 @@ h1.ws-heading {
     color: #26181D;
     text-align: center;
     font-family: 'HurmeGeometricSans3-Regular', Helvetica, Arial, sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 #workshops {
@@ -81,7 +94,7 @@ h1.ws-heading {
     }
     .btn {
         top: 3rem;
-        width: 25rem;
+        width: auto;
         font-size: 2.2rem;
     }
 }
@@ -95,7 +108,7 @@ h1.ws-heading {
     }
     .btn {
         top: 3rem;
-        width: 18rem;
+        width: auto;
         font-size: 1.6rem;
     }
 }

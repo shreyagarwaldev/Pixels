@@ -13,13 +13,16 @@
     margin-left: 2rem;
     margin-top: 1.1rem;
     text-decoration: none;
+    vertical-align: bottom;
 }
 
 .company-name {
-    display: inline-block;
-    padding-top: 1rem;
-    margin-left: .5rem;
+    display: block;
+    margin-top: 1rem;
+    margin-left: 4.5rem;
     color: white;
+    font-size: 1.5rem;
+    font-family: 'Comfortaa', cursive;
 }
 
 .fa-bars {
@@ -51,6 +54,7 @@ nav {
     img {
         width: 3rem;
         height: 3rem;
+        float: left;
     }
     .navbar-nav a {
         background-color: transparent;
