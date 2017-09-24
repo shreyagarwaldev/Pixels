@@ -25,6 +25,7 @@ export interface IWorkshopOverview {
     name: string,
     imageLink: string,
     locationId: number,
+    locationName: string
 }
 
 export interface IWorkshopDto {
@@ -39,6 +40,7 @@ export interface IPhotographer {
     profilePhotoLink: string;
     websiteLink: string;
     locationId?: number;
+    locationName: string;
     moreInfo: string;
 }
 
@@ -58,11 +60,13 @@ export interface IWorkshopDetails {
     imageLink: string;
     link?: string;
     locationId: number;
+    locationName: string;
     workshopType: string;
     multiWorkshopDetails: IMultiWorkshopDetails[];
     minCost: number;
     maxCost: number;
     costCurrency: string;
+    images: string[];
 }
 
 export interface IItinerary {
@@ -82,10 +86,13 @@ export class WorkshopRepository {
         this.getWorkshopTypes();
     }
 
-    getWorkshopOverview(path: string, page: number, itemsPerPage: number): Observable<IWorkshopDto> {
+    getWorkshopOverview(path: string, page: number, itemsPerPage: number): Promise<IWorkshopDto> {
         let query = `${path}&pageNumber=${page}&numberOfResults=${itemsPerPage}`;
         return this.http.get(query)
-            .map(response => response.json());
+        .toPromise()
+        .then(response => {
+            return response.json();
+        });
     }
 
     private getLocationsInternal(): Promise<ILocation[]> {
