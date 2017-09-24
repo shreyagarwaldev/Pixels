@@ -90,13 +90,13 @@ export class WorkshopDetailsComponent {
 
     getImgData() {
         this.imagesLink = [];
-        for( var i = 0; i < this.workshopDetails.images.length; i++ )
+        this.workshopDetails.images.forEach( imagePath => 
         {
             var imgObj = <IImageObject>{};
-            imgObj.imageLink = this.workshopRepository.globalConstants.resolveLocalImageUrl(this.workshopDetails.images[i]);
+            imgObj.imageLink = this.workshopRepository.globalConstants.resolveLocalImageUrl(imagePath);
             imgObj.hideImage = true;
             this.imagesLink.push(imgObj);
-        }
+        });
     }
 
     formatDate(date) {

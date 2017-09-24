@@ -74,23 +74,8 @@ export class WorkshopFilterComponent {
 
   setValuesFromParameters(minPrice:number, maxPrice:number, categories:string, locations:string, startDate:string, endDate:string)
   {
-    if(minPrice)
-    {
-        this.minPriceValue = minPrice;
-    }
-    else
-    {
-        this.minPriceValue = null;
-    }
-
-    if(maxPrice)
-    {
-        this.maxPriceValue = maxPrice;
-    }
-    else
-    {
-        this.maxPriceValue = null;
-    }
+    this.minPriceValue = minPrice || null;
+    this.maxPriceValue = maxPrice || null;
 
     if(endDate)
     {
@@ -113,20 +98,20 @@ export class WorkshopFilterComponent {
     if(locations)
     {
         this.workshopRepository.getLocations().then(loc => {
-            let flag = true;
-            for(var i = 0; i < loc.length; i++)
+            let locationFound = false;
+            loc.forEach(location =>
                 {
-                    if(loc[i].id === +locations)
+                    if(location.id === +locations)
                         {
-                            flag = false;
-                            this.autocompleteChildComp.select(loc[i].name);
+                            locationFound = true;
+                            this.autocompleteChildComp.select(location.name);
                         }
-                }
+                });
 
-                if(flag)
-                    {
-                        this.autocompleteChildComp.select("");
-                    }
+                if(!locationFound)
+                {
+                    this.autocompleteChildComp.select("");
+                }
             });
     }
     else
@@ -139,12 +124,11 @@ export class WorkshopFilterComponent {
   {
     this.categories = [];
     this.workshopRepo.getWorkshopTypes().then(wTypes => {
-        if(wTypes) {
-            for (var i = 0; i < wTypes.length; i++) {
-                this.categories.push({label:wTypes[i], value:wTypes[i]});
-            }
-        }
-    });
+        wTypes.forEach( workshopType =>
+            {
+                this.categories.push({label:workshopType, value:workshopType});
+            });
+        });
   }
 
   getFromDate(value: Date) {
@@ -190,19 +174,19 @@ export class WorkshopFilterComponent {
   updateLocation(value: any)
   {
     this.angulartics2.eventTrack.next({ action: 'LocationFilterEvent', properties: { category: 'WorkshopFilterComponent' }});
-    let flag = true;
+    let locationFound = false;
     this.workshopRepository.getLocations().then(loc => {
-        for(var i = 0; i < loc.length; i++)
+        loc.forEach(location => 
         {
-            if(loc[i].name === value)
+            if(location.name === value)
             {
-                flag = false;
-                this.locationFilterChanged.emit(loc[i].id);
+                locationFound = true;
+                this.locationFilterChanged.emit(location.id);
             }
-        }
+        });
     });
 
-    if(flag)
+    if(!locationFound)
     {
         this.locationFilterChanged.emit(null);
     }

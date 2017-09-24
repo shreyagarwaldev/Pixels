@@ -35,6 +35,26 @@ export class GlobalConstantsRepository
         return this.locationsUrl;
     }
 
+    public createWorkshopsUrl(page:number, startDate:string, endDate:string, minPrice:number, maxPrice:number, locations: string, categories: string) {
+        let url = `/workshops/${page}?startDate=${startDate}&endDate=${endDate}`;
+        url += minPrice ? `&minPrice=${minPrice}` : ``;
+        url += maxPrice ? `&maxPrice=${maxPrice}` : ``;
+        url += locations ? `&locations=${locations}` : ``;
+        url += categories ? `&categories=${categories}` : ``;
+
+        return url;
+    }
+
+    public getDefaultStartDate() {
+        var today = new Date();
+        return `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+    }
+
+    public getDefaultEndDate() {
+        var today = new Date();
+        return `${(today.getFullYear()+3).toString()}/12/31`;
+    }
+
     public getWorkshopTypesUrl()
     {
         return this.workshopTypesUrl;

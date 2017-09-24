@@ -100,34 +100,9 @@ export class WorkshopsListComponent {
         });
         
         var today = new Date();
-        if(!startDate)
-            {
-        startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-            }
+        startDate = !startDate ? this.workshopRepository.globalConstants.getDefaultStartDate() : startDate;
+        endDate = !endDate ? this.workshopRepository.globalConstants.getDefaultEndDate() : endDate;
 
-            if(!endDate)
-                {
-        endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-                }
-
-        let url = `/workshops/${page}?startDate=${startDate}&endDate=${endDate}`;
-        if(minPrice)
-            {
-                url += `&minPrice=${minPrice}`;
-            }
-        if(maxPrice)
-            {
-                url += `&maxPrice=${maxPrice}`;
-            }
-        if(locations)
-            {
-                url += `&locations=${locations}`;
-            }
-        if(categories)
-            {
-                url += `&categories=${categories}`;
-            }
-
-        return url;
+        return this.workshopRepository.globalConstants.createWorkshopsUrl(page, startDate, endDate, minPrice, maxPrice, locations, categories);
     }
 }

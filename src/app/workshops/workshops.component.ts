@@ -58,16 +58,8 @@ export class WorkshopsComponent {
             this.endDate = params['endDate'];
         });
 
-        var today = new Date();
-        if(!this.startDate)
-            {
-        this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-            }
-
-            if(!this.endDate)
-                {
-        this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
-                }
+        this.startDate = !this.startDate ? this.globalConstants.getDefaultStartDate() : this.startDate;
+        this.endDate = !this.endDate ? this.globalConstants.getDefaultEndDate() : this.endDate;
 
         this.workshopsFilterChildComp.setValuesFromParameters(this.minPrice, this.maxPrice, this.categoryList, this.locationIdList, this.startDate, this.endDate);
     }
@@ -79,22 +71,10 @@ export class WorkshopsComponent {
     
     createUrl() : string {
         let url = `/workshops/${this.pageNumber}?startDate=${this.startDate}&endDate=${this.endDate}`;
-        if(this.minPrice)
-            {
-                url += `&minPrice=${this.minPrice}`;
-            }
-        if(this.maxPrice)
-            {
-                url += `&maxPrice=${this.maxPrice}`;
-            }
-        if(this.locationIdList)
-            {
-                url += `&locations=${this.locationIdList}`;
-            }
-        if(this.categoryList)
-            {
-                url += `&categories=${this.categoryList}`;
-            }
+        url += this.minPrice ? `&minPrice=${this.minPrice}` : ``;
+        url += this.maxPrice ? `&maxPrice=${this.maxPrice}` : ``;
+        url += this.locationIdList ? `&locations=${this.locationIdList}` : ``;
+        url += this.categoryList ? `&categories=${this.categoryList}` : ``;
 
         return url;
     }
@@ -102,30 +82,21 @@ export class WorkshopsComponent {
 	updateUrl()
 	{
         this.query = `${this.globalConstants.getPixelatedPlanetAPIUrl()}/Workshops?startDateFilter=${this.startDate}&endDateFilter=${this.endDate}`;
-		if(this.locationIdList != null && this.locationIdList != "")
-		{
-			this.query = `${this.query}&locationIdFilter=${this.locationIdList}`;
-		}
-		
-		if(this.categoryList != null && this.categoryList != "")
-		{
-			this.query = `${this.query}&workshopType=${this.categoryList}`;
-		}
-		
-		if(this.minPrice > 0)
-		{
-			this.query = `${this.query}&minPrice=${this.minPrice.toString()}`;
-		}
-		
-		if(this.maxPrice > 0)
-		{
-			this.query = `${this.query}&maxPrice=${this.maxPrice.toString()}`;
-		}
+        this.query += this.locationIdList && this.locationIdList != "" ? `&locationIdFilter=${this.locationIdList}` : ``;
+        this.query += this.categoryList && this.categoryList != "" ? `&workshopType=${this.categoryList}` : ``;
+        this.query += this.minPrice && this.minPrice > 0 ? `&minPrice=${this.minPrice.toString()}` : ``;
+        this.query += this.maxPrice && this.maxPrice > 0 ? `&maxPrice=${this.maxPrice.toString()}` : ``;
         
 		if(this.query && this.pageNumber) {
 			this.workshopsListChildComp.getWorkshopsData(this.query, this.pageNumber, this.workshopsPerPage);
 		}
-	}
+    }
+    
+    performNav() {
+        this.pageNumber = 1;
+        this.router.navigateByUrl(this.globalConstants.createWorkshopsUrl(this.pageNumber, this.startDate, this.endDate, this.minPrice, this.maxPrice, this.locationIdList, this.categoryList));
+        ;
+    }
 
     setFromDate(fromDate: any)
 	{
@@ -133,14 +104,12 @@ export class WorkshopsComponent {
         this.startDate = `${fromDate.year}/${fromDate.month}/${fromDate.day}`;
 		if(this.startDate == "0/0/0")
 		{
-			var today = new Date();
-			this.startDate = `${today.getFullYear().toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+            this.startDate = this.globalConstants.getDefaultStartDate();
 		}
         
         if(previousStartDate !== this.startDate)
         {
-            this.pageNumber = 1;
-		    this.router.navigateByUrl(this.createUrl());
+         this.performNav();   
         }
     }
 
@@ -154,14 +123,12 @@ export class WorkshopsComponent {
         this.endDate = `${toDate.year}/${toDate.month}/${toDate.day}`;
 		if(this.endDate == "0/0/0")
 		{
-			var today = new Date();
-			this.endDate = `${(today.getFullYear()+10).toString()}/${(today.getMonth()+1).toString()}/${today.getDate().toString()}`;
+            this.endDate = this.globalConstants.getDefaultEndDate();
 		}
 
         if(previousEndDate != this.endDate)
         {
-            this.pageNumber = 1;
-		    this.router.navigateByUrl(this.createUrl());
+            this.performNav();
         }
     }
 	
@@ -169,9 +136,8 @@ export class WorkshopsComponent {
 	{
         if(locationIdList != this.locationIdList)
         {
-		    this.locationIdList = locationIdList;
-            this.pageNumber = 1;
-		    this.router.navigateByUrl(this.createUrl());
+            this.locationIdList = locationIdList;
+            this.performNav();
         }
 	}
 	
@@ -179,9 +145,8 @@ export class WorkshopsComponent {
 	{
         if(category != this.categoryList)
         {
-		    this.categoryList = category;
-            this.pageNumber = 1;
-		    this.router.navigateByUrl(this.createUrl());
+            this.categoryList = category;
+            this.performNav();
         }
 	}
 	
@@ -190,8 +155,7 @@ export class WorkshopsComponent {
         if(this.minPrice != minPrice)
         {
             this.minPrice = minPrice;
-            this.pageNumber = 1;
-		    this.router.navigateByUrl(this.createUrl());
+            this.performNav();
         }
 	}
 	
@@ -200,8 +164,7 @@ export class WorkshopsComponent {
         if(this.maxPrice != maxPrice)
         {
             this.maxPrice = maxPrice;
-            this.pageNumber = 1;
-		    this.router.navigateByUrl(this.createUrl());
+            this.performNav();
         }
 	}
 }
