@@ -63,12 +63,13 @@ div.tab {
 
 .tabcontent {
     border-top: none;
-    text-align: left;
-    padding-left: 2rem;
+    text-align: justify;
+    padding: 2rem;
     height: 40rem;
     overflow: auto;
     width: 100%;
     background-color: rgba(239, 230, 233, 0.1);
+    border-right: 1px solid #C8C8C8;
 }
 
 .detail-tabs {
@@ -76,6 +77,8 @@ div.tab {
     width: 65%;
     margin-left: 4rem;
     left: 0;
+    float: left;
+    margin-bottom: 5rem;
 }
 
 .details-container {
@@ -96,9 +99,6 @@ div.tab {
     p {
         padding-top: 2rem;
         margin-right: .4rem;
-    }
-    h3 {
-        margin-top: 5%;
     }
 }
 
@@ -133,13 +133,15 @@ div.tab {
 }
 
 .highlights {
-    position: absolute;
+    // position: absolute;
+    // display: inline-block;
+    // margin-top: 5rem;
+    // width: 25%;
+    // top: 0;
+    // right: 5rem;
     display: inline-block;
     margin-top: 10rem;
-    padding-left: 5rem;
-    width: 25%;
-    top: 0;
-    right: 0;
+    margin-left: 5rem;
     a {
         color: #73656A;
     }
@@ -267,6 +269,10 @@ div.tab {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
 
+.footer {
+    clear: both;
+}
+
 @media (min-width: 955px) and (max-width: 1140px) {}
 
 @media (max-width: 955px) {
@@ -277,6 +283,11 @@ div.tab {
             height: 20rem;
         }
     }
+    .dates-information {
+        text-align: left;
+        padding-left: 5rem;
+    }
+    
     div.tab {
         text-align: center;
         button {
@@ -297,12 +308,14 @@ div.tab {
         display: inline-block;
         width: 100%;
         margin-left: 0;
+        border-right: none;
+        float: none;
+        margin-bottom: none;
     }
     .highlights {
-        margin-top: 2rem;
+        margin-top: 0.2rem;
         width: 100%;
         text-align: center;
-        padding-left: 0;
-        position: inherit;
+        margin-left: 0; //position: inherit;
     }
 }
