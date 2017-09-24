@@ -3,21 +3,19 @@
 }
 
 .ws-pages /deep/ {
-    margin-top:3rem;
-
-    ul li{
+    margin-top: 3rem;
+    ul li {
         display: inline;
         background: #dddddd;
         border-radius: 20%;
         margin-left: 0.25rem;
-        margin-right:0.25rem;
+        margin-right: 0.25rem;
         padding: 1rem 1rem 1rem 1rem;
-        
-        a{
+        a {
             text-decoration: none;
             color: #222222;
-            width:100%;
-            height:100%;
+            width: 100%;
+            height: 100%;
             &:hover {
                 border-radius: 20%;
             }
@@ -30,6 +28,15 @@
     display: inline-block;
     margin: 2rem;
     box-shadow: 0rem 0rem 0.2rem 0rem #888888;
+    object {
+        vertical-align: middle;
+        width: 30rem;
+        height: 20rem;
+        margin-bottom: 2rem;
+        object-fit: cover;
+        filter: sepia(20%);
+    }
+
     img {
         vertical-align: middle;
         width: 30rem;
@@ -94,11 +101,40 @@ hr {
     text-overflow: ellipsis;
 }
 
+.page-numbers {
+    padding: 1rem;
+    color: #73656A;
+    border-radius: 5px;
+    text-decoration: none;
+    span {
+        margin: 0 .5rem;
+    }
+    .fa {
+        font-size: 10px;
+        margin-left: -5px;
+        margin-top: -2px;
+    }
+}
+
+.no-result-msg {
+    font-size: 3rem;
+    color: #73656A;
+}
+
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+a.active-page.page-numbers {
+    background-color: #73656A;
+    color: white;
+}
+
 @media (max-width: 955px) {
     .entity {
         width: auto;
-        max-width:30rem;
-        // display: block;
+        max-width: 30rem;
         .image {
             height: 20rem;
             margin-bottom: 1rem;

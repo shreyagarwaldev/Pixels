@@ -1,7 +1,6 @@
 <div class="filters-container">
     <div class="dropdown-filter">
-        <dropdown (selectionChanged)="updateCategoryList($event)" [dataModel]="categories" [buttonLabel]="categoryDropdownLabel"
-            [optionName]="'categories'"></dropdown>
+        <dropdown (selectionChanged)="updateCategoryList($event)" [dataModel]="categories"></dropdown>
     </div>
 
     <div class="autocomplete-filter">
@@ -15,9 +14,11 @@
     <div class="price-filter">
         <input #minPriceInput type="number" min="0" step="100" placeholder="Min. price" (blur)="updateMinPrice(minPriceInput.value)"
             (oninput)="updateMinPrice(minPriceInput.value)" (onchange)="updateMinPrice(minPriceInput.value)" (change)="updateMinPrice(minPriceInput.value)"
+            [value]="minPriceValue"
         />
         <input #maxPriceInput type="number" min="0" step="100" placeholder="Max. price" (blur)="updateMaxPrice(maxPriceInput.value)"
             (oninput)="updateMaxPrice(maxPriceInput.value)" (onchange)="updateMaxPrice(maxPriceInput.value)" (change)="updateMaxPrice(maxPriceInput.value)"
+            [value]="maxPriceValue"
         />
     </div>
 

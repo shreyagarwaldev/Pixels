@@ -8,6 +8,7 @@ import { WorkshopRepository } from '../services/workshops/workshopRepository'
     styleUrls: ['./autocomplete.component.scss']
 })
 export class AutocompleteComponent {
+    
     public query = '';
     public countries = [];
     public filteredList = [];
@@ -39,7 +40,7 @@ export class AutocompleteComponent {
         }
     }
 
-    select(item) {
+    public select(item) {
         this.query = item;
         this.filteredList = [];
     }

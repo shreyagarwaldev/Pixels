@@ -7,12 +7,11 @@
     color: #15424E;
     text-align: left;
     left: 0;
-    margin-left: 1.6rem;
     ul {
         padding: 0;
         margin: 1rem;
         max-height: 30rem;
-        overflow: scroll;
+        overflow: auto;
     }
     li {
         list-style: none;
@@ -24,10 +23,9 @@
 }
 
 .dropdown-container {
-    margin: 1.6rem;
-    left: 0;
-    width: 70%;
-    height: 3.4rem;
+    margin: 1.4rem 1rem 1rem 0;
+    height: 3.6rem;
+    width: 13.5rem;
     button {
         width: 100%;
         height: 6rem;
@@ -40,6 +38,9 @@
     color: #333333;
     width: 100%;
     height: 100%;
+    border-radius: 5px;
+    border: none;
+    padding-left: .5rem;
 }
 
 @media (max-width: 955px) {
@@ -50,8 +51,11 @@
             white-space: inherit;
         }
     }
+    .filter-input {
+        width: 70%;
+    }
     .dropdown-container {
-        margin: 1rem;
+        margin: 0;
         width: 100%;
     }
 }
