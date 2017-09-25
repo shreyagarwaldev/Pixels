@@ -33,7 +33,8 @@
 }
 
 .filter-header {
-    display: none;
+    display: none;  
+    font-family: 'Comfortaa', cursive;
 }
 
 .navbar-toggle {
@@ -61,13 +62,13 @@ nav {
         color: white;
     }
     ul {
-        margin-top: .4rem;
+        padding-top: .8rem;
         font-size: 1.16rem;
         font-family: 'Comfortaa', cursive;
     }
 }
 
-@media (max-width: 955px) {
+@media (max-width: 1050px) {
     nav {
         height: 5rem;
         ul {
@@ -108,7 +109,7 @@ nav {
     }
 }
 
-@media (min-width: 955px) and (max-width: 1140px) {
+@media (min-width: 1050px) and (max-width: 1260px) {
     nav {
         ul {
             width: 100%;

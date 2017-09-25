@@ -54,27 +54,22 @@
 
         <!--Workshop highlights-->
         <div class="highlights">
-            <div class="wsd-link">
-                <h4 class="highlight-headings">Workshop Link</h4>
-                <a href="{{workshopDetails.link}}" target="_blank"><i class="fa fa-link"></i> Workshop link
-        </a>
-            </div>
             <div class="wsd-location">
-                <h4 class="highlight-headings">Location</h4>
+                <h3 class="highlight-headings">Location</h3>
                 <i class="fa fa-map-marker"></i>
                 <span>{{workshopDetails.locationName}}</span>
             </div>
             <div class="wsd-price">
-                <h4 class="highlight-headings">Price Range</h4>
-                <i class="fa fa-usd"></i> <span *ngIf="workshopDetails.minCost !== workshopDetails.maxCost">{{workshopDetails.minCost}} - </span>{{workshopDetails.maxCost}}
+                <h3 class="highlight-headings">Price</h3>
+                <i class="fa fa-usd"></i><span *ngIf="workshopDetails.minCost !== workshopDetails.maxCost">{{workshopDetails.minCost}} - </span><span>{{workshopDetails.maxCost}}</span>
             </div>
             <div class="wsd-dates">
-                <h4 class="highlight-headings">Dates</h4>
+                <h3 class="highlight-headings">Workshop Link(s)</h3>
                 <div class="dates-information" *ngFor="let detail of workshopDetails.multiWorkshopDetails;">
-                    <div>
+                    <a href="{{detail.link}}" target="_blank">
                         <i class="fa fa-calendar"></i>
                         <span>{{this.formatDate(detail.startDate)}} - {{this.formatDate(detail.endDate)}}</span>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -84,7 +79,7 @@
             <span class="close cursor" (click)="closeModal()">&times;</span>
             <div class="image-modal-content">
 
-                <div *ngFor="let image of imagesLink;let i = index" class="slides" [ngClass]="{'hideImage': image.hideImage}">
+                <div *ngFor="let image of imagesLink;" class="slides" [ngClass]="{'hideImage': image.hideImage}">
                     <img [src]="image.imageLink" class="modal-image">
                 </div>
             </div>
@@ -95,8 +90,8 @@
     </div>
 
 </div>
-    <div>
-        <div class="footer">
-            <footer></footer>
-        </div>
+<div>
+    <div class="footer">
+        <footer></footer>
     </div>
+</div>

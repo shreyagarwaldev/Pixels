@@ -34,7 +34,9 @@ export class ContactUsComponent {
     email.Subject = this.subjectText;
     email.EmailId = this.emailId;
 
-    this.http.post(this.globalConstants.getContactAPIUrl(), email).toPromise().then().catch(a => 
+    this.http.post(this.globalConstants.getContactAPIUrl(), email).toPromise().then(e => {
+        this.submitMessage = "Message submitted successfully";
+    }).catch(a => 
     {
         this.submitMessage = "Message could not be submitted"; 
     });

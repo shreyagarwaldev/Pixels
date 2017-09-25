@@ -52,6 +52,7 @@ div.tab {
         border-bottom: 3px solid transparent;
         font-size: 2rem;
         color: #73656A;
+        font-family: 'Open Sans', sans-serif;
         &.active {
             border-bottom: 3px solid #73656A;
         }
@@ -70,6 +71,8 @@ div.tab {
     width: 100%;
     background-color: rgba(239, 230, 233, 0.1);
     border-right: 1px solid #C8C8C8;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.5rem;
 }
 
 .detail-tabs {
@@ -107,8 +110,8 @@ div.tab {
     img {
         display: inline-block;
         vertical-align: middle;
-        width: 35rem;
-        height: 28rem;
+        width: 24rem;
+        height: 18rem;
         margin: 2rem;
         object-fit: cover;
         filter: sepia(20%);
@@ -129,18 +132,18 @@ div.tab {
     color: #73656A;
     text-align: center;
     margin-top: 3rem;
-    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.wsd-location {
+    h3 {
+        margin-top: 0;
+    }
 }
 
 .highlights {
-    // position: absolute;
-    // display: inline-block;
-    // margin-top: 5rem;
-    // width: 25%;
-    // top: 0;
-    // right: 5rem;
     display: inline-block;
-    margin-top: 10rem;
+    margin-top: 10.5rem;
     margin-left: 5rem;
     a {
         color: #73656A;
@@ -151,6 +154,16 @@ div.tab {
         color: #73656A;
         i {
             color: #73656A;
+            font-size: 1.6rem;
+            margin-right: .5rem;
+        }
+        span,
+        a {
+            font-size: 1.8rem;
+        }
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
         }
     }
 }
@@ -278,16 +291,16 @@ div.tab {
 @media (max-width: 955px) {
     #Gallery {
         padding-left: 0;
+        padding-right: 0;
         img {
-            width: 28rem;
-            height: 20rem;
+            width: 24rem;
+            height: 15rem;
         }
     }
     .dates-information {
         text-align: left;
         padding-left: 5rem;
     }
-    
     div.tab {
         text-align: center;
         button {
@@ -298,6 +311,7 @@ div.tab {
     }
     .tabContent {
         text-align: center;
+        border-right: none;
         p {
             text-align: justify;
             padding: 2rem;
@@ -308,7 +322,6 @@ div.tab {
         display: inline-block;
         width: 100%;
         margin-left: 0;
-        border-right: none;
         float: none;
         margin-bottom: none;
     }

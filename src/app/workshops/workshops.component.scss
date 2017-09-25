@@ -18,6 +18,8 @@
 .list {
     top: 10rem;
     overflow-x: hidden;
+    min-height: 80%;
+    position: relative;
 }
 
 .ws-container nav.navbar.navbar-default {
@@ -29,7 +31,7 @@
     background-color: transparent;
 }
 
-@media (max-width: 955px) {
+@media (max-width: 1050px) {
     .filters {
         position: fixed;
         background-color: #26181D;
