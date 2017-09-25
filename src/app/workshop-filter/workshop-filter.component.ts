@@ -121,7 +121,7 @@ export class WorkshopFilterComponent {
         this.autocompleteChildComp.select("");
     }
 
-    this.dropdownChildComp.selectValue(!categories || categories == "" ? "Select Category" : categories);
+    this.dropdownChildComp.selectValue(!categories || categories == "" ? "Category" : categories);
   }
 
   updateCategories()

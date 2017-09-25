@@ -14,6 +14,7 @@ export class DropdownComponent {
   isCollapsed: boolean;
   buttonLabel: string;
   private panelOverlay: boolean;
+  private selfClick: boolean;
 
   constructor(private renderer: Renderer, private element: ElementRef) {
     this.isCollapsed = true;
@@ -21,13 +22,19 @@ export class DropdownComponent {
   }
 
   ngOnInit() {
-    this.buttonLabel = "Select category";
+    this.buttonLabel = "Category";
     var that = this;
+    this.selfClick = false;
     this.renderer.listenGlobal('document', 'click', (event: any) => {
       if (!that.isCollapsed && this.panelOverlay) {
         that.isCollapsed = true;
         this.selectionChanged.emit(this.buttonLabel);
       }
+      if (!that.selfClick) {
+        that.isCollapsed = true;
+      }
+
+      this.selfClick = false;
       this.panelOverlay = false;
     });
   }
@@ -40,6 +47,7 @@ export class DropdownComponent {
     if (!this.panelOverlay) {
       this.isCollapsed = !this.isCollapsed;
     }
+    this.selfClick = true;
   }
 
   overlay() {
