@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ILocation, IPhotographer} from '../workshops/workshopRepository'
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Injectable()
 export class GlobalConstantsRepository
@@ -16,7 +17,7 @@ export class GlobalConstantsRepository
     private locationMap: {[key: number]: ILocation} = {};
     private locationMapName:{[key: string]: ILocation} = {};
 
-    constructor()
+    constructor(private sanitizer:DomSanitizer)
     {
         this.cdnBaseUrl = `https://pixelatedplanetcdn.azureedge.net`;
         this.serviceBaseUrl = `https://pixelatedplanetservice.azurewebsites.net`;
@@ -33,6 +34,10 @@ export class GlobalConstantsRepository
     public getLocationsUrl()
     {
         return this.locationsUrl;
+    }
+
+    sanitizeUrl(url: string) : SafeUrl {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     public createWorkshopsUrl(page:number, startDate:string, endDate:string, minPrice:number, maxPrice:number, locations: string, categories: string) {
@@ -62,12 +67,12 @@ export class GlobalConstantsRepository
 
     public resolveImageUrl(path:string)
     {
-        return this.cdnBaseUrl + path;
+        return this.sanitizeUrl(this.cdnBaseUrl + path);
     }
 
     public resolveLocalImageUrl(path:string)
     {
-        return "/assets" + path;
+        return this.sanitizeUrl("/assets" + path);
     }
 
     public getLocations()

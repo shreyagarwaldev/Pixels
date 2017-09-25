@@ -3,7 +3,7 @@
         <article class="entity" *ngFor="let data of asyncData">
             <a [href]="createWorkshopDetailsUrl(data.workshopId, data.name)">
                 <div class="inner">
-                    <object class="image" [data]="this.sanitizeUrl(this.workshopRepository.globalConstants.resolveImageUrl(data.imageLink))" type="image/png">
+                    <object class="image" [data]="this.workshopRepository.globalConstants.resolveImageUrl(data.imageLink)" type="image/png">
                         <img class="image" [src]="this.workshopRepository.globalConstants.resolveLocalImageUrl(data.imageLink)" alt="workshop image" />
                     </object>
                     <h1 class="name truncate" title="{{ data.name }}">

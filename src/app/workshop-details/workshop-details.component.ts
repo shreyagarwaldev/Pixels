@@ -93,7 +93,7 @@ export class WorkshopDetailsComponent {
         this.workshopDetails.images.forEach( imagePath => 
         {
             var imgObj = <IImageObject>{};
-            imgObj.imageLink = this.workshopRepository.globalConstants.resolveLocalImageUrl(imagePath);
+            imgObj.imageLink = this.workshopRepository.globalConstants.resolveImageUrl(imagePath);
             imgObj.hideImage = true;
             this.imagesLink.push(imgObj);
         });
