@@ -1,8 +1,9 @@
 <navi-bar></navi-bar>
 
 <div class="header-img">
-    <img class="detail-img" [src]="this.workshopRepository.globalConstants.resolveImageUrl(workshopDetails.imageLink)" alt="workshop image"
-    />
+    <object class="detail-img" [data]="this.workshopRepository.globalConstants.resolveImageUrl(workshopDetails.imageLink)" alt="workshop image" type="image/png">
+        <img class="detail-img" [src]="this.workshopRepository.globalConstants.resolveLocalImageUrl(workshopDetails.imageLink)" alt="workshop image"/>
+    </object>
 </div>
 
 <div class="wsd-name">{{workshopDetails.name}}</div>
@@ -31,21 +32,22 @@
             <div id="{{tabs[2].label}}" [hidden]="!tabs[2].showTab" class="tabcontent">
                 <div class="photographer-information" *ngFor="let photographer of workshopDetails.photographers;">
                     <div class="profile-photo">
-                        <img class="profile-img" [src]="this.workshopRepository.globalConstants.resolveImageUrl(photographer.profilePhotoLink)" alt="workshop image"
-                        />
+                        <object class="profile-img" [data]="this.workshopRepository.globalConstants.resolveLocalImageUrl(photographer.profilePhotoLink)" type="image/png" alt="workshop image">
+                            <img class="profile-img" [src]="this.workshopRepository.globalConstants.resolveImageUrl(photographer.profilePhotoLink)" alt="workshop image"/>
+                        </object>
                     </div>
                     <h4>
                         <span>{{photographer.firstName}}</span>
                         <span>{{photographer.lastName}}</span>
                     </h4>
-                    <div class="detail-location">
+                    <div class="detail-location" *ngIf="photographer.locationName !== null && photographer.locationName !== ''">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                         <span>{{photographer.locationName}}</span>
                     </div>
                     <div class="website-link">
                         <a href="{{photographer?.websiteLink}}" target="_blank"><i class="fa fa-external-link"></i> Website</a>
                     </div>
-                    <p [innerHTML]="photographer.moreInformation"></p>
+                    <p [innerHTML]="photographer.moreInfo"></p>
                 </div>
             </div>
         </div>
