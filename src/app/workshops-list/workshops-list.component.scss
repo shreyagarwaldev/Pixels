@@ -1,5 +1,6 @@
 .workshop-list {
     text-align: center;
+    min-height: 70%;
 }
 
 .ws-pages /deep/ {
@@ -28,6 +29,7 @@
     display: inline-block;
     margin: 2rem;
     box-shadow: 0rem 0rem 0.2rem 0rem #888888;
+    font-family: 'Work Sans', sans-serif;
     object {
         vertical-align: middle;
         width: 30rem;
@@ -36,7 +38,6 @@
         object-fit: cover;
         filter: sepia(20%);
     }
-
     img {
         vertical-align: middle;
         width: 30rem;
@@ -58,9 +59,8 @@
 
 h1.name {
     margin-top: 0;
-    font-size: 2rem;
+    font-size: 1.9rem;
     color: #26181D;
-    font-family: 'HurmeGeometricSans3-Regular', Helvetica, Arial, sans-serif;
     margin-left: 1rem;
 }
 
@@ -71,6 +71,7 @@ h1.name {
     position: absolute;
     right: 1rem;
     bottom: 2rem;
+    font-size: 1.5rem;
 }
 
 hr {
@@ -86,12 +87,17 @@ hr {
     color: #594B50;
     text-align: left;
     padding-left: 1rem;
+    font-size: 1.5rem;
 }
 
 .location {
     color: #26181D;
     padding-bottom: 1rem;
     opacity: 0.6;
+    font-size: 1.6rem;
+    .fa {
+        font-size: 1.3rem;
+    }
 }
 
 .truncate {
@@ -119,6 +125,9 @@ hr {
 .no-result-msg {
     font-size: 3rem;
     color: #73656A;
+    padding-top: 10rem;
+    font-size: 2rem;
+    font-family: 'Open Sans', sans-serif;   
 }
 
 .disabled {

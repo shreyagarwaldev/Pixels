@@ -7,6 +7,7 @@
     position: relative;
     color: white;
     display: flex;
+    font-family: 'Comfortaa', cursive;
 }
 
 .autocomplete-filter {
@@ -20,7 +21,6 @@
 .price-filter {
     margin-top: 1.4rem;
     input {
-        outline: .2px solid #26181D;
         width: 13.5rem;
         border: 0;
         height: 3.6rem;
@@ -52,7 +52,7 @@
     margin-top: 1.5rem;
 }
 
-@media (max-width: 955px) {
+@media (max-width: 1050px) {
     .filters-container {
         display: block;
         text-align: center; // height: 100%;
