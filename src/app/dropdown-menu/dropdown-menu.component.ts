@@ -32,7 +32,7 @@ export class DropdownComponent {
     });
   }
 
-  selectValue(value: string) {
+  public selectValue(value: string) {
     this.buttonLabel = value;
   }
 
