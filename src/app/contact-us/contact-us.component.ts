@@ -1,10 +1,21 @@
 import { Component } from '@angular/core';
+import { Http } from '@angular/http';
 import { NgForm } from '@angular/forms';
+import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository';
+
+interface ContactFormData
+{
+    FullName : string;
+    EmailId : string;
+    Subject : string;
+    Body : string;
+}
 
 @Component({
   templateUrl: './contact-us.component.html',
   styleUrls: ['./contact-us.component.scss']
 })
+
 export class ContactUsComponent {
 
   submitted: boolean = false;
@@ -17,6 +28,17 @@ export class ContactUsComponent {
   private fields: string;
 
   onSubmit() {
+    var email = <ContactFormData>{};
+    email.Body = this.messageText;
+    email.FullName = this.fname;
+    email.Subject = this.subjectText;
+    email.EmailId = this.emailId;
+
+    this.http.post(this.globalConstants.getContactAPIUrl(), email).toPromise().then().catch(a => 
+    {
+        this.submitMessage = "Message could not be submitted"; 
+    });
+
     this.submitted = true;
     this.showMessageBox = true;
   }
@@ -24,7 +46,7 @@ export class ContactUsComponent {
   hideMessagebox() {
     this.showMessageBox = false;
   }
-  constructor() {
+  constructor(private http:Http, private globalConstants: GlobalConstantsRepository) {
     this.submitMessage = "Message submitted successfully";
   }
 }
