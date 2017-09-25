@@ -8,6 +8,7 @@ export class GlobalConstantsRepository
     private cdnBaseUrl;
     private serviceBaseUrl;
     private pixelatedPlanetAPIUrl;
+    private contactAPIUrl;
     private locationsUrl;
     private workshopTypesUrl;
     private photographersUrl;
@@ -22,8 +23,14 @@ export class GlobalConstantsRepository
         this.cdnBaseUrl = `https://pixelatedplanetcdn.azureedge.net`;
         this.serviceBaseUrl = `https://pixelatedplanetservice.azurewebsites.net`;
         this.pixelatedPlanetAPIUrl = `${this.serviceBaseUrl}/api/Pixelated`;
+        this.contactAPIUrl = `${this.pixelatedPlanetAPIUrl}/Contact`;
         this.locationsUrl = `${this.pixelatedPlanetAPIUrl}/Locations`;
         this.workshopTypesUrl = `${this.pixelatedPlanetAPIUrl}/WorkshopTypes`;
+    }
+
+    public getContactAPIUrl()
+    {
+        return this.contactAPIUrl;
     }
 
     public getPixelatedPlanetAPIUrl()
