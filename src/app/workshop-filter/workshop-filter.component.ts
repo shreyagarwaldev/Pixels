@@ -4,6 +4,7 @@ import { Angulartics2 } from 'angulartics2';
 import { GlobalConstantsRepository } from '../services/shared/globalConstantsRepository'
 import { AutocompleteComponent } from '../autocomplete/autocomplete.component'
 import { DatePickerComponent } from '../date-picker/date-picker.component'
+import { DropdownComponent } from '../dropdown-menu/dropdown-menu.component'
 
 @Component({
   selector: 'workshop-filter',
@@ -54,6 +55,7 @@ export class WorkshopFilterComponent {
 
   @ViewChild(AutocompleteComponent) autocompleteChildComp:AutocompleteComponent;
   @ViewChild(DatePickerComponent) datePickerChildComp:DatePickerComponent;
+  @ViewChild(DropdownComponent) dropdownChildComp:DropdownComponent;
 
   constructor(private workshopRepository: WorkshopRepository, private a: Angulartics2, private globalConstantsRepository:GlobalConstantsRepository) {
     this.angulartics2 = a;
@@ -118,6 +120,8 @@ export class WorkshopFilterComponent {
     {
         this.autocompleteChildComp.select("");
     }
+
+    this.dropdownChildComp.selectValue(!categories || categories == "" ? "Select Category" : categories);
   }
 
   updateCategories()
