@@ -48,9 +48,9 @@ export class WorkshopsListComponent {
         var dateVal = new Date(date);
         var day = dateVal.getDate();
         var monthIndex = dateVal.getMonth();
-        var year = dateVal.getFullYear();
+        var year = dateVal.getFullYear().toString().substring(2);
 
-        return `${monthNames[monthIndex]} ${day} ${year}`;
+        return `${monthNames[monthIndex]} ${day} '${year}`;
     }
 
     getWorkshopsData(path: string, page: number, wsPerPage: number) {
@@ -94,7 +94,7 @@ export class WorkshopsListComponent {
                 maxPrice = params['maxPrice'];
         });
         
-        var today = new Date();
+        let today = new Date();
         startDate = !startDate ? this.workshopRepository.globalConstants.getDefaultStartDate() : startDate;
         endDate = !endDate ? this.workshopRepository.globalConstants.getDefaultEndDate() : endDate;
 
