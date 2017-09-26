@@ -28,7 +28,7 @@
 }
 
 @media (max-width: 1050px) {
-    .date-picker-container {
+    .date-picker-container /deep/ {
         margin-bottom: 1.5rem;
         display: inline-block;
         .from-date,
@@ -36,6 +36,10 @@
             position: relative;
             display: inline-block;
             width: 70%;
+            input {
+                text-align: center;
+                width: 100%;
+            }
         }
     }
 }
