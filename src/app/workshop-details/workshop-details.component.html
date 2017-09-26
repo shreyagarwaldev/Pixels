@@ -1,4 +1,4 @@
-<navi-bar></navi-bar>
+<navi-bar [showName]="true"></navi-bar>
 
 <div class="header-img">
     <object class="detail-img" [data]="this.workshopRepository.globalConstants.resolveImageUrl(workshopDetails.imageLink)" alt="workshop image" type="image/png">
@@ -55,16 +55,16 @@
         <!--Workshop highlights-->
         <div class="highlights">
             <div class="wsd-location">
-                <h3 class="highlight-headings">Location</h3>
+                <h2 class="highlight-headings">Location</h2>
                 <i class="fa fa-map-marker"></i>
                 <span>{{workshopDetails.locationName}}</span>
             </div>
             <div class="wsd-price">
-                <h3 class="highlight-headings">Price</h3>
+                <h2 class="highlight-headings">Price</h2>
                 <i class="fa fa-usd"></i><span *ngIf="workshopDetails.minCost !== workshopDetails.maxCost">{{workshopDetails.minCost}} - </span><span>{{workshopDetails.maxCost}}</span>
             </div>
             <div class="wsd-dates">
-                <h3 class="highlight-headings">Workshop Link(s)</h3>
+                <h2 class="highlight-headings">Workshop Link(s)</h2>
                 <div class="dates-information" *ngFor="let detail of workshopDetails.multiWorkshopDetails;">
                     <a href="{{detail.link}}" target="_blank">
                         <i class="fa fa-calendar"></i>
@@ -78,7 +78,6 @@
         <div id="myModal" [ngClass]="{'hide-modal': hideModal}" class="image-modal">
             <span class="close cursor" (click)="closeModal()">&times;</span>
             <div class="image-modal-content">
-
                 <div *ngFor="let image of imagesLink;" class="slides" [ngClass]="{'hideImage': image.hideImage}">
                     <img [src]="image.imageLink" class="modal-image">
                 </div>

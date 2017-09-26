@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectionStrategy, Renderer } from '@angular/core';
 import { WorkshopRepository, IWorkshopDetails } from '../services/workshops/workshopRepository'
 import { ActivatedRoute } from '@angular/router';
 
@@ -29,13 +29,23 @@ export class WorkshopDetailsComponent {
     private tabcontent: HTMLCollectionOf<HTMLElement>;
     private tabLinks: HTMLCollectionOf<HTMLElement>;
 
+    arrowKeyfunction: Function;
+
     constructor(
         private workshopRepository: WorkshopRepository,
         private elementRef: ElementRef,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private renderer: Renderer) {
         this.workshopDetails = <any>{};
         this.hideModal = true;
         this.slideIndex = 1;
+        this.arrowKeyfunction = renderer.listenGlobal('document', 'keyup', (event) => {
+            if(event.keyCode === 39) {
+                this.plusSlides(-1);
+            } else if (event.keyCode === 37) {
+                this.plusSlides(1);
+            }
+        })
     }
 
     ngOnInit() {
@@ -50,6 +60,7 @@ export class WorkshopDetailsComponent {
 
     ngOnDestroy() {
         this.sub.unsubscribe();
+        this.arrowKeyfunction();
     }
 
     getWorkshopDetail(workshopId: string) {
@@ -90,8 +101,7 @@ export class WorkshopDetailsComponent {
 
     getImgData() {
         this.imagesLink = [];
-        this.workshopDetails.images.forEach( imagePath => 
-        {
+        this.workshopDetails.images.forEach(imagePath => {
             var imgObj = <IImageObject>{};
             imgObj.imageLink = this.workshopRepository.globalConstants.resolveImageUrl(imagePath);
             imgObj.hideImage = true;
@@ -135,7 +145,7 @@ export class WorkshopDetailsComponent {
         this.previousActiveTab.showTab = true;
     }
 
-    openTabs(tabNumber: number) {  
+    openTabs(tabNumber: number) {
         this.previousActiveTab.showTab = false;
         this.tabs[tabNumber].showTab = true;
         this.previousActiveTab = this.tabs[tabNumber];
