@@ -222,7 +222,6 @@ div.tab {
     cursor: pointer
 }
 
-
 /* Next & previous buttons */
 
 .prev,
@@ -289,6 +288,7 @@ div.tab {
 @media (min-width: 955px) and (max-width: 1140px) {}
 
 @media (max-width: 955px) {
+
     #Gallery {
         padding-left: 0;
         padding-right: 0;
@@ -303,15 +303,17 @@ div.tab {
     }
     div.tab {
         text-align: center;
+        margin-top: 2rem;
         button {
             width: 50%;
             display: block;
             margin: auto;
         }
     }
-    .tabContent {
+    .tabcontent {
         text-align: center;
         border-right: none;
+        padding: 0;
         p {
             text-align: justify;
             padding: 2rem;
@@ -323,7 +325,7 @@ div.tab {
         width: 100%;
         margin-left: 0;
         float: none;
-        margin-bottom: none;
+        margin-bottom: 2rem;
     }
     .highlights {
         margin-top: 0.2rem;
