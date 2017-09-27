@@ -1,4 +1,4 @@
-<div class="workshop-list">
+<div [class.list-in-ws-page]="!!activePage" class="workshop-list">
     <div *ngIf="asyncData?.length > 0">
         <article class="entity" *ngFor="let data of asyncData">
             <a [href]="createWorkshopDetailsUrl(data.workshopId, data.name)">
